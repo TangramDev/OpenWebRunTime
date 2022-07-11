@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Your First Cloud Form Application</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" id="viewport" />
+    <meta content="" id="description" />
+    <meta content="" id="author" />
+    <style type="text/css">
+        .hidden {
+            display: none;
+        }
+
+        ;
+        .show {
+            display: block;
+        }
+
+        ;
+    </style>
+    <script type="text/javascript">
+        reactor.onLoadWinForm = function (e) {
+        };
+        reactor.onXobjCreated = function (e) {
+            switch (e.xobj.name) {
+                case "testSunnyMDIFormsSubCtrlEvent":
+                    e.grid.addEventListener("button1", "OnClick", function (e) {
+                        var xform = reactor.createWinForm(document.getElementById("testform").outerHTML,
+                            0,
+                            function (x) {
+                                x.form.addEventListener("button1", "OnClick", function (e) {
+                                    alert("hi" + "  --  " + x.form.handle);
+                                    x.form.xobj.setStr("textBox1", "test modify textbox");
+                                });
+                                x.form.BindCtrlValue("textBox1;button1", function (e) {
+                                    alert("hi" + "  --  " + e.getStr("textBox1"));
+                                });
+
+                                xform.onTangramNodeCreated = function (e) {
+                                };
+                            });
+                    })
+                    e.grid.addEventListener("treeView1", "OnAfterSelect", function (e) {
+                        var eventtarget = e.getStr("onafterselect");
+                        var list = document.getElementsByTagName(eventtarget);
+                        for (var i = 0; i < list.length; i++) {
+                            var target = list[i].getAttribute("target");
+                            if (target != null) {
+                                reactor.sendMessage("TANGRAM_UI_MESSAGE", eventtarget, e.getInt64("subobjhandle"), list[i].outerHTML, target);
+                            }
+                        }
+
+                        var SunnyMDIFormsElements = document.getElementsByClassName("SunnyMDIFormscontents")[0].children;
+                        for (var i = 0; i < SunnyMDIFormsElements.length; i++) {
+                            var contentElement = SunnyMDIFormsElements[i];
+                            if (contentElement.classList.contains(eventtarget)) {
+                                contentElement.classList.remove("hidden");
+                                contentElement.classList.add("show");
+                            } else {
+                                contentElement.classList.remove("show");
+                                contentElement.classList.add("hidden");
+                            }
+                        }
+                    })
+                    break;
+            }
+        };
+
+        reactor.onMdiChildActivate = function (e) {
+            var sunnymdiformsElements = document.getElementsByClassName("sunnymdiformscontents")[0].children;
+            for (var i = 0; i < sunnymdiformsElements.length; i++) {
+                var contentElement = sunnymdiformsElements[i];
+                if (contentElement.classList.contains((e.param4 != "") ? e.param4 : "mainWindow")) {
+                    contentElement.classList.remove("hidden");
+                    contentElement.classList.add("show");
+                    for (var j = 0; j < contentElement.children.length; j++) {
+                        var x = contentElement.children[j];
+
+                        if (x.tagName.toLowerCase() == "formui") {
+                            reactor.Observe(e.param1, x.outerHTML);
+                            break;
+                        }
+                    }
+                } else {
+                    contentElement.classList.remove("show");
+                    contentElement.classList.add("hidden");
+                }
+            }
+        };
+
+        reactor.onMessageReceived = function (e) {
+            switch (e.param3) {
+                case "MainMdiForm:ActiveClient":
+                    {
+                        var sunnymdiformsElements = document.getElementsByClassName("sunnymdiformscontents")[0].children;
+                        if (e.param4 != "") {
+                            for (var i = 0; i < sunnymdiformsElements.length; i++) {
+                                var contentElement = sunnymdiformsElements[i];
+                                if (contentElement.classList.contains("mainWindow")) {
+                                    contentElement.classList.remove("hidden");
+                                    contentElement.classList.add("show");
+                                    reactor.Observe("__VIEWPORT_DEFAULT__", "");
+                                } else {
+                                    contentElement.classList.remove("show");
+                                    contentElement.classList.add("hidden");
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        reactor.onCosmosMessageReceived = function (e) {
+            switch (e.xobj.getStr("msgID")) {
+                case "TANGRAMAPP_READY":
+                    {
+                        //if (mainform == null) {
+                        //    mainform = reactor.createWinForm(document.getElementById("Mainform").outerHTML,
+                        //        0,
+                        //        function (x) {
+                        //        });
+                        //}
+                    }
+                    break;
+            }
+        }
+
+        reactor.onBindCLRObject = function (e) {
+            alert(e.name);
+            alert(e.objtype);
+            alert(e.hwnd);
+            e.xobj.addEventListener("SizeChanged", function (x) {
+                alert(x.getStr("currentevent") + " " +
+                    "Form width:" + x.getLong("width") +
+                    "\nheight:" + x.getLong("height"));
+            });
+        }
+
+        function open_win1() {
+            reactor.sendMessage("TO_TOPFRAME", "__VIEWPORT_DEFAULT__", "<default><fission> <xobj id='tangram' nodetype='HostView'/></fission> </default>", "chrome_proxy:tangram", "__VIEWPORT_DEFAULT__", "");
+        }
+
+        function open_win2() {
+            reactor.sendMessage("TO_TOPFRAME", "2", "<tangramproperties><fission> <xobj id='properties' rows='3' cols='1' height ='350,250,200' width='500,' middlecolor='RGB(255,224,192)'><xobj id='tangramtabctrl_Page2' caption='tangramtabctrl_Page1'/><xobj id='propertiesView' objid='nucleus'/><xobj id='tangramtabctrl_Page1' caption='tangramtabctrl_Page1'/></xobj></fission> </tangramproperties>", "chrome_proxy:tangram", "2", "");
+        }
+
+    </script>
+</head>
+<body>
+    <define tagName="webViewport"></define>
+    <define tagName="cloudwinform"></define>
+    <define tagName="gridTemplate"></define>
+    <gridTemplate type="winform" objid="SunnyMDIForms.Form1,SunnyMDIForms" uikey="form1" caption="test child form1" id="testform">
+        <mainpanel>
+            <default>
+                <fission> 
+                    <xobj id='properties' rows='2' cols='1' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                        <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                        <xobj id='test1'></xobj>
+                    </xobj>
+                </fission> 
+            </default>
+        </mainpanel>
+        <panel1 id="test3">
+        </panel1>
+        <treeView1>
+            <treeview1_onafterselect>
+                <maincontent target="test1">
+                    <fission> 
+                        <xobj id='properties' rows='2' cols='1' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                            <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                            <xobj id='test1'></xobj>
+                        </xobj>
+                    </fission> 
+                </maincontent>
+                <maincontent target="test3">
+                    <fission> 
+                        <xobj id="Start_S0001" style="19">
+                            <xobj id="Page3" caption="Create your own NTP Page" objid="SunnyMDIForms.UserControl1,SunnyMDIForms"></xobj>
+                            <xobj id="Page4" caption="Customize your own WebBrowser"></xobj>
+                        </xobj>
+                    </fission> 
+                </maincontent>
+                <maincontent target="hostclient">
+                    <fission> 
+                        <xobj id="Start_S0001" style="39">
+                            <xobj id="Page1" caption="xxxxxxx" objid="nucleus"></xobj>
+                            <xobj id="Page2" caption="yyy"></xobj>
+                            <xobj id="Page3" caption="Create your own NTP Page"></xobj>
+                            <xobj id="Page4" caption="Customize your own WebBrowser"></xobj>
+                        </xobj>
+                    </fission> 
+                </maincontent>
+                <sunnymdiforms target="test1">
+                    <fission> 
+                        <xobj id='properties' rows='2' cols='2' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                            <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                            <xobj id='test1'></xobj>
+                            <xobj id='test2'></xobj>
+                            <xobj id='test3'></xobj>
+                        </xobj>
+                    </fission> 
+                </sunnymdiforms>
+                <sunnymdiforms target="test3">
+                    <fission> 
+                        <xobj id="Start_S0001" style="17">
+                            <xobj id="Page3" caption="SunnyMDIForms Page"></xobj>
+                            <xobj id="Page4" caption="SunnyMDIForms Page2"></xobj>
+                        </xobj>
+                    </fission> 
+                </sunnymdiforms>
+                <sunnymdiforms target="hostclient">
+                    <fission> 
+                        <xobj id="Start_S0001" style="18">
+                            <xobj id="Page1" caption="111111" objid="nucleus"></xobj>
+                            <xobj id="Page2" caption="222222"></xobj>
+                            <xobj id="Page3" caption="33333 your own NTP Page"></xobj>
+                        </xobj>
+                    </fission> 
+                </sunnymdiforms>
+            </treeview1_onafterselect>
+            <treeview1_onnodemousedoubleclick></treeview1_onnodemousedoubleclick>
+            <uidata key="ntpdata" treenode="true" width="0" height="0" text="Welcome to the World of Tangram!">
+                <featurelist treenode="true" text="Feature Lists">
+                    <node1 treenode="true" text="Welcome to the New Cloud-Desktop Mixed World"></node1>
+                    <node1_tag action="openurl" onafterselect="maincontent">
+                    </node1_tag>
+                    <node2 treenode="true" text="ChromeRuntime Support"></node2>
+                    <node2_tag target="test1" onafterselect="sunnymdiforms">
+                    </node2_tag>
+                    <node3 treenode="true" text="JavaRuntime Support"></node3>
+                    <node3_tag action="doubleclick" target="test3">
+                    </node3_tag>
+                    <node4 treenode="true" text="CLR Support"></node4>
+                    <node4_tag action="openurl">
+                        <openurl url="http://www.reactor.dev"></openurl>
+                    </node4_tag>
+                    <node5 treenode="true" text="COM Support"></node5>
+                    <node5_tag action="openurl">
+                        <openurl url="http://www.reactor.dev"></openurl>
+                    </node5_tag>
+                    <node6 treenode="true" text="C++ Support"></node6>
+                    <node6_tag action="openurl">
+                        <openurl url="http://www.reactor.dev"></openurl>
+                    </node6_tag>
+                    <node7 treenode="true" text="Office Support"></node7>
+                    <node7_tag action="openurl">
+                        <openurl url="http://www.reactor.dev"></openurl>
+                    </node7_tag>
+                </featurelist>
+                <Samples treenode="true" text="Samples for Tangram">
+                    <sample1 treenode="true" text="Tangram Sample1(doubleclick me)"></sample1>
+                    <sample1_tag action="openurl">
+                        <openurl url="http://www.reactor.dev/sample/sample1.html"></openurl>
+                    </sample1_tag>
+                    <sample2 treenode="true" text="Tangram Sample2(doubleclick me)"></sample2>
+                    <sample2_tag action="openurl">
+                        <openurl url="http://www.reactor.dev/sample/sample2.html"></openurl>
+                    </sample2_tag>
+                    <sample3 treenode="true" text="Tangram Sample3(doubleclick me)"></sample3>
+                    <sample3_tag action="openurl">
+                        <openurl url="http://www.reactor.dev/sample/sample3.html"></openurl>
+                    </sample3_tag>
+                    <sample4 treenode="true" text="Tangram Sample4(doubleclick me)"></sample4>
+                    <sample4_tag action="openurl">
+                        <openurl url="http://www.reactor.dev/sample/sample4.html"></openurl>
+                    </sample4_tag>
+                </Samples>
+            </uidata>
+            <default>
+                <fission> 
+                    <xobj id='properties' rows='1' cols='2' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                        <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                        <xobj id='test1'></xobj>
+                    </xobj>
+                </fission> 
+            </default>
+        </treeView1>
+    </gridTemplate>
+    <gridTemplate type="usercontrol" objid="SunnyMDIForms.usercontrol,SunnyMDIForms" uikey="control1">
+        <button1 id="testButtonatctrl">
+        </button1>
+        <listview1 id="test1">
+            <default>
+                <fission> 
+                    <xobj id='properties' rows='1' cols='2' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                        <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                        <xobj id='test1'></xobj>
+                    </xobj>
+                </fission> 
+            </default>
+        </listview1>
+    </gridTemplate>
+    <webViewport>
+        <fission> 
+            <xobj nodetype="splitter" rows="1" cols="2" width="350,100,">
+                <xobj objid="SunnyMDIForms.Form1,SunnyMDIForms" uikey="form1" id="testSunnyMDIFormsSubCtrlEvent"></xobj>
+                <xobj nodetype="splitter" rows="2" cols="1" height="350,100," id="asasdasd">
+                    <xobj objid="nucleus" id="hostclient"></xobj>
+                    <xobj objid="SunnyMDIForms.usercontrol1,SunnyMDIForms" uikey="control1"></xobj>
+                </xobj>
+            </xobj>
+        </fission> 
+    </webViewport>
+    <!--<application>
+        <ntp>
+            <fission> 
+                <xobj id='splitter' rows='1' cols='2' height='250,' width='350,350,' borderwidth='0' splitterwidth='10' middlecolor='RGB(180,180,180)'>
+                    <xobj objid="nucleus"></xobj>
+                    <xobj objid="SunnyMDIForms.UserControl1,SunnyMDIForms"></xobj>
+                </xobj>
+            </fission> 
+        </ntp>
+        <urls>
+            <test url="host:startpage.html"></test>
+            <test url="host:winapp3.html"></test>
+            <test url="http://www.baidu.com"></test>
+            <test url="http://www.csdn.net"></test>
+        </urls>
+    </application>-->
+    <div class="sunnymdiformscontents">
+        <div class="show mainWindow maincontent">
+            <cloudwinform objid="SunnyMDIForms.MDIForm3,SunnyMDIForms" mdibkpageid="sunnymdiforms.bk2,SunnyMDIForms" 
+                        caption="Your First WinForm MDI Application: MDIForm3"
+                        id="Mainform">
+                <mdiclient>
+                    <default>
+                        <fission> 
+                            <xobj url="host" id="mainworkclient">
+                            </xobj>
+                        </fission> 
+                    </default>
+                    <sunnymdiforms_mdichild_1>
+                        <fission> 
+                            <xobj id='properties' rows='1' cols='2' width='300,600,'
+                                  middlecolor='RGB(255,224,192)'>
+                                <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                                <xobj id="mainworkclient"></xobj>
+                            </xobj>
+                        </fission> 
+                    </sunnymdiforms_mdichild_1>
+                    <sunnymdiforms_mdichild_2>
+                        <fission> 
+                            <xobj id='properties' rows='2' cols='1' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                                <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                                <xobj id="mainworkclient"></xobj>
+                            </xobj>
+                        </fission> 
+                    </sunnymdiforms_mdichild_2>
+                    <sunnymdiforms_mdichild_3>
+                        <fission> 
+                            <xobj id='properties' rows='1' cols='2' width='600,200,' middlecolor='RGB(255,224,192)'>
+                                <xobj id="mainworkclient"></xobj>
+                                <xobj id="tangramtabctrl" style="18">
+                                    <xobj id="winform" caption="Tangram for WinForm Developer" objid="nucleus"></xobj>
+                                    <xobj id="mfc" caption="Tangram for MFC/C++ Developer"></xobj>
+                                    <xobj id="mainworkclient" caption="Tangram for Eclipse"></xobj>
+                                </xobj>
+                            </xobj>
+                        </fission> 
+                    </sunnymdiforms_mdichild_3>
+                </mdiclient>
+                <mdichild>
+                    <sunnymdiforms_mdichild_1 objid="SunnyMDIForms.Form1,SunnyMDIForms" caption="test child form1">
+                        <mainpanel>
+                            <default>
+                                <fission> 
+                                    <xobj id='properties' rows='1' cols='2' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                                        <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                                        <xobj id='test1' objid="SunnyMDIForms.UserControl1,SunnyMDIForms"></xobj>
+                                    </xobj>
+                                </fission> 
+                            </default>
+                        </mainpanel>
+                    </sunnymdiforms_mdichild_1>
+                    <sunnymdiforms_mdichild_2 objid="SunnyMDIForms.Form2,SunnyMDIForms" tooltips="test sunnymdiforms_mdichild_2" caption="test child form2">
+                        <mainpanel>
+                            <default>
+                                <fission> 
+                                    <xobj id="tangramtabctrl" style="19">
+                                        <xobj id='splitter' rows='1' cols='2' height='250,' width='400,100,' caption="Tangram Solution for SunnyMDIForms">
+                                            <xobj id="mfc" caption="Tangram for MFC/C++ Developer"></xobj>
+                                            <xobj id="eclipse" caption="Tangram for Eclipse"></xobj>
+                                        </xobj>
+                                    </xobj>
+                                </fission> 
+                            </default>
+                        </mainpanel>
+                    </sunnymdiforms_mdichild_2>
+                    <sunnymdiforms_mdichild_3 objid="SunnyMDIForms.Form3,SunnyMDIForms" caption="test child mdi form 3">
+                        <mainpanel>
+                            <default>
+                                <fission> 
+                                    <xobj id='properties' rows='2' cols='1' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                                        <xobj id='tangramtabctrl_Page2' objid='nucleus'></xobj>
+                                        <xobj id="tangramtabctrl" style="19">
+                                            <xobj id="winform" caption="Tangram for WinForm Developer"></xobj>
+                                            <xobj id="mfc" caption="Tangram for MFC/C++ Developer"></xobj>
+                                            <xobj id="eclipse" caption="Tangram for Eclipse"></xobj>
+                                        </xobj>
+                                    </xobj>
+                                </fission> 
+                            </default>
+                        </mainpanel>
+                    </sunnymdiforms_mdichild_3>
+                </mdichild>
+            </cloudwinform>
+            <input type=button value="Test Tangram 1" onclick="open_win1()" />
+            <input type=button value="Test Tangram 2" onclick="open_win2()" />
+            <input type=button value="Test Tangram 3" onclick="open_win3()" />
+            <input type=button value="Test Tangram 4" onclick="open_win4()" />
+            test: <input id="textName" type="text"><br>
+            <h1 align=center style='text-align:center'>About Cloud MDI WinForm</h1>
+            <p><b><span lang=EN-US style='font-size:20.0pt;font-family: "Times New Roman",serif'>Welcome to a Wonderful Web-Desktop Hybrid Programming World, where you will experience an Extended DOM Environment for developing desktop software using web-desktop mixed technology.</span></b></p>
+            <p><b><span lang=EN-US style='font-size:20.0pt;font-family: "Times New Roman",serif'>This is a New and Dynamic Desktop Software World where you can combine most of the existing component frameworks, such as .NET, Java, COM, C++, Web and Office etc. ...</span></b></p>
+            <formui>
+                <fission> 
+                    <xobj id="tangramtabctrl" style="13">
+                        <xobj id="winform" caption="main div" objid="nucleus"></xobj>
+                        <xobj id="mfc" caption="test1"></xobj>
+                        <xobj id="eclipse" caption="test2"></xobj>
+                    </xobj>
+                </fission> 
+            </formui>
+        </div>
+        <div class="hidden sunnymdiforms">
+            <h1>About Cloud Form</h1>
+            <p>
+                <b>
+                    <span lang=EN-US style='font-size:14.0pt'>
+                        <a href="test.html">Click me to see what will happen ...</a>
+                    </span>
+                </b>
+                <input type="button" value="Send Message" onclick="" />
+            <p />
+        </div>
+        <div class="hidden sunnymdiforms_mdichild_1">
+            <h1 align=center style='text-align:center'>About Cloud MDI Child WinForm 1</h1>
+            <formui>
+                <fission> 
+                    <xobj id="tangramtabctrl" style="27">
+                        <xobj id="winform" caption="Tangram for WinForm Developer" objid="nucleus"></xobj>
+                        <xobj id="mfc" caption="Tangram for MFC/C++ Developer"></xobj>
+                        <xobj id="eclipse" caption="Tangram for Eclipse"></xobj>
+                    </xobj>
+                </fission> 
+            </formui>
+            <p>
+                <b>
+                    <span lang=EN-US style='font-size:14.0pt'>
+                        <a href="test.html">Hi, Im a Active Child Form</a>
+                    </span>
+                </b>
+                <input type="button" value="Send Message" onclick="" />
+            <p />
+        </div>
+        <div class="hidden sunnymdiforms_mdichild_2">
+            <h1 align=center style='text-align:center'>About Cloud MDI Child WinForm 2</h1>
+            <formui>
+                <fission> 
+                    <xobj id="tangramtabctrl" style="43">
+                        <xobj id="winform" caption="Tangram for WinForm Developer" objid="nucleus"></xobj>
+                        <xobj id="mfc" caption="Tangram for MFC/C++ Developer"></xobj>
+                        <xobj id="eclipse" caption="Tangram for Eclipse"></xobj>
+                    </xobj>
+                </fission> 
+            </formui>
+            <p>
+                First name: <input type="text" id="fname"><br>
+                Last name: <input type="text" id="lname"><br>
+            <p />
+        </div>
+        <div class="hidden sunnymdiforms_mdichild_3">
+            <h1 align=center style='text-align:center'>About Cloud MDI Child WinForm 3</h1>
+            <formui>
+                <fission> 
+                    <xobj id="tangramtabctrl" style="18">
+                        <xobj id="winform" caption="xxxxxxxxx" objid="nucleus"></xobj>
+                        <xobj id="mfc" caption="yyyyyyyyy"></xobj>
+                        <xobj id="eclipse" caption="zzzzzzzz"></xobj>
+                    </xobj>
+                </fission> 
+            </formui>
+            <p>
+                <b>
+                    <span lang=EN-US style='font-size:14.0pt'>
+                        <a href="test.html">Hi, Im a Active Child Form</a>
+                    </span>
+                </b>
+                <input type="button" value="Send Message" onclick="" />
+            <p />
+        </div>
+    </div>
+</body>
+</html>

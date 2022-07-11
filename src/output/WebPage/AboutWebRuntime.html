@@ -1,0 +1,435 @@
+﻿<!-- This is "index.html". Normally, it is named "ProjectName.index.html". This webpage is the real entry point of the HTML-driven App. -->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>About Web Runtime</title>
+    <link rel="icon" href="yanyang_128.png" sizes="32x32">
+    <!--<link rel="stylesheet" href="./assets/github-markdown.css">-->
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+
+    <style type="text/css">
+        table.sunnysolution, td.sunnysolution, th.sunnysolution {
+            border: 2px solid midnightblue;
+        }
+
+        td.sunnysolution {
+            vertical-align: top;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var treegrid = null;
+        var mainClient_ = null;
+        var CompositeGrid_Splitter_ = null;
+        reactor.onWinFormCreated = function (e) {
+            e.xobj.addEventListener("SizeChanged", function (x) {
+                //alert(x.getStr("currentevent") + " " + "Form width:" + x.getLong("width") + "\nheight:" + x.getLong("height"));
+            });
+        };
+
+        reactor.onXobjCreated = function (e) {
+            switch (e.xobj.name) {
+                case "Sunny_ntpctrl":
+                    {
+                        e.grid.addEventListener("button1", "OnClick", function (e) {
+                            e.grid.Observe("key1", document.getElementById("mainwindow_1").outerHTML);
+                            if (e.grid.parent != null && e.grid.parent.xobj.getLong("gridtype") == 4) {
+                                e.grid.parent.Observe(0, 0, "key1", document.getElementById("mainwindow_2").outerHTML);
+                            }
+                        });
+                        e.grid.addEventListener("button2", "OnClick", function (e) {
+                            e.grid.Observe("key2", document.getElementById("mainwindow_2").outerHTML);
+                            if (e.grid.parent != null && e.grid.parent.xobj.getLong("gridtype") == 4) {
+                                e.grid.parent.Observe(0, 0, "key2", document.getElementById("mainwindow_1").outerHTML);
+                            }
+                        });
+                    }
+                    break;
+                case "navCtrl":
+                    {
+                        treegrid = e.grid;
+                        e.grid.addEventListener("treeView1", "OnAfterSelect", function (e) {
+                            var name = e.getStr("name");
+                            var list = document.getElementsByTagName(name);
+                            for (var i = 0; i < list.length; i++) {
+                                var target = list[i].getAttribute("target");
+                                if (target != null) {
+                                    e.grid.parent.Observe(0, 0, name, list[i].outerHTML, 0, 1);
+                                }
+                            }
+                            var contentElements = document.getElementsByClassName("contents")[0].children;
+                            for (var i = 0; i < contentElements.length; i++) {
+                                var classList = contentElements[i].classList;
+                                var bContains = classList.contains(name);
+                                classList.remove(bContains ? "hidden" : "show");
+                                classList.add(bContains ? "show" : "hidden");
+                            }
+                        });
+                    }
+                    break;
+                case "mainClient":
+                    {
+                        mainClient_ = e.grid;
+                    }
+                    break;
+                case "CompositeGrid_Splitter":
+                    {
+                        CompositeGrid_Splitter_ = e.grid;
+                    }
+                    break;
+            }
+        }
+
+        reactor.onCosmosMessageReceived = function (e) {
+            switch (e.xobj.getStr("msgID")) {
+                case "TANGRAMAPP_READY":
+                    {
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        reactor.onMessageReceived = function (e) {
+            if (e.param3 != null) {
+                switch (e.param3) {
+                    case "MainMdiForm:ActiveClient":
+                        {
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        reactor.onBindCLRObject = function (e) {
+            //alert(e.name);alert(e.objtype);alert(e.hwnd);//
+        }
+
+        //****************************************************************
+
+        function OpenNewWebURL() {
+            reactor.openUrl("host:WebPage/newweb.html", 2);
+        }
+
+        function OpenCLEURL() {
+            reactor.openUrl("host:webpage/CLE.html", 2);
+        }
+
+        function OpenCWRURL() {
+            reactor.openUrl("host:webpage/CWR.html", 2);
+        }
+
+        function OpenCERURL() {
+            reactor.openUrl("host:webpage/CER.html", 2);
+        }
+
+        function CompositeGrid1() {
+            if (CompositeGrid_Splitter_) {
+                CompositeGrid_Splitter_.getChild(0, 1).Observe("layout_1", document.getElementById("layout_1").outerHTML);
+                //CompositeGrid_Splitter_.Observe(0, 0, "layout_1", document.getElementById("layout_1").outerHTML, 0, 1);
+            }
+        }
+
+        function CompositeGrid2() {
+            if (CompositeGrid_Splitter_) {
+                CompositeGrid_Splitter_.getChild(0, 1).Observe("layout_2", document.getElementById("layout_2").outerHTML);
+            }
+        }
+
+        function CompositeGrid3() {
+            if (CompositeGrid_Splitter_) {
+                CompositeGrid_Splitter_.getChild(0, 1).Observe("layout_3", document.getElementById("layout_3").outerHTML);
+            }
+        }
+
+        function CompositeGrid4() {
+            if (CompositeGrid_Splitter_) {
+                CompositeGrid_Splitter_.getChild(0, 1).Observe("layout_4", document.getElementById("layout_4").outerHTML);
+            }
+        }
+
+        //**********************************************
+        function DynLayout() {
+            if (treegrid) {
+                treegrid.parent.Observe(0, 0, "layout_1", document.getElementById("layout_1").outerHTML, 0, 1);
+                document.getElementById("dynlayoutdomelement").value = document.getElementById("layout_1").outerHTML;
+            }
+        }
+
+        function DynLayout1() {
+            if (treegrid) {
+                treegrid.parent.Observe(0, 0, "layout_2", document.getElementById("layout_2").outerHTML, 0, 1);
+                document.getElementById("dynlayoutdomelement").value = document.getElementById("layout_2").outerHTML;
+            }
+        }
+
+        function DynLayout2() {
+            if (treegrid) {
+                treegrid.parent.Observe(0, 0, "layout_3", document.getElementById("layout_3").outerHTML, 0, 1);
+                document.getElementById("dynlayoutdomelement").value = document.getElementById("layout_3").outerHTML;
+            }
+        }
+
+        function DynLayout3() {
+            if (treegrid) {
+                treegrid.parent.Observe(0, 0, "layout_4", document.getElementById("layout_4").outerHTML, 0, 1);
+                document.getElementById("dynlayoutdomelement").value = document.getElementById("layout_4").outerHTML;
+            }
+        }
+
+        function DynLayout4() {
+            if (treegrid) {
+                treegrid.parent.Observe(0, 0, "layout_5", document.getElementById("layout_5").outerHTML, 0, 1);
+                document.getElementById("dynlayoutdomelement").value = document.getElementById("layout_5").outerHTML;
+            }
+        }
+
+        function DynLayout5() {
+            if (treegrid) {
+                treegrid.parent.Observe(0, 0, "layout_6", document.getElementById("layout_6").outerHTML, 0, 1);
+                document.getElementById("dynlayoutdomelement").value = document.getElementById("layout_6").outerHTML;
+            }
+        }
+
+        function OnSubversion() {
+            if (mainClient_) {
+                mainClient_.parent.Observe(0, 0, "subversion", document.getElementById("subversion").outerHTML, 0, 1);
+                var name = "startup";
+                var contentElements = document.getElementsByClassName("contents")[0].children;
+                for (var i = 0; i < contentElements.length; i++) {
+                    var classList = contentElements[i].classList;
+                    var bContains = classList.contains(name);
+                    classList.remove(bContains ? "hidden" : "show");
+                    classList.add(bContains ? "show" : "hidden");
+                }
+            }
+        }
+    </script>
+</head>
+<body background="sunny.jpg">
+    <cosmos>
+        <!-- Define new DOM elements -->
+        <define tagName="webViewport"></define>
+        <define tagName="gridTemplate"></define>
+        <!-- End Define new DOM elements -->
+        <fission> 
+            <layout_1 id="layout_1">
+                <fission> 
+                    <xobj style="18">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="39" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission> 
+            </layout_1>
+            <layout_2 id="layout_2">
+                <fission> 
+                    <xobj style="33">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="18" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission> 
+            </layout_2>
+            <layout_3 id="layout_3">
+                <fission> 
+                    <xobj style="23">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="18" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission> 
+            </layout_3>
+            <layout_4 id="layout_4">
+                <fission> 
+                    <xobj style="43">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="29" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission> 
+            </layout_4>
+            <layout_5 id="layout_5">
+                <fission> 
+                    <xobj style="37">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="19" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission> 
+            </layout_5>
+            <layout_6 id="layout_6">
+                <fission> 
+                    <xobj style="18">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="18" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission> 
+            </layout_6>
+
+            <form1 id="mainwindow_1">
+                <fission> 
+                    <xobj id='properties' rows='2' cols='2' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                        <xobj id='tangramtabctrl_Page2' objid="nucleus" caption=''></xobj>
+                        <xobj id='test1'></xobj>
+                    </xobj>
+                </fission> 
+            </form1>
+            <form id="mainwindow_2">
+                <fission> 
+                    <xobj style="18">
+                        <xobj id='tangramtabctrl_Page2' objid="nucleus" caption='Page 1'></xobj>
+                        <xobj id='test1' caption='Page 2'></xobj>
+                        <xobj id='test2' caption='Page 3'></xobj>
+                        <xobj id='test3' caption='Page 4'></xobj>
+                    </xobj>
+                </fission> 
+            </form>
+            <subversion id="subversion">
+                <fission> 
+                    <xobj rows="2" cols="1" height="400,500">
+                        <xobj objid="nucleus"></xobj>
+                        <xobj url="host:WebPage\webdesktop.html"></xobj>
+                    </xobj>
+                </fission> 
+            </subversion>
+        </fission> 
+    </cosmos>
+    <div class="contents">
+        <article class="show startup markdown-body">
+            <strong style="font-size:48px; color:black"><i style="font-size:48px; color:fuchsia">Hi, </i>I'm <i style="font-size:48px; color:blue">Web Runtime </i><b style="font-size:48px; color:coral"></b>!</strong>
+            <p style="font-size: 18px; font-weight:bold; color:black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspI'm your<b> Internet<i style="font-weight:bold; color:chocolate"> Desktop Software</i></b> Development Assistant，and my job is to help you get into a <b style="font-weight:bold; color:orangered">disruptive</b> desktop software development model based on <i style="font-weight:bold; color:orangered">modern Internet services</i>, <b style="font-weight:bold; color:orangered">software-oriented ecosystem</b>...,
+                <br />
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAs your assistant, Web Runtime will go with you to explore a <b>little-known</b>, <b>
+                    <i style="font-weight:bold; color:indianred">dynamic</i>, <b style="font-weight:bold; color:blue">new world to be explored</b> ..., where a software itself has a <i style="color:coral">cosmic </i> structure, its content system is very full, I will configure a <i style="color:fuchsia">Hubble</i> for you, accompany you to roam the world, <b><i style="color:coral">enjoy its vast, profound, colorful</i> </b>...
+                    <br />
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMy mission is to <b style="color:fuchsia">subvert an old model</b> and reinvent your .NET <b style="color:fuchsia">Desktop Software Development Concept</b>, we will see that a <b style="font-weight:bold; color:indianred">whole new world</b> is waiting for you, a path to <b style="color:firebrick">innovation for the Internet</b> is opening...
+            </p>
+            <p>
+                <h1><b style="font-size: 32px; color:chocolate"><a href="javascript:void(0);" onclick="OpenNewWebURL();"><i style="font-size:32px; color:darkgreen">Click here to </i>see how disruptive change began</a> ...</b></h1>
+            </p>
+        </article>
+    </div>
+</body>
+</html>

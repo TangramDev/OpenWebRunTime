@@ -1,0 +1,2516 @@
+﻿<!-- This is "index.html". Normally, it is named "ProjectName.index.html". This webpage is the real entry point of the HTML-driven App. -->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>为什么我会出现？我是谁？</title>
+    <link rel="icon" href="webpage/app.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+
+    <style type="text/css">
+        table.sunnysolution, td.sunnysolution, th.sunnysolution {
+            border: 2px solid midnightblue;
+        }
+
+        td.sunnysolution {
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+        reactor.onLoadCloudForm = function (e) {
+            form = e.form;
+            switch (form.name) {
+                case "mainForm":
+                    {
+                        form.onCloudMessageForCloudForm = function (e) {
+                            switch (this.msgID) {
+                                case "button1_OnClick":
+                                    this.Observe("panel1", this.workElement.tagName, this.workElement.outerHTML);
+                                    break;
+                                case "button2_OnClick":
+                                    this.Observe("panel1", this.workElement.tagName, this.workElement.outerHTML);
+                                    break;
+                                case "button3_OnClick":
+                                    this.Observe("panel1", this.workElement.tagName, this.workElement.outerHTML);
+                                    break;
+                                case "button4_OnClick":
+                                    this.Observe("panel1", "button4", reactor.getElementById("layout_4"));
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        form.onXobjCreated = function (e) {
+                            var galaxy = e.xobj.getStr("galaxy");
+                            var nucleus = e.xobj.getStr("nucleus");
+                            switch (galaxy) {
+                                case "webviewport":
+                                    {
+                                        switch (nucleus) {
+                                            case "__viewport_default__":
+                                                {
+                                                    switch (e.xobj.name) {
+                                                        case "navCtrl":
+                                                            {
+                                                                navCtrl = e.xobj;
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "treeView1_OnAfterSelect":
+                                                                            break;
+                                                                        case "button1_OnClick":
+                                                                            alert(e.xobj.name);
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "mainClient":
+                                                            {
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "treeView1_OnAfterSelect":
+                                                                            {
+                                                                                if (!!this.workElement) {
+                                                                                    //  alert(this.outerHTML);//workElement.parentElement.
+                                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                                    if (this.objtype == "nucleus") {
+                                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                        case "DynLayoutBtn_OnClick":
+                                                                            {
+                                                                                alert(this.msgID);
+                                                                                if (!!this.workElement) {
+                                                                                    this.Observe(this.workElement.getAttribute("targetcluster") + "_OnClick", this.workElement.outerHTML);
+                                                                                    if (this.objtype == "nucleus") {
+                                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                        case "button1_OnClick":
+                                                                            {
+                                                                                alert(this.workElement.outerHTML);
+                                                                                alert(1);
+                                                                                if (!!this.workElement) {
+                                                                                    var xobj = this.sender;
+                                                                                    this.element.setAttribute("w12", "12345678");
+                                                                                    if (!!xobj) {
+                                                                                        xobj.ObserveEx("key1", reactor.getElementById("mainwindow_1"));
+                                                                                        if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                                            xobj.parent.Observe(0, 0, "key1", reactor.getElementById("mainwindow_2").outerHTML);
+                                                                                        }
+                                                                                    } else {
+                                                                                        alert(this.sender + " sender is form");
+                                                                                    }
+                                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                                }
+
+                                                                                if (this.objtype == "nucleus") {
+                                                                                    this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                        case "button2_OnClick":
+                                                                            {
+                                                                                if (!!this.workElement) {
+                                                                                    var xobj = this.sender;
+                                                                                    var xml = reactor.getElementById("mainwindow_2").outerHTML;
+                                                                                    xobj.Observe("key2", xml);
+                                                                                    if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                                        xobj.parent.ObserveEx(0, 0, "key2", reactor.getElementById("mainwindow_1"));
+                                                                                    }
+                                                                                    this.ObserveEx(this.workElement.getAttribute("targetcluster"), this.workElement);
+                                                                                    if (this.objtype == "nucleus") {
+                                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case "panel1":
+                                    {
+                                        panel1_ = e.galaxy;
+                                        switch (nucleus) {
+                                            case "default":
+                                                {
+                                                    switch (e.xobj.name) {
+                                                        case "Sunny_ntpctrl":
+                                                            {
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "button1_OnClick":
+                                                                            {
+                                                                                alert(this.workElement.outerHTML);
+                                                                                alert(this.docFragment.firstChild.outerHTML);
+                                                                            }
+                                                                            break;
+                                                                        case "button2_OnClick":
+                                                                            {
+                                                                                alert(3);
+                                                                                alert(this.docFragment.firstChild.outerHTML);
+                                                                            }
+                                                                            break;
+                                                                        case "button3_OnClick":
+                                                                            {
+                                                                                alert(4);
+                                                                                alert(this.workElement.outerHTML);
+                                                                                alert(this.docFragment.firstChild.outerHTML);
+                                                                            }
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "Splitter1":
+                                                            {
+                                                                Splitter_ = e.grid;
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "treeView1_OnAfterSelect":
+                                                                            break;
+                                                                        case "button1_OnClick":
+                                                                            alert(1000111);
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "abc":
+                                                            {
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "treeView1_OnAfterSelect":
+                                                                            break;
+                                                                        case "button1_OnClick":
+                                                                            alert(1000);
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case "mainclient@__viewport_default__@webviewport_frame":
+                                    {
+                                        switch (nucleus) {
+                                            case "startup":
+                                                break;
+                                            case "compositegrid":
+                                                {
+                                                    switch (e.xobj.name) {
+                                                        case "CompositeGrid_Splitter":
+                                                            CompositeGrid_Splitter_ = e.grid;
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                            }
+                        };
+                    }
+                    break;
+            }
+        };
+        reactor.onCosmosMessageReceived = function (e) {
+            switch (e.xobj.msgID) {
+                case "TANGRAMAPP_READY":
+                    {
+                    }
+                    break;
+                case "WebRuntimeNewFormCreated":
+                    {
+                        alert(e.xobj.getStr("newformtype"));
+                    }
+                    break;
+                case "TEST_MFC_MSG":
+                    {
+                        //alert(e.xobj.getStr("testinfo")+e.xobj.handle);
+                    }
+                    break;
+                case "TREECTRL_TvnSelchanged":
+                    {
+                        var name = e.xobj.getStr("treenodekey");
+                        alert(name);
+                        //alert(e.xobj.element.outerHTML);
+                        alert(e.xobj.getElementById(name).outerHTML);
+                        //alert(e.xobj.getElementById(name));
+                        var elems = e.xobj.getElementsByTagName(name);
+                        alert(elems[0].outerHTML);
+                    }
+                    break;
+                case "WM_COMMAND":
+                    {
+                        alert(e.xobj.name);
+                        switch (e.xobj.getStr("CtrlClass")) {
+                            case "Button":
+                                {
+                                    alert("DocType:" + e.xobj.getStr("DocTypeID"));
+                                    alert("galaxy:" + e.xobj.getStr("galaxy"));
+                                    alert("nucleus:" + e.xobj.getStr("nucleus"));
+                                    alert(e.xobj.name);
+                                    console.log("WM_COMMAND_button\n");
+                                    //reactor.sendMessage("COSMOS_CREATE_DOC", ".xxxx", "test", "33");
+                                }
+                                break;
+                            case "Edit":
+                                {
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        function OpenAppURL1() {
+            reactor.openUrl("host:webpage/WebApp1.html", 100);
+        }
+        function OpenAppURL2() {
+            reactor.openUrl("host:webpage/WebApp2.html", 100);
+        }
+        function OpenAppURL3() {
+            reactor.openUrl("host:webpage/WebApp3.html", 100);
+        }
+        function OpenAppURL4() {
+            reactor.openUrl("host:webpage/WebApp4.html", 100);
+        }
+        function OpenAppURL5() {
+            reactor.openUrl("host:webpage/WebApp5.html", 100);
+        }
+        function OpenAppURL6() {
+            reactor.openUrl("host:webpage/WebApp6.html", 100);
+        }
+
+        function OpenAppURLAsSubPage1() {
+            reactor.openUrl("host:webpage/SubWebApp1.html", 2);
+        }
+        function OpenAppURLAsSubPage2() {
+            reactor.openUrl("host:webpage/SubWebApp2.html", 2);
+        }
+        function OpenAppURLAsSubPage3() {
+            reactor.openUrl("host:webpage/WebApp3.html", 2);
+        }
+
+        function OpenCWRURL() {
+            reactor.openUrl("host:webpage/CWR.html", 2);
+        }
+
+        function OpenCERURL() {
+            reactor.openUrl("host:webpage/CER.html", 2);
+        }
+
+        function OpenMdiApp1() {
+            reactor.openUrl("host:WebPage/mdiform1.html|host:webpage/CWR.html", 200);
+        }
+
+        function OpenMdiApp2() {
+            reactor.openUrl("host:WebPage/mdiform2.html", 200);
+        }
+
+        function OpenAppURL(e) {
+            reactor.openUrl("host:sunny2.html|host:WebPage/newweb.html", 200);
+        }
+
+        function OpenMdiApp3() {
+            reactor.openUrl("host:WebPage/mdiform3.html", 200);
+        }
+        function OpenMdiFormApp1() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp1.html|host:webpage/sunny.html", 200);
+        }
+        function OpenMdiFormApp2() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp2.html|host:webpage/sunny.html", 200);
+        }
+        function OpenMdiFormApp3() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp3.html|host:webpage/sunny.html", 200);
+        }
+        function OpenMdiFormApp4() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp4.html|host:webpage/sunny.html", 200);
+        }
+
+        function OnCreate_Form1_SunnyForms2() {
+            var elem = reactor.getElementById("create_form_1");
+            var xform = reactor.createWinForm(elem,
+                0,
+                function (form) {
+                    form.addEventListener("button1", "OnClick", function (e) {
+                        e.setStr("textBox1", "fill textbox by javascript: " + e.handle);
+                    });
+                    form.BindCtrlValue("textBox1;button1", function (e) {
+                        alert("hi" + "  --  " + e.getStr("textBox1"));
+                    });
+                });
+        }
+
+        function OnCreate_Form2_SunnyForms2() {
+            var xform = reactor.createWinForm(reactor.getElementById("create_form_2"),
+                0,
+                function (x) {
+                    x.addEventListener("button1", "OnClick", function (e) {
+                        alert(e);
+                        alert("hi" + "  --  " + e.handle);
+                        e.setStr("textBox1", "test modify textbox");
+                    });
+                    x.BindCtrlValue("textBox1", function (e) {
+                        //alert("hi" + "  --  " + e.getStr("textBox1"));
+                    });
+                });
+        }
+
+        function BrowserFormApp1() {
+            var xform = reactor.createWinForm(reactor.getElementById("create_form_3"),
+                0,
+                function (x) {
+                    x.form.addEventListener("button1", "OnClick", function (e) {
+                        alert("hi" + "  --  " + x.form.handle);
+                        //x.form.xobj.setStr("textBox1", "test modify textbox");
+                    });
+                });
+        }
+
+        function BrowserFormApp2() {
+            var xform = reactor.createWinForm(reactor.getElementById("create_form_4"),
+                0,
+                function (x) {
+                    x.form.addEventListener("button1", "OnClick", function (e) {
+                        alert("hi" + "  --  " + x.form.handle);
+                        //x.form.xobj.setStr("textBox1", "test modify textbox");
+                    });
+                });
+        }
+
+    </script>
+</head>
+<body>
+    <cosmos>
+        <!-- Define new DOM elements -->
+        <define tagName="mainWindow"></define>
+        <define tagName="application"></define>
+        <define tagName="webViewport"></define>
+        <!-- End Define new DOM elements -->
+        <!-- The "application" element is required, it can provide application-level configuration. -->
+        <application>
+            <modules>
+                <module libname="SunnyForms.dll" objname="Sunny.WebDelegate" functionname="Init"></module>
+            </modules>
+            <ntp>
+                <fission>
+                    <xobj id='grid' rows='1' cols='2' width='350,350,' splitterwidth='6'>
+                        <xobj objid="CloudForm.ntpctrl,CloudForm"></xobj>
+                        <xobj objid="nucleus"></xobj>
+                    </xobj>
+                </fission>
+            </ntp>
+            <defaultworkbench>
+                <fission>
+                    <xobj id='grid' rows='1' cols='2' width='350,350,' splitterwidth='6'>
+                        <xobj id='test1 x' caption='Page 2' url="https://www.csdn.net|host:WebPage/AboutWebRuntime.html"></xobj>
+                        <xobj style="18">
+                            <xobj id='tangramtabctrl_Page2' objid="nucleus" caption='Page 1'></xobj>
+                            <xobj objid="CloudForm.ntpctrl,CloudForm"></xobj>
+                            <xobj id='test2 y' caption='Page 3'></xobj>
+                            <xobj id='test3 z' caption='Page 4'></xobj>
+                        </xobj>
+                    </xobj>
+                </fission>
+            </defaultworkbench>
+            <urls>
+                <url url="host:WebPage/AboutWebRuntime.html"></url>
+                <url url="host:WebPage/WebRuntime22.html"></url>
+            </urls>
+        </application>
+        <mainWindow objid="CloudForm.Form1,CloudForm" caption="Who am I? Web Runtime How to ……" width="1500" height="1000" id="mainForm">
+            <eventmap>
+                <button1 event="OnClick">
+                    <button1>
+                        <fission>
+                            <xobj style="18" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus1" caption="Compound grid World Gives You An Unexpected Surprise" id="host"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                        </fission>
+                    </button1>
+                </button1>
+                <button2 event="OnClick">
+                    <layout_2 id="layout_2">
+                        <fission>
+                            <xobj style="13">
+                                <xobj caption="Start Page" rows="3" cols="3"
+                                      width="150,100,100" height="200,180,100">
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    <xobj style="19" activepage="0">
+                                        <xobj caption="First Page" id="host"></xobj>
+                                        <xobj objid="nucleus"
+                                              caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                    </xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                </xobj>
+                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                        </fission>
+                    </layout_2>
+                </button2>
+                <button3 event="OnClick">
+                    <layout_3 id="layout_3">
+                        <fission>
+                            <xobj style="23">
+                                <xobj caption="Start Page" rows="3" cols="3" width="250,100,100" height="200,180,100" masterrow="1" mastercol="1">
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                    <xobj style="18" activepage="1">
+                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                        <xobj objid="" caption="Compound grid World Gives You An Unexpected Surprise" id="host"></xobj>
+                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                    </xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                </xobj>
+                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                        </fission>
+                    </layout_3>
+                </button3>
+                <button4 event="OnClick">
+                    <xx></xx>
+                </button4>
+                <treeView1 event="OnAfterSelect">
+                </treeView1>
+            </eventmap>
+            <treeView1>
+                <uidata key="uidata" treenode="true" text="欢迎您来到WebRuntime的新世界...">
+                    <treeView1_tag>
+                        <onafterselect>
+                            <startup target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="startup" targetcluster="startup">
+                                <fission>
+                                    <xobj>
+                                        <xobj caption="New Web, New Desktop World" objid="nucleus"></xobj>
+                                        <xobj caption="New Start point" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    </xobj>
+                                </fission>
+                            </startup>
+                        </onafterselect>
+                    </treeView1_tag>
+                    <node1 treenode="true" text="这里是一个全新的应用世界"></node1>
+                    <node1_tag>
+                        <onafterselect>
+                            <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content1" targetcluster="content1">
+                                <fission>
+                                    <xobj style="18" id="test">
+                                        <xobj caption="The mixed world of web and native UI" objid="nucleus"></xobj>
+                                        <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        <xobj caption="Third Page" objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    </xobj>
+                                </fission>
+                            </content>
+                        </onafterselect>
+                    </node1_tag>
+                    <indexhtml treenode="true" text="Web Runtime应用程序初始化页面">
+                        <appnode treenode="true" text="初始化页面的application元素">
+                        </appnode>
+                        <appnode_tag>
+                            <onafterselect>
+                                <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="appnode" targetcluster="appnode">
+                                    <fission>
+                                        <xobj style="23" id="test">
+                                            <xobj caption="application元素" objid="nucleus"></xobj>
+                                            <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </content>
+                            </onafterselect>
+                        </appnode_tag>
+                        <mainwindow treenode="true" text="mainWindow元素">
+                        </mainwindow>
+                        <mainwindow_tag>
+                            <onafterselect>
+                                <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="mainwindow" targetcluster="mainwindow">
+                                    <fission>
+                                        <xobj style="13" id="test">
+                                            <xobj caption="mainwindow元素" objid="nucleus"></xobj>
+                                            <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </content>
+                            </onafterselect>
+                        </mainwindow_tag>
+                    </indexhtml>
+                    <indexhtml_tag>
+                        <onafterselect>
+                            <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="indexhtml" targetcluster="indexhtml">
+                                <fission>
+                                    <xobj style="23" id="test">
+                                        <xobj caption="关于初始化页面" objid="nucleus"></xobj>
+                                        <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        <xobj caption="Third Page" objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    </xobj>
+                                </fission>
+                            </content>
+                        </onafterselect>
+                    </indexhtml_tag>
+                    <virtuallayoutengine treenode="true" text="Common Layout Engine(CLE)">
+                        <winkernel treenode="true" text="有核窗口"></winkernel>
+                        <winkernel_tag>
+                            <OnAfterSelect>
+                                <mainClient target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="winkernel" targetcluster="winkernel">
+                                    <fission>
+                                        <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="nucleus"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </mainClient>
+                            </OnAfterSelect>
+                        </winkernel_tag>
+                        <xobj treenode="true" text="网格(Grid)">
+                            <grid1 treenode="true" text="Grid:1行2列">
+                            </grid1>
+                            <grid1_tag>
+                                <onafterselect>
+                                    <grid1 target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="grid1" targetcluster="grid1">
+                                        <fission>
+                                            <xobj rows="1" cols="2" width="150,300" middlecolor='RGB(255,224,192)'>
+                                                <xobj objid="nucleus"></xobj>
+                                                <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </grid1>
+                                </onafterselect>
+                            </grid1_tag>
+                            <grid2 treenode="true" text="Grid:2行1列">
+                            </grid2>
+                            <grid2_tag>
+                                <onafterselect>
+                                    <grid2 target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="grid2" targetcluster="grid2">
+                                        <fission>
+                                            <xobj rows="2" cols="1" height="200,380" middlecolor='RGB(255,224,192)'>
+                                                <xobj objid="nucleus"></xobj>
+                                                <xobj objid="SunnyForms.Form4,SunnyForms"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </grid2>
+                                </onafterselect>
+                            </grid2_tag>
+                            <grid3 treenode="true" text="Grid:3行3列">
+                            </grid3>
+                            <grid3_tag>
+                                <onafterselect>
+                                    <grid3 target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="grid3" targetcluster="grid3">
+                                        <fission>
+                                            <xobj id="Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100" middlecolor='RGB(255,224,192)'>
+                                                <xobj objid=""></xobj>
+                                                <xobj objid="SunnyForms.Form9,SunnyForms"></xobj>
+                                                <xobj objid=""></xobj>
+                                                <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                                <xobj objid="nucleus"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </grid3>
+                                </onafterselect>
+                            </grid3_tag>
+                        </xobj>
+                        <xobj_tag>
+                            <OnAfterSelect>
+                                <mainClient target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_grid" targetcluster="content_grid">
+                                    <fission>
+                                        <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="nucleus"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        </xobj>
+                                        <ddd-www-aaa></ddd-www-aaa>
+                                    </fission>
+                                </mainClient>
+                            </OnAfterSelect>
+                        </xobj_tag>
+                        <tabgrid treenode="true" text="标签(选项卡，Tabbed Window)">
+                            <tab1 treenode="true" text="Tabbed Window1">
+                            </tab1>
+                            <tab1_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd1" targetcluster="tabwnd1">
+                                        <fission>
+                                            <xobj style="19">
+                                                <xobj caption="Tabbed Window1" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab1_tag>
+                            <tab2 treenode="true" text="Tabbed Window2">
+                            </tab2>
+                            <tab2_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd2" targetcluster="tabwnd2">
+                                        <fission>
+                                            <xobj style="23">
+                                                <xobj caption="Tabbed Window2" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form2,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab2_tag>
+                            <tab3 treenode="true" text="Tabbed Window3">
+                            </tab3>
+                            <tab3_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd3" targetcluster="tabwnd3">
+                                        <fission>
+                                            <xobj style="18">
+                                                <xobj caption="Tabbed Window3" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form3,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab3_tag>
+                            <tab4 treenode="true" text="Tabbed Window4">
+                            </tab4>
+                            <tab4_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd4" targetcluster="tabwnd4">
+                                        <fission>
+                                            <xobj style="37">
+                                                <xobj caption="Tabbed Window4" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form4,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl4,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab4_tag>
+                            <tab5 treenode="true" text="Tabbed Window5">
+                            </tab5>
+                            <tab5_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd5" targetcluster="tabwnd5">
+                                        <fission>
+                                            <xobj style="46">
+                                                <xobj caption="Tabbed Window5" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form5,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl5,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab5_tag>
+                            <tab6 treenode="true" text="Tabbed Window6">
+                            </tab6>
+                            <tab6_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd6" targetcluster="tabwnd6">
+                                        <fission>
+                                            <xobj style="29">
+                                                <xobj caption="Tabbed Window6" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form6,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl6,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab6_tag>
+                            <tab7 treenode="true" text="Tabbed Window7">
+                            </tab7>
+                            <tab7_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd7" targetcluster="tabwnd7">
+                                        <fission>
+                                            <xobj style="43">
+                                                <xobj caption="Tabbed Window7" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form7,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab7_tag>
+                            <tab8 treenode="true" text="Tabbed Window8">
+                            </tab8>
+                            <tab8_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd8" targetcluster="tabwnd8">
+                                        <fission>
+                                            <xobj style="35">
+                                                <xobj caption="Tabbed Window8" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form8,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl8,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab8_tag>
+                            <tab9 treenode="true" text="Tabbed Window9">
+                            </tab9>
+                            <tab9_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd9" targetcluster="tabwnd9">
+                                        <fission>
+                                            <xobj style="27">
+                                                <xobj caption="Tabbed Window9" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form9,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl9,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab9_tag>
+                            <tab10 treenode="true" text="Tabbed Window10">
+                            </tab10>
+                            <tab10_tag>
+                                <onafterselect>
+                                    <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabwnd10" targetcluster="tabwnd10">
+                                        <fission>
+                                            <xobj style="31">
+                                                <xobj caption="Tabbed Window10" objid="nucleus"></xobj>
+                                                <xobj caption="Second Page" objid="SunnyForms.Form10,SunnyForms"></xobj>
+                                                <xobj caption="Third Page" objid="SunnyCtrl.UserControl10,SunnyCtrl"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </tab_grid>
+                                </onafterselect>
+                            </tab10_tag>
+                        </tabgrid>
+                        <tabgrid_tag>
+                            <onafterselect>
+                                <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabgrid" targetcluster="tabgrid">
+                                    <fission>
+                                        <xobj>
+                                            <xobj caption="Introduction to Tabbed Grid" objid="nucleus"></xobj>
+                                            <xobj caption="Second Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </tab_grid>
+                            </onafterselect>
+                        </tabgrid_tag>
+                        <node6 treenode="true" text="多层网格嵌套(Multi-Level Grid)">
+                            <composetab1 treenode="true" text="Composed Grid 1">
+                            </composetab1>
+                            <composetab1_tag>
+                                <onafterselect>
+                                    <composetab1 target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="composetab1" targetcluster="composetab1">
+                                        <fission>
+                                            <xobj style="18">
+                                                <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form2,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form4,SunnyForms"></xobj>
+                                                    <xobj style="43" activepage="1">
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                                        <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form10,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                </xobj>
+                                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </composetab1>
+                                </onafterselect>
+                            </composetab1_tag>
+                            <composetab2 treenode="true" text="Composed Grid 2">
+                            </composetab2>
+                            <composetab2_tag>
+                                <onafterselect>
+                                    <composetab2 target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="composetab2" targetcluster="composetab2">
+                                        <fission>
+                                            <xobj style="39">
+                                                <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="240,100,100" height="200,180,100">
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form3,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form6,SunnyForms"></xobj>
+                                                    <xobj style="23" activepage="1">
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                                        <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                    <xobj objid="SunnyForms.Form2,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyForms.Form4,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyForms.Form6,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyForms.Form8,SunnyForms"></xobj>
+                                                </xobj>
+                                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </composetab2>
+                                </onafterselect>
+                            </composetab2_tag>
+                            <composetab3 treenode="true" text="Composed Grid 3">
+                            </composetab3>
+                            <composetab3_tag>
+                                <onafterselect>
+                                    <composetab3 target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="composetab3" targetcluster="composetab3">
+                                        <fission>
+                                            <xobj style="47">
+                                                <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="300,100,100" height="200,180,100">
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form5,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form7,SunnyForms"></xobj>
+                                                    <xobj style="39" activepage="1">
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                                        <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyForms.Form3,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyForms.Form6,SunnyForms"></xobj>
+                                                </xobj>
+                                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </composetab3>
+                                </onafterselect>
+                            </composetab3_tag>
+                            <composetab4 treenode="true" text="Composed Grid 4">
+                            </composetab4>
+                            <composetab4_tag>
+                                <onafterselect>
+                                    <composetab4 target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="composetab4" targetcluster="composetab4">
+                                        <fission>
+                                            <xobj style="17">
+                                                <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="350,100,100" height="200,180,100">
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form3,SunnyForms"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                                    <xobj style="29" activepage="1">
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                                        <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                </xobj>
+                                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                            </xobj>
+                                        </fission>
+                                    </composetab4>
+                                </onafterselect>
+                            </composetab4_tag>
+                        </node6>
+                        <node6_tag>
+                            <onafterselect>
+                                <compositegrid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="compositegrid" targetcluster="compositegrid">
+                                    <fission>
+                                        <xobj style="23">
+                                            <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                                <xobj style="18" activepage="1">
+                                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                                    <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                                </xobj>
+                                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                            </xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </compositegrid>
+                            </onafterselect>
+                        </node6_tag>
+                    </virtuallayoutengine>
+                    <virtuallayoutengine_tag>
+                        <onafterselect>
+                            <contentcle target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="contentcle" targetcluster="contentcle">
+                                <fission>
+                                    <xobj objid="nucleus"></xobj>
+                                </fission>
+                            </contentcle>
+                        </onafterselect>
+                    </virtuallayoutengine_tag>
+                    <openwebruntime treenode="true" text="Common Web Runtime(CWR)">
+                        <usingbuiltbrowser treenode="true" text="使用应用Web页面"></usingbuiltbrowser>
+                        <usingbuiltbrowser_tag>
+                            <onafterselect>
+                                <content_using_browser target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_browser" targetcluster="content_using_browser">
+                                    <fission>
+                                        <xobj style="43">
+                                            <xobj objid="nucleus" caption="Using Browser Window"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </content_using_browser>
+                            </onafterselect>
+                        </usingbuiltbrowser_tag>
+                    </openwebruntime>
+                    <openwebruntime_tag>
+                        <OnAfterSelect>
+                            <content_cwr target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_cwr" targetcluster="content_cwr">
+                                <fission>
+                                    <xobj style="27">
+                                        <xobj objid="nucleus" caption="Common WebBrowser Runtime"></xobj>
+                                        <xobj caption="Page1"></xobj>
+                                        <xobj caption="Page2"></xobj>
+                                    </xobj>
+                                </fission>
+                            </content_cwr>
+                        </OnAfterSelect>
+                    </openwebruntime_tag>
+                    <openeclipseruntime treenode="true" text="Common EclipseRuntime(CER)">
+                        <node_workbench treenode="true" text="使用WorkBench"></node_workbench>
+                        <node_workbench_tag>
+                            <onafterselect>
+                                <content_using_workbench target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_workbench" targetcluster="content_using_workbench">
+                                    <fission>
+                                        <xobj style="29">
+                                            <xobj objid="nucleus" caption="Using Eclipse Workbench"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </content_using_workbench>
+                            </onafterselect>
+                        </node_workbench_tag>
+                        <node_swt treenode="true" text="使用SWT"></node_swt>
+                        <node_swt_tag>
+                            <OnAfterSelect>
+                                <content_using_swt target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_swt">
+                                    <fission>
+                                        <xobj style="18">
+                                            <xobj objid="nucleus" caption="Using java swt"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </content_using_swt>
+                            </OnAfterSelect>
+                        </node_swt_tag>
+                    </openeclipseruntime>
+                    <openeclipseruntime_tag>
+                        <onafterselect>
+                            <content_cer target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_cer">
+                                <fission>
+                                    <xobj objid="nucleus"></xobj>
+                                </fission>
+                            </content_cer>
+                        </onafterselect>
+                    </openeclipseruntime_tag>
+                </uidata>
+            </treeView1>
+            <panel1 id="mainworkclient">
+                <default>
+                    <fission>
+                        <xobj style="39" activepage="1">
+                            <xobj caption="Cloudx Application" id='Splitter1' rows='1' cols='2' height='250,' width='350,350,' borderwidth='0' splitterwidth='6'>
+                                <xobj objid="nucleus" id="hostclient">
+                                </xobj>
+                                <xobj objid="" id="Sunny_ntpctrl">
+                                </xobj>
+                            </xobj>
+                            <xobj caption="Common Web Runtime for Application" url="host" id="host"></xobj>
+                        </xobj>
+                    </fission>
+                </default>
+            </panel1>
+        </mainWindow>
+        <webViewport>
+            <fission>
+                <xobj rows="1" cols="2" width="750," id="xxx" caption="test caption">
+                    <xobj objid2="CloudForm.NavControl,CloudForm" id2="navCtrl" id="hostclient">
+                        <eventmap>
+                            <treeView1 event="OnAfterSelect">
+                            </treeView1>
+                        </eventmap>
+                        <treeView1>
+                            <uidata key="uidata" treenode="true" text="欢迎您来到WebRuntime的新世界...">
+                                <treeView1_tag>
+                                    <onafterselect>
+                                        <startup target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="startup" targetcluster="startup">
+                                            <fission>
+                                                <xobj>
+                                                    <xobj caption="New Web, New Desktop World" objid="nucleus"></xobj>
+                                                    <xobj caption="New Start point" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </startup>
+                                    </onafterselect>
+                                </treeView1_tag>
+                                <node1 treenode="true" text="这里是一个全新的应用世界"></node1>
+                                <node1_tag>
+                                    <onafterselect>
+                                        <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content1" targetcluster="content1">
+                                            <fission>
+                                                <xobj style="18" id="test">
+                                                    <xobj caption="The mixed world of web and native UI" objid="nucleus"></xobj>
+                                                    <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    <xobj caption="Third Page" objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </content>
+                                    </onafterselect>
+                                </node1_tag>
+                                <indexhtml treenode="true" text="Web Runtime应用程序初始化页面">
+                                    <appnode treenode="true" text="初始化页面的application元素">
+                                    </appnode>
+                                    <appnode_tag>
+                                        <onafterselect>
+                                            <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="appnode" targetcluster="appnode">
+                                                <fission>
+                                                    <xobj style="23" id="test">
+                                                        <xobj caption="application元素" objid="nucleus"></xobj>
+                                                        <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </content>
+                                        </onafterselect>
+                                    </appnode_tag>
+                                    <mainwindow treenode="true" text="mainWindow元素">
+                                    </mainwindow>
+                                    <mainwindow_tag>
+                                        <onafterselect>
+                                            <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="mainwindow" targetcluster="mainwindow">
+                                                <fission>
+                                                    <xobj style="13" id="test">
+                                                        <xobj caption="mainwindow元素" objid="nucleus"></xobj>
+                                                        <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </content>
+                                        </onafterselect>
+                                    </mainwindow_tag>
+                                </indexhtml>
+                                <indexhtml_tag>
+                                    <onafterselect>
+                                        <content target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="indexhtml" targetcluster="indexhtml">
+                                            <fission>
+                                                <xobj style="23" id="test">
+                                                    <xobj caption="关于初始化页面" objid="nucleus"></xobj>
+                                                    <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    <xobj caption="Third Page" objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </content>
+                                    </onafterselect>
+                                </indexhtml_tag>
+                                <virtuallayoutengine treenode="true" text="Common Layout Engine(CLE)">
+                                    <winkernel treenode="true" text="有核窗口"></winkernel>
+                                    <winkernel_tag>
+                                        <OnAfterSelect>
+                                            <mainClient target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="winkernel" targetcluster="winkernel">
+                                                <fission>
+                                                    <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="nucleus"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </mainClient>
+                                        </OnAfterSelect>
+                                    </winkernel_tag>
+                                    <xobj treenode="true" text="网格(Grid)">
+                                        <grid1 treenode="true" text="Grid:1行2列">
+                                        </grid1>
+                                        <grid1_tag>
+                                        </grid1_tag>
+                                        <grid2 treenode="true" text="Grid:2行1列">
+                                        </grid2>
+                                        <grid2_tag>
+                                        </grid2_tag>
+                                        <grid3 treenode="true" text="Grid:3行3列">
+                                        </grid3>
+                                        <grid3_tag>
+                                        </grid3_tag>
+                                    </xobj>
+                                    <xobj_tag>
+                                        <OnAfterSelect>
+                                            <mainClient target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_grid" targetcluster="content_grid">
+                                                <fission>
+                                                    <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="nucleus"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    </xobj>
+                                                    <ddd-www-aaa></ddd-www-aaa>
+                                                </fission>
+                                            </mainClient>
+                                        </OnAfterSelect>
+                                    </xobj_tag>
+                                    <tabgrid treenode="true" text="标签(选项卡，Tabbed Window)"></tabgrid>
+                                    <tabgrid_tag>
+                                        <onafterselect>
+                                            <tab_grid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="tabgrid" targetcluster="tabgrid">
+                                                <fission>
+                                                    <xobj>
+                                                        <xobj caption="Introduction to Tabbed Grid" objid="nucleus"></xobj>
+                                                        <xobj caption="Second Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </tab_grid>
+                                        </onafterselect>
+                                    </tabgrid_tag>
+                                    <node6 treenode="true" text="多层网格嵌套(Multi-Level Grid)"></node6>
+                                    <node6_tag>
+                                        <onafterselect>
+                                            <compositegrid target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="compositegrid" targetcluster="compositegrid">
+                                                <fission>
+                                                    <xobj style="23">
+                                                        <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                                            <xobj style="18" activepage="1">
+                                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                                            </xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                        </xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </compositegrid>
+                                        </onafterselect>
+                                    </node6_tag>
+                                </virtuallayoutengine>
+                                <virtuallayoutengine_tag>
+                                    <onafterselect>
+                                        <contentcle target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="contentcle" targetcluster="contentcle">
+                                            <fission>
+                                                <xobj objid="nucleus"></xobj>
+                                            </fission>
+                                        </contentcle>
+                                    </onafterselect>
+                                </virtuallayoutengine_tag>
+                                <openwebruntime treenode="true" text="Common Web Runtime(CWR)">
+                                    <usingbuiltbrowser treenode="true" text="使用应用Web页面"></usingbuiltbrowser>
+                                    <usingbuiltbrowser_tag>
+                                        <onafterselect>
+                                            <content_using_browser target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_browser" targetcluster="content_using_browser">
+                                                <fission>
+                                                    <xobj style="43">
+                                                        <xobj objid="nucleus" caption="Using Browser Window"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </content_using_browser>
+                                        </onafterselect>
+                                    </usingbuiltbrowser_tag>
+                                </openwebruntime>
+                                <openwebruntime_tag>
+                                    <OnAfterSelect>
+                                        <content_cwr target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_cwr" targetcluster="content_cwr">
+                                            <fission>
+                                                <xobj style="27">
+                                                    <xobj objid="nucleus" caption="Common WebBrowser Runtime"></xobj>
+                                                    <xobj caption="Page1"></xobj>
+                                                    <xobj caption="Page2"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </content_cwr>
+                                    </OnAfterSelect>
+                                </openwebruntime_tag>
+                                <openeclipseruntime treenode="true" text="Common EclipseRuntime(CER)">
+                                    <node_workbench treenode="true" text="使用WorkBench"></node_workbench>
+                                    <node_workbench_tag>
+                                        <onafterselect>
+                                            <content_using_workbench target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_workbench" targetcluster="content_using_workbench">
+                                                <fission>
+                                                    <xobj style="29">
+                                                        <xobj objid="nucleus" caption="Using Eclipse Workbench"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </content_using_workbench>
+                                        </onafterselect>
+                                    </node_workbench_tag>
+                                    <node_swt treenode="true" text="使用SWT"></node_swt>
+                                    <node_swt_tag>
+                                        <OnAfterSelect>
+                                            <content_using_swt target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_swt">
+                                                <fission>
+                                                    <xobj style="18">
+                                                        <xobj objid="nucleus" caption="Using java swt"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </content_using_swt>
+                                        </OnAfterSelect>
+                                    </node_swt_tag>
+                                </openeclipseruntime>
+                                <openeclipseruntime_tag>
+                                    <onafterselect>
+                                        <content_cer target="mainClient" nucleus="__viewport_default__" galaxy="webviewport" content="content_cer">
+                                            <fission>
+                                                <xobj objid="nucleus"></xobj>
+                                            </fission>
+                                        </content_cer>
+                                    </onafterselect>
+                                </openeclipseruntime_tag>
+                            </uidata>
+                        </treeView1>
+                    </xobj>
+                    <xobj objid="nucleus" id="mainClient">
+                    </xobj>
+                </xobj>
+            </fission>
+        </webViewport>
+        <fission>
+            <layout_4 id="layout_4">
+                <fission>
+                    <xobj style="43">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100" masterrow="1" mastercol="1">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="29" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="" id="host" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_4>
+        </fission>
+        <Forms>
+            <Form1 objid="sunnyForms2.Form1,sunnyForms2" caption="Form1@SunnyForm2" id="create_form_1" width="1600" height="1200">
+                <mainpanel id="123">
+                    <default>
+                        <fission>
+                            <xobj id='properties' rows='2' cols='1' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                                <xobj id='tangramtabctrl_Page2' objid="nucleus" caption=''></xobj>
+                                <xobj id='create_form_message' objid="sunnyForms2.Form4,sunnyForms2"></xobj>
+                            </xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+                <eventmap>
+                    <button1 event="OnClick">
+                        <btn content="content_using_browser" targetcluster="content_using_browser2">
+                            <fission>
+                                <xobj style="29">
+                                    <xobj objid="nucleus" caption="test button onclick 2"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page 2"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                </xobj>
+                            </fission>
+                        </btn>
+                        <btn target="mainClient" nucleus="__viewport_default__" galaxy="default" content="content_using_browser" targetcluster="content_using_browser2">
+                            <fission>
+                                <xobj style="18">
+                                    <xobj objid="nucleus" caption="test button onclick 2 from a form button click"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page 2"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                </xobj>
+                            </fission>
+                        </btn>
+                    </button1>
+                </eventmap>
+            </Form1>
+            <Form2 type="winform" objid="sunnyForms2.Form2,sunnyForms2" caption="Form2@SunnyForm2" id="create_form_2" width="1600" height="1200">
+                <mainpanel>
+                    <default>
+                        <fission>
+                            <xobj id='properties' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                                <xobj id='tangramtabctrl_Page2' objid="nucleus" caption='111'></xobj>
+                                <xobj id='create_form_message' objid="sunnyForms2.Form4,sunnyForms2" caption='222'></xobj>
+                                <xobj id='create_form_message2' objid="sunnyForms2.Form4,sunnyForms3" caption='333'></xobj>
+                            </xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+            </Form2>
+            <Form3 type="winform" objid="sunnyForms2.Form3,sunnyForms2" caption="Form3@SunnyForm2" id="create_form_3" width="2000" height="1600">
+                <mainpanel>
+                    <default>
+                        <fission>
+                            <xobj id='tangramtabctrl_Page1' url="host:webpage\cwr.html" caption='Form3'></xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+            </Form3>
+            <Form4 type="winform" objid="sunnyForms2.Form4,sunnyForms2" caption="Form4@SunnyForm2" id="create_form_4" width="2000" height="1600">
+                <mainpanel>
+                    <default>
+                        <fission>
+                            <xobj rows="1" cols="2" width="500,200" masterrow="0" mastercol="0">
+                                <xobj rows="2" cols="1" height="400,200" masterrow="0" mastercol="0">
+                                    <xobj id='Page1' url="host:webpage\cwr.html|host:sunny2.html"></xobj>
+                                </xobj>
+                                <xobj id='Page2' caption='Form3'></xobj>
+                            </xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+            </Form4>
+        </Forms>
+    </cosmos>
+
+    <div class="contents">
+        <article class="show startup markdown-body">
+            <strong style="font-size:40px; color:black">欢迎<i style="color:fuchsia">您来到</i><i style="color:blue">Web Runtime 带来的 </i><b style="color:coral">全新Web世界</b>!</strong>
+            <hr />
+            <center>
+                <table class="sunnysolution" border="1" cellpadding="10">
+                    <thead>
+                        <tr style="font-size: 16px; font-weight:bold; color:midnightblue">
+                            <th> 当您第一次<i style="color:crimson">看到我的时候……</i>
+                            <th> Web Runtime：一个全新的Web世界
+                        </tr>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <ol style="font-size: 20px; font-weight:bold; color:midnightblue">
+                                    <li>
+                                        也许您是<i style="font-style:oblique; color:chocolate">第一次 </i>运行建立在
+                                        <i style="color:orangered">WebRuntime </i>基础之上的<i style="color:fuchsia">应用系统，或者您运行的是我们提供的示范例子Tangram</i>；
+                                    </li>
+                                    <li>
+                                        或者<i style=" color:chocolate">您的应用系统 </i>缺少与之匹配的初始化Web页面（exeName.index.html）；
+                                    </li>
+                                    <li>
+                                        在宿主应用系统的可执行文件exeName.exe所在的文件夹之内，我们需要一个匹配的初始化Web页面exeName.index.html，
+                                        Web Runtime依据匹配的初始化页面来启动一个应用的具体的运行时状态，
+                                        每个运行时状态有自己的主窗口、以及关联的Web页面，依赖于这些页面，<i style="color:chocolate">我们来决定一个应用的具体状态之下的功能边界</i>，
+                                        这个处理方案非常类似于具有无穷多解的偏微分方程，需要明确的边值条件与初值条件来获得一个有意义的特解。
+                                    </li>
+                                </ol>
+                                <p style="font-size: 20px; font-weight:bold; color:blueviolet">
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWeb Runtime彻底改变了桌面应用系统的运行模式，首先是应用系统的主窗口，<i style="font-weight:bold; color:chocolate">Web的可描述性，使得主窗口得以从特定的应用系统之中剥离出来，</i>，
+                                    也就是说，开发者完全可以匹配完全不同的主窗口以适配不同的应用场景。桌面软件发展至今有接近30年的历史了，对绝大多数应用而言，主窗口几乎就是一个绝对的概念，<i style="font-weight:bold; color:chocolate">当这个概念不再绝对的时候</i>，软件的多态性就会变得越来越重要，
+                                    同时应用系统的适配性也会变得越来越强。
+                                </p>
+                                <p style="font-size: 20px; font-weight:bold; color:blueviolet">
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp从软件复用的角度看，软件服务团队，不应该将精力放在如何实现大范围整合的具体技术上，
+                                    事实上，应该有一种<i style="font-weight:bold; color:chocolate">通用的技术途径</i>，使得软件服务团队专注于如何用成熟的软件资源内容“组织”软件服务，这一点需要在宏观上解决一个合理的、
+                                    通用的适配问题，也就是说，<b style="font-size: 20px; font-weight:bold; color:darkblue">
+                                        <ins>
+                                            当前大环境需要一类简单的技术，使得应用程序在基础结构的根基环节，
+                                            一次性的（与技术相对无关的）解决好一个桌面软件与“Web、.NET、Java”等主流技术的基于生态技术的衔接问题，
+                                            这个衔接对软件服务团队而言是一致的、几乎无门槛的、可以最大限度利用软件组件资源以及人力资源的“一站式”解决方案
+                                        </ins>
+                                    </b>。
+                                </p>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                                <h1 style="font-size: 20px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下超链接</i> 体验全新的Web页面...</h1>
+                                <p>
+                                    <a href="javascript:void(0);" onclick="OpenAppURL1();" style="font-size:20px;color:firebrick"><b>The First WebPage for Application</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURL2();" style="font-size:20px;color:blueviolet"><b>让您的应用系统拥有互联网基因</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURL3();" style="font-size:20px;color:forestgreen"><b>新的Web页面，新的表现力</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURL4();" style="font-size:20px;color:brown"><b>让Web应用与桌面应用之间的鸿沟渐渐消失</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURL5();" style="font-size:20px;color:cadetblue"><b>冲破约束，一片新天地呼之欲出</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURL6();" style="font-size:20px;color:dodgerblue"><b>您可以做更多的事情，你的Web你做主</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURLAsSubPage1();" style="font-size:20px;color:saddlebrown"><b>页面无处不在（WebPage作为子窗口）</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURLAsSubPage2();" style="font-size:20px;color:springgreen"><b>您的创造力无限……</b></a>
+                                    <hr />
+                                    <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下超链接</i> 体验基于Web技术的WinForm...</h1>
+                                    <a href="javascript:void(0);" onclick="OpenMdiFormApp1();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm1</b></a>
+                                    &nbsp&nbsp&nbsp
+                                    <a href="javascript:void(0);" onclick="OpenMdiFormApp2();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm2</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenMdiFormApp3();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm3</b></a>
+                                    &nbsp&nbsp&nbsp
+                                    <a href="javascript:void(0);" onclick="OpenMdiFormApp4();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm4</b></a>
+                                    <hr />
+                                    <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下按钮</i> 体验基于Web技术的Sub WinForm...</h1>
+                                    <button onclick="OnCreate_Form1_SunnyForms2()"><b style="font-size:24px; color:darkgreen">Create SubForm</b></button>
+                                    <hr />
+                                    <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下按钮</i> 体验基于Web技术的WinForm...</h1>
+                                    <button onclick="OnCreate_Form2_SunnyForms2()"><b style="font-size:24px; color:darkgreen">Create Form</b></button>
+                                    <hr />
+                                </p>
+                            </td>
+                    </tbody>
+                </table>
+            </center>
+        </article>
+        <article class="hidden content1 markdown-body">
+            <x style="font-size:40px; color:crimson">WebRuntime应用的<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></x>
+            <center><p style="font-size: 32px; font-weight: bold; color: blue"><i style="color:brown">DOM </i>定义.NET</p></center>
+            <h4>用DOM定义新的.NET元素，使得我们可以在一个软件系统之外借助Web页面给应用系统增加新元素</h4>
+            <p>
+                Common Web Runtime constructs a new mixed world of native UI elements and web elements.
+                In this world, a new web page is defined. While taking into account the standard web page,
+                the ability to use native components as DOM elements is added ...
+            </p>
+        </article>
+        <article class="hidden indexhtml markdown-body">
+            <x style="font-size:40px; color:crimson">WebRuntime应用的<strong><i style="font-size:40px; color:fuchsia">初始化 </i>页面AppName.index.html</strong></x>
+            <center><p style="font-size: 32px; font-weight: bold; color: blue"><i style="color:brown">每个 </i>初始化页面</p></center>
+            <h4>定义了一个应用的运行时状态，使得我们可以根据场景的差异对应用系统的内容做合理的匹配</h4>
+            <p>
+                Common Web Runtime constructs a new mixed world of native UI elements and web elements.
+                In this world, a new web page is defined. While taking into account the standard web page,
+                the ability to use native components as DOM elements is added ...
+            </p>
+        </article>
+        <article class="hidden appnode markdown-body">
+            <x style="font-size:40px; color:crimson">application元素<strong><i style="font-size:40px; color:fuchsia">定义了一个运行时状态 </i>的基本结构</strong></x>
+            <center><p style="font-size: 32px; font-weight: bold; color: blue"><i style="color:brown">每个 </i>运行时状态</p></center>
+            <h4>包含的子节点</h4>
+            <p>
+                <ol style="font-size: 20px; font-weight:bold; color:midnightblue">
+                    <li>
+                        <i style="font-style:oblique; color:chocolate">modules </i>元素，
+                        <i style="color:orangered">modules </i>定义了<i style="color:fuchsia">应用系统运行时状态一组可加载模块库</i>；
+                    </li>
+                    <li>
+                        <i style="font-style:oblique; color:chocolate">ntp </i>元素，
+                        <i style="color:orangered">ntp </i>定义了<i style="color:fuchsia">应用系统运行时状态的新浏览器标签结构</i>；
+                    </li>
+                    <li>
+                        urls<i style=" color:chocolate">主窗体 </i>默认的一组标签；
+                    </li>
+                    <li>
+                        <i style="color:orangered">defaultworkbench </i>定义了Eclipse模式的默认工作台窗口。
+                    </li>
+                </ol>
+            </p>
+        </article>
+        <article class="hidden mainwindow markdown-body">
+            <x style="font-size:40px; color:crimson">mainwindow元素<strong><i style="font-size:40px; color:fuchsia">定义了一个运行时状态 </i>的主窗口</strong></x>
+            <center><p style="font-size: 32px; font-weight: bold; color: blue"><i style="color:brown">每个运行时状态 </i>的主窗口</p></center>
+            <h4>通常每个运行时状态的主窗口都是有核窗口</h4>
+            <p>
+            </p>
+        </article>
+        <article class="hidden winkernel markdown-body">
+            <x style="font-size:40px; color:crimson">WebRuntime的<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></x>
+            <center style="font-size:40px; color:green"><h2>有核窗口</h2></center>
+            <p style="font-size: 28px;font-weight: bold; color: black">有核窗口：Web Runtime的核心概念</p>
+            <p style="font-size: 24px;font-weight: bold; color: blue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp有核窗口是具有如下特征的窗口：至少存在一个<i style="color:orangered">
+                    屏幕几何位置仅与其直接父窗口有关的子窗口 （子窗口的运行时位置完全取决于其直接父窗口）
+                </i>， 对应的子窗口称之为“<i style="color:orangered">
+                    窗口核
+                </i>”。从原子核、细胞核到星系核，在众多科学领域之中，“核”的概念对我们并不陌生，只要提出与“核”相关的概念，一定是对应领域里的关键概念。顾名思义，有“核”的地方必然有环绕在“核”周围的环绕物，解决与“核”有关的问题，无法摆脱对周围环绕物相关问题的深入研究。
+            </p>
+            <p style="font-size: 28px;font-weight: bold; color: black">有核窗口普遍存在于桌面应用之中</p>
+            <p style="font-size: 24px;font-weight: bold; color: darkblue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp依据"窗口核"这个概念，窗口被分为两大类，其一是“无核”窗口，另外一类就是 “有核”窗口。通过对众多桌面软件进行分析，我们发现桌面应用之中，有核窗口是普遍存在的。以WinForm为例，每一个.NET控件都有Dock属性，Dock属性的值为“DockFill”或者“None”的那些控件都是窗口核，于是对应的WinForm或者包含该控件的父控件自然的就是“有核窗口”，MFC应用之中的CView派生对象，本质上就是一类窗口核，因此包含CView对象的父窗口都是有核窗口。我们在Office、Chrome、Edge浏览器、Eclipse以及其他典型的桌面应用之中，同样发现了大量的有核窗口（以及对应的窗口核）。
+            </p>
+            <p style="font-size: 28px;font-weight: bold; color: black">围绕窗口核，浏览其周围的环绕结构</p>
+            <p style="font-size: 24px;font-weight: bold; color: blue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp让“有核窗口”成为互联网内容的入口，是Web Runtime解决的最关键的问题。Web Runtime将为您揭示每一个“窗口核”周围，环绕着一个巨大、动态的内容世界。Web Runtime利用窗口核的位置特征实现了一类“几何”变换，使得在软件的运行时窗口核的周围呈现出（无穷）多层的“几何结构”。
+            </p>
+            <center><img src="image/winKernel.png" width="750" height="450" /></center>
+            <center>
+                <p style="font-size: 16px;font-weight: bold; color: black">有核窗口的周围，会运行时动态产生不同的几何布局</p>
+            </center>
+            <hr />
+            <center><img src="image/excelwinKernel.png" width="1200" height="500" /></center>
+            <center>
+                <p style="font-size: 16px;font-weight: bold; color: black">Excel文档内容窗口是一个典型的有核窗口，运行时其周围动态产生不同的几何布局</p>
+            </center>
+            <hr />
+            <p style="font-size: 24px;font-weight: bold; color: blue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWeb Runtime的理论依据是：窗口核的周围，会呈现出大量、多层次的可动态化描述的软件结构，一旦我们将思维聚焦到这个环节，窗口核就会变成动态内容的入口。也就是说，窗口核是桌面软件衔接互联网内容的一个“管道”，Web页面是描述这个管道的最合理的方案。Web Runtime针对窗口核实现的几何变换，使得大量的标准化可编程组件直接创建在窗口核周围环绕的“几何结构”之上，这一点导致新的动态内容得以在软件运行时呈现出来。
+            </p>
+            <p style="font-size: 24px;font-weight: bold; color: orangered">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp我们可以这样认为：标准的Web技术让我们将思维聚集在Web视口之内，Web Runtime让我们将焦点延申到窗口核的“周围”。现代互联网浏览器窗口只是一类特殊的有核窗口，从更加广泛的意义上看，互联网浏览的问题，应该提升到具有普遍性的有核窗体之上。
+            </p>
+            <p style="font-size: 24px;font-weight: bold; color: blue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp对立足于本地的应用系统而言，一个显而易见的问题是：由于缺乏互联网基因，应用系统不能充分享有互联网时代产生的福利，Web Runtime使开发者用最小的代价，找到桌面应用系统的互联网“对称性”，也就是说，每一个本地应用系统，应该存在基于互联网对称的另一面，当有核窗口的Web对称性被挖掘出来，那些已经存在的桌面客户端就会在互联网大环境之下重新找到增值空间，进而使得其价值进一步延续。Web Runtime的目标就是以最小的代码修改量给应用系统带来全方位的互联网支持、建立网络服务后端。
+            </p>
+            <center><img src="image/winKernel2.png" width="1000" height="500" /></center>
+            <center>
+                <p style="font-size: 16px;font-weight: bold; color: black">有核窗口将形成大量的互联网内容入口，进而形成全新的桌面Web世界</p>
+            </center>
+        </article>
+        <article class="hidden contentcle markdown-body">
+            <x style="font-size:40px; color:crimson">WebRuntime的<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></x>
+            <center style="font-size:40px; color:green"><h2>Common Layout Engine</h2></center>
+            <p style="font-size: 28px;font-weight: bold; color: black">有核窗口</p>
+            <p style="font-size: 24px;font-weight: bold; color: blue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp有核窗口 是具有如下特征的窗口：至少存在一个屏幕几何位置仅与其直接父窗口有关的子窗口 （子窗口的运行时位置完全取决于其直接父窗口）， 对应的子窗口称之为“ 窗口核 ”。从原子核、细胞核到星系核，在众多科学领域之中，“核”的概念对我们并不陌生，只要提出与“核”相关的概念，一定是对应领域里的关键概念。顾名思义，有“核”的地方必然有环绕在“核”周围的环绕物，解决与“核”有关的问题，无法摆脱对周围环绕物相关问题的深入研究。
+            </p>
+            <p style="font-size: 24px;font-weight: bold; color: magenta">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp依据"窗口核"这个概念，窗口被分为两大类，其一是“无核”窗口，另外一类就是 “有核”窗口。通过对众多桌面软件进行分析，我们发现桌面应用之中，有核窗口是普遍存在的。以WinForm为例，每一个.NET控件都有Dock属性，Dock属性的值为“DockFill”或者“None”的那些控件都是窗口核，于是对应的WinForm或者包含该控件的父控件自然的就是“有核窗口”，MFC应用之中的CView派生对象，本质上就是一类窗口核，因此包含CView对象的父窗口都是有核窗口。我们在Office、Chrome、Edge浏览器、Eclipse以及其他典型的桌面应用之中，同样发现了大量的有核窗口（以及对应的窗口核）。
+            </p>
+            <p style="font-size: 28px;font-weight: bold; color: black">Common Layout Engine是一个多层次、网格化、可嵌套、易于描述的UI布局描述引擎。</p>
+            <p style="font-size: 24px;font-weight: bold; color: blue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp所谓<i style="color:brown">网格</i>，是一个m行n列的窗口矩阵（1行n列的网格可以理解为有n个选项卡的<b>选项卡窗口</b>），
+                而可嵌套是指矩阵中的每个“格”可以动态嵌套多个网格层，运行时只有一层可见。
+            </p>
+            <p style="font-size: 24px;font-weight: bold; color:cornflowerblue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp一般说来，某个布局在设计时可能是不确定的，并且可以在运行时动态生成，由于不同的场景、权限等因素，
+                可能会进行不同的动态匹配。实际上，柔性布局是多层网格动态变化的结果。
+            </p>
+            <p style="font-size: 24px;font-weight: bold; color:burlywood">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp网格有两种描述方式：其一是基于XML，这样的描述可以用于各种编程语言；其二是基于Web页面的
+                DOM元素，这个方案的优势是易于与主流的互联网技术衔接。
+            </p>
+            <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout()">动态布局一</button>
+            <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout1()">动态布局二</button>
+            <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout2()">动态布局三</button>
+            <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout3()">动态布局四</button>
+            <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout4()">动态布局五</button>
+            <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout5()">动态布局六</button>
+            <h3>动态布局DOM描述（按某个按钮看DOM输出）：</h3>
+            <center><textarea name="dynlayoutdomelement" id="dynlayoutdomelement" class="tb" disabled="disabled" style="width: 96%; height: 300px; margin: 0px;"></textarea></center>
+        </article>
+        <article class="hidden content_grid markdown-body">
+            <center style="font-size:36px; color:blue"><b>网格(Grid)：环绕在“窗口核”周围的最基础布局结构</b></center>
+            <p style="font-size:24px; color:chocolate">
+                <b>
+                    <i>网格</i> <x style="font-size:24px; color:black">
+                        是一个m行n列的窗口矩阵，是环绕在一个有核窗口的“窗口核”周围的最基础布局结构，做为一个容器，网格中的一个具体的"格"可以承载新的网格，
+                        或者承载一个可编程对象，例如可以承载.NET Usercontrol,可以承载WinForm或者WPF对象，
+                        也可以是C++实现的其他对象，例如MFC CView……
+                    </x>
+                </b>
+            </p>
+            <p>
+                <b style="font-size:24px; color:black">
+                    在一个具体的页面内或者一个XML文档中，可以用如下格式定义一个与“网格”对应的DOM元素，
+                    这里给出一个3行3列的网格结构对应的DOM描述，具体请参考Tangram.index.html
+                    <xmp style="font-size: 28px; font-weight: bold; color: black "><grid>
+    <fission>
+        <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+            <xobj objid="nucleus"></xobj>
+            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</grid>
+                    </xmp>
+                </b>
+            </p>
+            <h3>
+                一个没有子节点的网格，可以承载具体的可编程对象，或者运行时承载一个新的网格结构，取决于具体的编程需求。
+                当我们明确需要一个网格可以承载具体对象的时候，我们需要指定对象的“objid”属性。
+            </h3>
+            <h3>
+                当前WebRuntime可以支持几类可编程对象，具体包括：
+                <ol style="font-size:28px; color:red">
+                    <li><b>.NET UI对象</b></li>
+                    <li><b>ActiveX控件对象</b></li>
+                    <li><b>符合一定规范的C++对象</b></li>
+                    <li><b>Web页面</b></li>
+                </ol>
+            </h3>
+            <h3>
+                对于.NET UI，我们泛指WinForm、Usercontrol、WPF，后续版本将增加UWP支持。一个网格加载.NET UI，
+                objid属性就是该对象的AssemblyQualifiedName，通常情况下，就是“a.b,c”这样的字符串，其中a是对象的NameSpace，
+                b是类名字，c是组件名。
+            </h3>
+            <h3>
+                例如，假设我们有一个.NET组件库xxx.dll，其中有一个FormX对象，其NameSpace是“MyNamespace”，
+                那么objid即为“MyNamespace.FormX,xxx”,对应的网格节点如下：
+            </h3>
+            <b><xmp style="font-size:30px; color:blue"><xobj objid="MyNamespace.FormX,xxx"></xobj></xmp></b>
+        </article>
+        <article class="hidden grid1 markdown-body">
+            <center style="font-size:36px; color:blue"><b>1行2列网格</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素定义了“rows”、“cols”属性，WebRuntime将其解释为一个“网格窗口”，
+                    其包含的行数与列数就是对应的属性指。
+                </b>
+                <hr />
+                <b>
+                    Grid节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><grid1>
+    <fission>
+        <xobj rows="1" cols="2" width="150,100" middlecolor='RGB(255,224,192)'>
+            <xobj objid="nucleus"></xobj>
+            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+        </xobj>
+    </fission>
+</grid1>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden grid2 markdown-body">
+            <center style="font-size:36px; color:blue"><b>2行1列网格</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素定义了“rows”、“cols”属性，WebRuntime将其解释为一个“网格窗口”，
+                    其包含的行数与列数就是对应的属性指。
+                </b>
+                <hr />
+                <b>
+                    Grid节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><grid2>
+    <fission>
+        <xobj rows="2" cols="1" height="200,180" middlecolor='RGB(255,224,192)'>
+            <xobj objid="nucleus"></xobj>
+            <xobj objid="SunnyForms.Form4,SunnyForms"></xobj>
+        </xobj>
+    </fission>
+</grid2>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden grid3 markdown-body">
+            <center style="font-size:36px; color:blue"><b>3行3列网格</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素定义了“rows”、“cols”属性，WebRuntime将其解释为一个“网格窗口”，
+                    其包含的行数与列数就是对应的属性指。
+                </b>
+                <hr />
+                <b>
+                    Grid节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><grid3>
+    <fission>
+        <xobj id="Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100" middlecolor='RGB(255,224,192)'>
+            <xobj objid=""></xobj>
+            <xobj objid="SunnyForms.Form9,SunnyForms"></xobj>
+            <xobj objid=""></xobj>
+            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+            <xobj objid="nucleus"></xobj>
+            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</grid3>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabgrid markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：环绕在“窗口核”周围的最基础布局结构</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+            </p>
+            <figcaption>
+                <p>
+                    <b>
+                        标签风格:用style属性设定，style="mn"(默认值是"19"),
+                        其中m的值可以为1(左)、2(顶)、3(右)、4(底)，分别对应
+                        四个边；n的值可以取0-9，对应10种不同的选项卡显示样式。
+                    </b>
+                </p>
+            </figcaption>
+            <center>
+                <table border="1" cellpadding="10">
+                    <thead>
+                        <tr>
+                            <th> Tabbed Layout
+                            <th> 描述
+
+                    <tbody>
+                        <tr>
+                            <td> <img src="image/tabbed.png" width="300" height="280" />
+                            <td>
+                                <b>
+                                    显示风格style="23"表明标签是左侧标签
+                                    <p>
+                                        在Web页面上或者XML中，可以按照如下方式描述一个标签(选项卡)：
+
+                                        <xmp style="font-size: 24px; font-weight: bold; color: black "><tabwindow>
+    <fission>
+        <xobj style="23">
+            <xobj caption="Introduction to Tabbed Window" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tabwindow>
+                                        </xmp>
+                                    </p>
+                                </b>
+                        <tr>
+                            <td> <img src="image/tabbed19.png" width="300" height="280" />
+                            <td>
+                                <b>
+                                    显示风格style="19"表明标签是上侧标签
+                                    在Web页面上或者XML中，可以按照如下方式描述一个Tabbed Grid：
+                                    <xmp style="font-size: 24px; font-weight: bold; color: black "><tabwindow>
+    <fission>
+        <xobj style="19">
+            <xobj caption="Introduction to Tabbed Window" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tabwindow>
+                                    </xmp>
+                                </b>
+                        <tr>
+                            <td> <img src="image/tabbed18.png" width="300" height="280" />
+                            <td>
+                                <b>
+                                    显示风格style="18"表明标签是抽屉式标签
+                                    <p>
+                                        在Web页面上或者XML中，可以按照如下方式描述一个标签结构：
+                                        <xmp style="font-size: 24px; font-weight: bold; color: black "><tabwindow>
+    <fission>
+        <xobj style="18">
+            <xobj caption="Introduction to Tabbed Window" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tabwindow>
+                                        </xmp>
+                                    </p>
+                                </b>
+                </table>
+            </center>
+        </article>
+
+        <article class="hidden tabwnd1 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口1</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="19">
+            <xobj caption="Tabbed Window1" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form1,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd2 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口2</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="23">
+            <xobj caption="Tabbed Window2" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form2,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd3 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口3</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="18">
+            <xobj caption="Tabbed Window3" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form3,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd4 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口4</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="37">
+            <xobj caption="Tabbed Window4" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form4,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl4,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd5 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口5</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="46">
+            <xobj caption="Tabbed Window5" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form5,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl5,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd6 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口6</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="29">
+            <xobj caption="Tabbed Window6" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form6,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl6,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd7 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口7</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="43">
+            <xobj caption="Tabbed Window7" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form7,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl7,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd8 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口8</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="35">
+            <xobj caption="Tabbed Window8" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form8,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl8,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd9 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口9</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="27">
+            <xobj caption="Tabbed Window9" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form9,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl9,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden tabwnd10 markdown-body">
+            <center style="font-size:36px; color:blue"><b>标签（选项卡）：标签窗口10</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    如果一个网格元素包含子节点，同时这个网格没有“rows”、“cols”属性，WebRuntime将其解释为一个“选项卡（标签）”，
+                    其包含的选项卡个数就是其子节点个数。
+                </b>
+                <hr />
+                <b>
+                    标签节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><tab_grid>
+    <fission>
+        <xobj style="31">
+            <xobj caption="Tabbed Window10" objid="nucleus"></xobj>
+            <xobj caption="Second Page" objid="SunnyForms.Form10,SunnyForms"></xobj>
+            <xobj caption="Third Page" objid="SunnyCtrl.UserControl10,SunnyCtrl"></xobj>
+        </xobj>
+    </fission>
+</tab_grid>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden composetab1 markdown-body">
+            <center style="font-size: 36px; font-weight: 900; color: blue"><b>Multi-Level Grid Layout：“窗口核”周围的复合嵌套布局结构1</b></center>
+            <p style="font-size: 24px; font-weight: 900; color: black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp网格布局结构支持任意级别的“网格复合“，因为“tab结构”可以有多种“样式”，每个特定的子网格可以
+                承载各种可编程对象，以此为基础可以形成更加一般化、综合的布局结构，宿主应用系统可以通过网
+                页呈现出<b>兼具原生应用与web应用的双重优势的网页应用生态</b>。
+                <hr />
+                <b>
+                    节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><composetab1>
+    <fission>
+        <xobj style="18">
+            <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                <xobj style="43" activepage="1">
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                    <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+            </xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+        </xobj>
+    </fission>
+</composetab1>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden composetab2 markdown-body">
+            <center style="font-size: 36px; font-weight: 900; color: blue"><b>Multi-Level Grid Layout：“窗口核”周围的复合嵌套布局结构2</b></center>
+            <p style="font-size: 24px; font-weight: 900; color: black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp网格布局结构支持任意级别的“网格复合“，因为“tab结构”可以有多种“样式”，每个特定的子网格可以
+                承载各种可编程对象，以此为基础可以形成更加一般化、综合的布局结构，宿主应用系统可以通过网
+                页呈现出<b>兼具原生应用与web应用的双重优势的网页应用生态</b>。
+                <hr />
+                <b>
+                    节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><composetab2>
+    <fission>
+        <xobj style="39">
+            <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                <xobj style="23" activepage="1">
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                    <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+                <xobj objid="SunnyForms.Form2,SunnyForms"></xobj>
+                <xobj objid="SunnyForms.Form4,SunnyForms"></xobj>
+                <xobj objid="SunnyForms.Form6,SunnyForms"></xobj>
+                <xobj objid="SunnyForms.Form8,SunnyForms"></xobj>
+            </xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+        </xobj>
+    </fission>
+</composetab2>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden composetab3 markdown-body">
+            <center style="font-size: 36px; font-weight: 900; color: blue"><b>Multi-Level Grid Layout：“窗口核”周围的复合嵌套布局结构3</b></center>
+            <p style="font-size: 24px; font-weight: 900; color: black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp网格布局结构支持任意级别的“网格复合“，因为“tab结构”可以有多种“样式”，每个特定的子网格可以
+                承载各种可编程对象，以此为基础可以形成更加一般化、综合的布局结构，宿主应用系统可以通过网
+                页呈现出<b>兼具原生应用与web应用的双重优势的网页应用生态</b>。
+                <hr />
+                <b>
+                    节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight: bold; color: black "><composetab3>
+    <fission>
+        <xobj style="47">
+            <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form5,SunnyForms"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form4,SunnyForms"></xobj>
+                <xobj style="39" activepage="1">
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                    <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                <xobj objid="SunnyForms.Form3,SunnyForms"></xobj>
+                <xobj objid="SunnyForms.Form6,SunnyForms"></xobj>
+            </xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+        </xobj>
+    </fission>
+</composetab3>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden composetab4 markdown-body">
+            <center style="font-size: 36px; font-weight: 900; color: blue"><b>Multi-Level Grid Layout：“窗口核”周围的复合嵌套布局结构4</b></center>
+            <p style="font-size: 24px; font-weight: 900; color: black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp网格布局结构支持任意级别的“网格复合“，因为“tab结构”可以有多种“样式”，每个特定的子网格可以
+                承载各种可编程对象，以此为基础可以形成更加一般化、综合的布局结构，宿主应用系统可以通过网
+                页呈现出<b>兼具原生应用与web应用的双重优势的网页应用生态</b>。
+                <hr />
+                <b>
+                    节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style="font-size: 24px; font-weight:bolder; color: black "><composetab4>
+    <fission>
+        <xobj style="17">
+            <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form3,SunnyForms"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form6,SunnyForms"></xobj>
+                <xobj style="29" activepage="1">
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                    <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+            </xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+        </xobj>
+    </fission>
+</composetab4>
+                </xmp>
+            </p>
+        </article>
+        <article class="hidden compositegrid markdown-body">
+            <center style="font-size: 36px; font-weight: 900; color: blue"><b>Multi-Level Grid Layout：“窗口核”周围的复合嵌套布局结构</b></center>
+            <p style="font-size: 24px; font-weight: 900; color: black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp网格布局结构支持任意级别的“网格复合“，因为“tab结构”可以有多种“样式”，每个特定的子网格可以
+                承载各种可编程对象，以此为基础可以形成更加一般化、综合的布局结构，宿主应用系统可以通过网
+                页呈现出<b>兼具原生应用与web应用的双重优势的网页应用生态</b>。
+                <hr />
+                <b>
+                    节点的DOM以及XML描述如下：
+                </b>
+                <hr />
+                <xmp style=" font-size: 24px; font-weight: bold; color: black"><compositetab>
+    <fission>
+        <xobj style="23">
+            <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyForms.Form8,SunnyForms"></xobj>
+                <xobj style="18" activepage="1">
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                    <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+            </xobj>
+            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+        </xobj>
+    </fission>
+</compositetab>
+                </xmp>
+            </p>
+            <p style=" font-size: 24px; font-weight: 900; color: blue">更多的复合结构，可以点击以下按钮：</p>
+            <center>
+                <button style=" font-size: 24px; font-weight: 900; color: black" onclick="CompositeGrid1()">复合网格一</button>
+                <button style=" font-size: 24px; font-weight: 900; color: black" onclick="CompositeGrid2()">复合网格二</button>
+                <button style=" font-size: 24px; font-weight: 900; color: black" onclick="CompositeGrid3()">复合网格三</button>
+                <button style=" font-size: 24px; font-weight: 900; color: black" onclick="CompositeGrid4()">复合网格四</button>
+            </center>
+        </article>
+        <article class="hidden content_cwr markdown-body">
+            <p style="font-size:40px; color:forestgreen">WebRuntime的<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></p>
+            <center style="font-size:40px; color:tomato"><h2>Common Web Runtime</h2></center>
+            <p style="font-size:32px; color:darkblue">Common Web Runtime(CWR)是<strong><i style="font-size:32px; color:darkviolet">Google Chromium </i>项目的动态链接库版本</strong></p>
+            <p>
+                <b style="font-size:24px; color:Highlight">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i style="font-size:24px; color:fuchsia">Web Runtime </i>是一个面向桌面软件的运行时服务，通过对一类广泛存在于桌面应用系统之中的“<i style="font-size:24px; color:fuchsia">有核窗口</i>”进行“<i style="font-size:24px; color:fuchsia">Web 页面化 </i>”，互联网浏览行为的外延得以进一步的扩展，同时给桌面应用建立了一致的途径衔接互联网服务。Web Runtime定义了一个包容度最大的Web DOM模型 ，兼顾标准Web DOM的同时，使<i style="font-size:24px; color:fuchsia">有核窗口 </i>充分的支持DHTML，<i style="font-size:24px; color:fuchsia">Web Runtime </i>将Win32对象作为Web DOM的新成员参与互联网内容制作，为桌面应用建立互联网内容生态奠定基础。
+                </b>
+            </p>
+            <p>
+                <b style="font-size:20px; color:Highlight">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCWR包含Chromium项目的所有代码。其目标是使Windows桌面应用程序按照一致的方案实现内置的现代浏览器模型，
+                    使宿主桌面软件自然成为现代web浏览器。与传统浏览器不同的是，与CWR集成的应用程序有自己的应用对象模型，
+                    由于浏览器部分的所有功能都是基于dll模式提供的，CWR事先并不知道宿主应用程序是什么，也不清楚宿主应用
+                    程序包含什么对象模型，CWR解决了宿主模型和浏览器标准模型之间的连接问题，因此只有在定义了特定的宿主应用
+                    程序之后才能确定真正的浏览器模型。
+                </b>
+            </p>
+            <p>
+                <b style="font-size:20px; color:blue">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp宿主应用程序的DOM模型将是标准浏览器的DOM模型的一个超集。换句话说，宿主应用程序系统将提供标准浏览器中无法提供的应用
+                    模型部分。宿主应用程序的实际DOM模型可能包括不属于标准浏览器DOM模型的成员，这意味着宿主应用程序同时支持标准网页和基于
+                    应用程序的网页（标准浏览器模式下没有基于应用程序的网页）。由于宿主应用程序内置了Chromium项目的所有功能，应用程序开发
+                    人员可以基于Web技术为宿主应用程序开发新的应用程序内容，使宿主应用程序成为基于Web技术的软件生态系统。
+                </b>
+            </p>
+            <p>
+                <b style="font-size:20px; color:black">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCWR在DOM方面，增加了.NET Framework的支持，允许在Web页面上用DOM的规则写针对.NET UI的DOM元素，也就是说
+                    WinForm、Usercontrol、WPF等对象可以做为页面元素的一部分体现在实际的开发之中，这一点对形成应用生态非常重要。
+                </b>
+            </p>
+            <center><img src="image/chrome.png" width="750" height="500" /></center>
+        </article>
+        <article class="hidden content_using_browser markdown-body">
+            <strong style="font-size:32px; color:navy">Using <i style="font-size:32px; color:fuchsia">Browser </i>Window</strong>
+            <center>
+                <table class="sunnysolution" border="1" cellpadding="10">
+                    <thead>
+                        <tr style="font-size: 16px; font-weight:bold; color:midnightblue">
+                            <th> Create WebPage App
+                            <th> Introductuon
+                        </tr>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <a href="javascript:void(0);" onclick="OpenAppURL(this);" style="font-size:24px;color:forestgreen"><b>Create a WinForm App</b></a>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                            </td>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <a href="javascript:void(0);" onclick="OpenMdiApp1();" style="font-size:24px;color:forestgreen"><b>Create a WinMDIForm App 1</b></a>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                            </td>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <a href="javascript:void(0);" onclick="OpenAppURL2();" style="font-size:24px;color:forestgreen"><b>Create a WebPage App</b></a>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                            </td>
+                    </tbody>
+                </table>
+            </center>
+            <hr />
+            <strong style="font-size:32px; color:navy">Using <i style="font-size:32px; color:fuchsia">Browser as Child Window </i>Object</strong>
+            <center>
+                <table class="sunnysolution" border="1" cellpadding="10">
+                    <thead>
+                        <tr style="font-size: 16px; font-weight:bold; color:midnightblue">
+                            <th> Create BrowserForm
+                            <th> Introduction
+                        </tr>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <button onclick="BrowserFormApp1()"><b style="font-size:24px; color:darkgreen">Browser Form App 1</b></button>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                            </td>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <button onclick="BrowserFormApp2()"><b style="font-size:24px; color:darkgreen">Browser Form App 2</b></button>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                            </td>
+                    </tbody>
+                </table>
+            </center>
+            <hr />
+            <strong style="font-size:32px; color:navy">Using <i style="font-size:32px; color:fuchsia">.NET UI </i>Object</strong>
+            <center>
+                <table class="sunnysolution" border="1" cellpadding="10">
+                    <thead>
+                        <tr style="font-size: 16px; font-weight:bold; color:midnightblue">
+                            <th> Create Win Form
+                            <th> Introduction
+                        </tr>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <button onclick="OnCreate_Form1_SunnyForms2()"><b style="font-size:24px; color:darkgreen">Form App 1</b></button>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                            </td>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <button onclick="OnCreate_Form2_SunnyForms2()"><b style="font-size:24px; color:darkgreen">Form App 2</b></button>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                            </td>
+                    </tbody>
+                </table>
+            </center>
+            <hr />
+        </article>
+        <article class="hidden content_cer markdown-body">
+            <p style="font-size:40px; color:blue">WebRuntime的<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></p>
+            <center style="font-size:40px; color:blue"><h2>Common Eclipse Runtime</h2></center>
+            <p style="font-size:32px; color:crimson">Common Eclipse Runtime(CER)是<strong><i style="font-size:32px; color:fuchsia">Eclipse </i>项目的动态链接库版本</strong></p>
+            <h3>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp它包含Eclipse项目的所有代码。其目标是使windows桌面应用程序按照一致的方案实现内置的Eclipse模型，
+                使宿主桌面软件自然成为Eclipse的启动程序。
+            </h3>
+            <h3>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp与传统的eclipse不同的是，与CER(Common Eclipse Runtime)集成的应用程序有自己的应用程序对象模型，
+                由于eclipse部分的所有功能都是基于dll模式提供的，因此CER事先不知道宿主应用程序是什么，宿主应用程序
+                包含什么对象模型，CER解决了宿主模型和eclipse标准模型之间的连接问题，因此只有在明确宿主应用程序之后才能确定真正的
+                eclipse模型。同时，宿主应用程序的OSGi模型将比标准eclipse的OSGi模型更大。换句话说，宿主应用程序系统将提供标准eclipse中
+                没有提供的应用模型部分。
+            </h3>
+            <h3>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp宿主应用程序的实际OSGi模型可能包括不属于标准eclipse OSGi模型的成员，这意味着宿主应用程序同时支持标准eclipse组件
+                和基于应用程序的eclipse组件，并且在标准Eclipse模式下没有提供面向具体应用程序的eclipse组件。由于宿主应用程序内置了Eclipse项目
+                的所有功能，应用程序开发人员可以基于Eclipse技术为宿主应用程序开发新的应用程序内容，从而使宿主应用程序成为一个基于Java技术
+                的软件生态系统。
+            </h3>
+        </article>
+        <article class="hidden content_using_workbench markdown-body">
+            <p style="font-size:40px; color:crimson">使用<strong><i style="font-size:40px; color:fuchsia">WorkBench </i>窗口</strong></p>
+            <center><img src="image/eclipse.png" width="900" height="450" /></center>
+        </article>
+        <article class="hidden content_using_swt markdown-body">
+            <p style="font-size:40px; color:crimson">使用<strong><i style="font-size:40px; color:fuchsia">SWT </i>Form</strong></p>
+        </article>
+
+        <article class="hidden content_using_winform markdown-body">
+            <p style="font-size:40px; color:darkgreen">Web页面中使用<strong><i style="font-size:40px; color:fuchsia">WinForm </i>窗口</strong></p>
+            <content_using_winform target="mainClient">
+                <fission>
+                    <xobj style="29">
+                        <xobj objid="nucleus" caption="Using Window Form"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </content_using_winform>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="OnCreate_Form1_SunnyForms2()">Form App 1</button>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="OnCreate_Form2_SunnyForms2()">Form App 2</button>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="BrowserFormApp1()">Form App 3</button>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="BrowserFormApp2()">Form App 4</button>
+        </article>
+    </div>
+</body>
+</html>

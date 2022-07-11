@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Common Web Runtime</title>
+    <link rel="icon" href="chromium.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+</head>
+<body background="cwrbk.jpg">
+    <define tagName="webViewport"></define>
+    <define tagName="gridTemplate"></define>
+    <webViewport>
+        <fission> 
+            <xobj rows="1" cols="2" width="550,">
+                <xobj objid="SunnyForms.CWBForm,SunnyForms" id="navCtrl"></xobj>
+                <xobj objid="nucleus" id="mainClient"></xobj>
+            </xobj>
+        </fission> 
+    </webViewport>
+    <p style="font-size:40px; color:forestgreen">Sunny's <i style="font-size:40px; color:fuchsia">New </i>World of .NET<strong></strong></p>
+    <center style="font-size:40px; color:tomato"><h2>Common Web Runtime</h2></center>
+    <p style="font-size:32px; color:darkblue">Common Web Runtime(CWR) is the dynamic link library version of <strong><i style="font-size:32px; color:darkviolet">Google Chromium Project</i></strong></p>
+    <p>
+        <b style="font-size:20px; color:Highlight">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThe CWR contains all the code for the chromium project. Its goal is to make the windows desktop application implement the built-in modern browser model according to the consistent scheme,
+            and make the host desktop software become the modern web browser naturally. Different from the traditional browser, the application integrated with CWR has its own application object model.
+            Because all functions of browser are provided based on DLL mode, CWR does not know what the host application is and what object model the host application contains. CWR solves the connection problem between host model and browser standard model,
+            the real browser model can only be determined after a specific host application is defined.
+        </b>
+    </p>
+    <p>
+        <b style="font-size:20px; color:blue">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThe DOM model of the host application will be a superset of the DOM model of the standard browser. In other words, the host application system will provide parts of the application model that cannot be provided in the standard browser.
+            The actual DOM model of the host application may include members that are not part of the standard browser DOM model, which means that the host application supports both standard and application based web pages (there is no application based web page in standard browser mode).
+            Because the host application has all the functions of chromium project built in, application developers can develop new application content for host application based on Web technology, and make host application become software ecosystem based on Web technology.
+        </b>
+    </p>
+    <p>
+        <b style="font-size:20px; color:black">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspIn terms of DOM, CWR adds the support of. Net framework, which allows DOM elements for. Net UI to be written with DOM rules on Web pages.
+            That is to say, WinForm, UserControl, WPF and other objects can be embodied in the actual development as part of page elements,
+            which is very important for the formation of application ecology.
+        </b>
+    </p>
+</body>
+</html>

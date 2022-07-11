@@ -1,0 +1,763 @@
+  Cosmos.NewChildForm.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly Cosmos, Version=1.0.1992.1963, Culture=neutral, PublicKeyToken=1bcc94f26a4807a7: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xaml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly WindowsFormsIntegration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Class Universe.Wormhole: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(CommonUniverse.CSession*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    CommonUniverse.CSession* m_pWebRTSession : Public
+    System.Object m_pHostObj : Public
+    System.String m_strEvents : Public
+  Methods:
+    InsertString(String, String): PrivateScope, Public, HideBySig
+    InsertLong(String, Int32 IsLong): PrivateScope, Public, HideBySig
+    InsertInt64(String, Int64): PrivateScope, Public, HideBySig
+    InsertFloat(String, Single): PrivateScope, Public, HideBySig
+    GetString(String): PrivateScope, Public, HideBySig
+    GetLong(String): PrivateScope, Public, HideBySig
+    GetFloat(String): PrivateScope, Public, HideBySig
+    GetInt64(String): PrivateScope, Public, HideBySig
+    SendMessage(): PrivateScope, Public, HideBySig
+    isBindCLRObjToWebPage(Object, String): PrivateScope, Public, HideBySig
+    AddEventInfo(Object, String): PrivateScope, Public, HideBySig
+Class Universe.Browser: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(IBrowser*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    IBrowser* m_pWebBrowser : Public
+  Methods:
+    AddURLs(String): PrivateScope, Public, HideBySig
+    OpenURL(String, Disposition, String, String): PrivateScope, Public, HideBySig
+Class Universe.WebPage: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(IWebPage*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Windows.Forms.IWin32Window
+  Fields:
+    HWND__* m_hWnd : Public
+    IWebPage* m_pWebPage : Public
+    CommonUniverse.CWebPageImpl* m_pProxy : Public
+  Properties:
+    Universe.WinNucleus HostGalaxy 'get ' : 
+    Universe.Xobj ParentXobj 'get ' : 
+    IntPtr Handle 'get ' : 
+  Methods:
+    get_Handle(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_ParentXobj(): PrivateScope, Public, HideBySig, SpecialName
+    get_HostGalaxy(): PrivateScope, Public, HideBySig, SpecialName
+    CreateForm(String): PrivateScope, Public, HideBySig
+Class Universe.XobjCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(IXobjCollection*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Collections.IEnumerable
+    System.IDisposable
+  Properties:
+    Int32 XobjCount 'get ' : 
+    Universe.Xobj Item [Int32] 'get ' : 
+  Methods:
+    GetEnumerator(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_XobjCount(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Universe.Xobj: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Collections.Generic.Dictionary`2[System.String,Universe.Xobj]
+    Void .ctor(IXobj*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Windows.Forms.IWin32Window
+    System.IDisposable
+  Fields:
+    IXobj* m_pXobj : Public
+    System.Object m_pHostObj : Public
+    System.Windows.Forms.ListView m_pBindListView : Public
+    System.Windows.Forms.TreeView m_pBindTreeView : Public
+    CWebRTXobjEvent* m_pXobjEvent : Public
+    CXobjCLREvent* m_pXobjCLREvent : Public
+    Universe.Wormhole m_pSession : Public
+  Properties:
+    System.String Attribute [System.String] 'get set' : 
+    XobjType XobjType 'get ' : 
+    Int32 Cols 'get ' : 
+    Int32 Rows 'get ' : 
+    Int32 Vmax 'get set' : 
+    Int32 Vmin 'get set' : 
+    Int32 Hmax 'get set' : 
+    Int32 Hmin 'get set' : 
+    Int32 Row  'get ' : 
+    Int32 Col  'get ' : 
+    Universe.Xobj HostXobj 'get ' : 
+    Universe.Xobj ParentXobj 'get ' : 
+    Universe.Xobj RootXobj 'get ' : 
+    Universe.XobjCollection Objects [XobjType] 'get ' : 
+    Universe.XobjCollection ChildNodes 'get ' : 
+    System.Object PlugIn [System.String] 'get ' : 
+    Universe.WinNucleus HostGalaxy 'get ' : 
+    Universe.WinNucleus WinNucleus 'get ' : 
+    Int32 ActivePage 'get set' : 
+    System.Object ActionData 'get set' : 
+    System.Object Tag 'get set' : 
+    System.Object Extender 'get set' : 
+    System.Drawing.Color rgbRightBottom 'get set' : 
+    System.Drawing.Color rgbLeftTop 'get set' : 
+    System.Drawing.Color rgbMiddle 'get set' : 
+    System.Object XObject 'get ' : 
+    System.String URL 'get set' : 
+    System.String Name 'get set' : 
+    Universe.Nuclei Nuclei 'get ' : 
+    System.String Caption 'get set' : 
+    System.String BindListViewData 'set' : 
+    System.String BindTreeViewData 'set' : 
+    System.Windows.Forms.ListView BindListView 'set' : 
+    System.Windows.Forms.TreeView BindTreeView 'set' : 
+    Universe.Wormhole Wormhole 'get ' : 
+    IntPtr Handle 'get ' : 
+  Events:
+    BindCLRObjToWebPage OnBindCLRObjToWebPage: SpecialName
+    CloudMessageHandle OnCloudMessageReceived: SpecialName
+    MessageHandle OnIPCMessageReceived: SpecialName
+    TabChange OnTabChange: SpecialName
+    DocumentComplete OnDocumentComplete: SpecialName
+    Destroy OnDestroy: SpecialName
+    ObserveComplete OnObserveComplete: SpecialName
+    RootXobjCreated OnRootXobjCreated: SpecialName
+    XobjAddInsCreated OnXobjAddInsCreated: SpecialName
+    XobjAddInCreated OnXobjAddInCreated: SpecialName
+  Methods:
+    NavigateTreeInit(): PrivateScope, Public, HideBySig
+    add_OnXobjAddInCreated(XobjAddInCreated): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnXobjAddInCreated(XobjAddInCreated): PrivateScope, Public, HideBySig, SpecialName
+    Fire_XobjAddInCreated(Xobj, Object, String, String): PrivateScope, Public, HideBySig
+    add_OnXobjAddInsCreated(XobjAddInsCreated): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnXobjAddInsCreated(XobjAddInsCreated): PrivateScope, Public, HideBySig, SpecialName
+    Fire_XobjAddInsCreated(Xobj): PrivateScope, Public, HideBySig
+    add_OnRootXobjCreated(RootXobjCreated): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnRootXobjCreated(RootXobjCreated): PrivateScope, Public, HideBySig, SpecialName
+    Fire_RootXobjCreated(IntPtr, String, Xobj): PrivateScope, Public, HideBySig
+    add_OnObserveComplete(ObserveComplete): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnObserveComplete(ObserveComplete): PrivateScope, Public, HideBySig, SpecialName
+    Fire_ObserveComplete(Xobj): PrivateScope, Public, HideBySig
+    add_OnDestroy(Destroy): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDestroy(Destroy): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnDestroy(Xobj): PrivateScope, Public, HideBySig
+    add_OnDocumentComplete(DocumentComplete): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDocumentComplete(DocumentComplete): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnDocumentComplete(Xobj, Object, String): PrivateScope, Public, HideBySig
+    add_OnTabChange(TabChange): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnTabChange(TabChange): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnTabChange(Xobj, Xobj): PrivateScope, Public, HideBySig
+    add_OnIPCMessageReceived(MessageHandle): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnIPCMessageReceived(MessageHandle): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnIPCMessageReceived(String, String, String, String, String): PrivateScope, Public, HideBySig
+    add_OnCloudMessageReceived(CloudMessageHandle): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnCloudMessageReceived(CloudMessageHandle): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnCloudMessageReceived(Wormhole): PrivateScope, Public, HideBySig
+    add_OnBindCLRObjToWebPage(BindCLRObjToWebPage): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnBindCLRObjToWebPage(BindCLRObjToWebPage): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnBindCLRObjToWebPage(Object, Wormhole, String): PrivateScope, Public, HideBySig
+    SendIPCMessage(String, String, String, String): PrivateScope, Public, HideBySig
+    get_Handle(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Wormhole(): PrivateScope, Public, HideBySig, SpecialName
+    set_BindTreeView(TreeView): PrivateScope, Public, HideBySig, SpecialName
+    set_BindListView(ListView): PrivateScope, Public, HideBySig, SpecialName
+    set_BindTreeViewData(String): PrivateScope, Public, HideBySig, SpecialName
+    set_BindListViewData(String): PrivateScope, Public, HideBySig, SpecialName
+    ActiveMethod(String, Object[]): PrivateScope, Public, HideBySig
+    Observe(String, String): PrivateScope, Public, HideBySig
+    ObserveChild(Int32, Int32, String, String): PrivateScope, Public, HideBySig
+    get_Caption(): PrivateScope, Public, HideBySig, SpecialName
+    set_Caption(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Nuclei(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_URL(): PrivateScope, Public, HideBySig, SpecialName
+    set_URL(String): PrivateScope, Public, HideBySig, SpecialName
+    get_XObject(): PrivateScope, Public, HideBySig, SpecialName
+    get_rgbMiddle(): PrivateScope, Public, HideBySig, SpecialName
+    set_rgbMiddle(Color): PrivateScope, Public, HideBySig, SpecialName
+    get_rgbLeftTop(): PrivateScope, Public, HideBySig, SpecialName
+    set_rgbLeftTop(Color): PrivateScope, Public, HideBySig, SpecialName
+    get_rgbRightBottom(): PrivateScope, Public, HideBySig, SpecialName
+    set_rgbRightBottom(Color): PrivateScope, Public, HideBySig, SpecialName
+    get_Extender(): PrivateScope, Public, HideBySig, SpecialName
+    set_Extender(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_Tag(): PrivateScope, Public, HideBySig, SpecialName
+    set_Tag(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_ActionData(): PrivateScope, Public, HideBySig, SpecialName
+    set_ActionData(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_ActivePage(): PrivateScope, Public, HideBySig, SpecialName
+    set_ActivePage(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_WinNucleus(): PrivateScope, Public, HideBySig, SpecialName
+    get_HostGalaxy(): PrivateScope, Public, HideBySig, SpecialName
+    get_PlugIn(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ChildNodes(): PrivateScope, Public, HideBySig, SpecialName
+    get_Objects(XobjType): PrivateScope, Public, HideBySig, SpecialName
+    get_RootXobj(): PrivateScope, Public, HideBySig, SpecialName
+    get_ParentXobj(): PrivateScope, Public, HideBySig, SpecialName
+    get_HostXobj(): PrivateScope, Public, HideBySig, SpecialName
+    get_Col(): PrivateScope, Public, HideBySig, SpecialName
+    get_Row(): PrivateScope, Public, HideBySig, SpecialName
+    get_Hmin(): PrivateScope, Public, HideBySig, SpecialName
+    set_Hmin(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Hmax(): PrivateScope, Public, HideBySig, SpecialName
+    set_Hmax(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Vmin(): PrivateScope, Public, HideBySig, SpecialName
+    set_Vmin(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Vmax(): PrivateScope, Public, HideBySig, SpecialName
+    set_Vmax(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Rows(): PrivateScope, Public, HideBySig, SpecialName
+    get_Cols(): PrivateScope, Public, HideBySig, SpecialName
+    get_XobjType(): PrivateScope, Public, HideBySig, SpecialName
+    get_Attribute(String): PrivateScope, Public, HideBySig, SpecialName
+    set_Attribute(String, String): PrivateScope, Public, HideBySig, SpecialName
+    GetXobj(Int32, Int32): PrivateScope, Public, HideBySig
+    GetChildXobj(String): PrivateScope, Public, HideBySig
+    GetXobjs(String, Xobj&, XobjCollection&): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Universe.Xobj+XobjAddInCreated: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj, Object, String, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, Object, String, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+XobjAddInsCreated: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+RootXobjCreated: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IntPtr, String, Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(IntPtr, String, Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+ObserveComplete: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+Destroy: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+DocumentComplete: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj, Object, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, Object, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+TabChange: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj, Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+MessageHandle: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(String, String, String, String, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(String, String, String, String, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+CloudMessageHandle: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Wormhole): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Wormhole, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Xobj+BindCLRObjToWebPage: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, Wormhole, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, Wormhole, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WinNucleus: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Collections.Generic.Dictionary`2[System.String,Universe.Xobj]
+    Void .ctor(INucleus*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Universe.Nuclei Nuclei 'get ' : 
+    Universe.XobjCollection RootXobjs 'get ' : 
+    Universe.Xobj Xobj [System.Object] 'get ' : 
+    Universe.Xobj VisibleXobj 'get ' : 
+    IntPtr Handle 'get ' : 
+    System.String Name 'get ' : 
+  Methods:
+    Observe(String, String): PrivateScope, Public, HideBySig
+    SendMessage(String, String, String, String, String): PrivateScope, Public, HideBySig
+    Attach(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Handle(): PrivateScope, Public, HideBySig, SpecialName
+    get_VisibleXobj(): PrivateScope, Public, HideBySig, SpecialName
+    get_Xobj(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_RootXobjs(): PrivateScope, Public, HideBySig, SpecialName
+    get_Nuclei(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Universe.WebRT: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(IWebRT*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    Universe.IWebRTApp m_pUniverseAppProxy : Public
+    System.String m_strWizData : Public, Static
+    System.String m_strAppData : Public, Static
+    System.Drawing.Icon m_pDefaultIcon : Public, Static
+    System.Windows.Forms.Form m_pMainForm : Public, Static
+    System.Collections.Generic.Dictionary`2[System.Object,Universe.Xobj] m_pFrameworkElementDic : Public, Static
+    TangramAppInit pOnAppInit : Public, Static
+  Properties:
+    System.String AppKeyValue [System.String] 'get set' : 
+    System.String WizData 'get set' : 
+    System.String NTPXml 'get set' : 
+    System.String AppDataPath 'get ' : 
+    System.String AppFormsPath 'get ' : 
+    System.String AppCommonFormsPath 'get ' : 
+    Universe.WorkBenchWindow ActiveWorkBenchWindow 'get ' : 
+    Universe.WebRT RemoteTangram [System.String] 'get ' : 
+    Universe.WinNucleus ActiveEclipseTopFrame 'get ' : 
+    Universe.Xobj CreatingXobj 'get ' : 
+    Universe.WebRT TangramCore 'get ' : 
+    Universe.CosmosAppType AppType 'get set' : 
+    Boolean SupportCrashReporting 'get set' : 
+    System.Drawing.Icon DefaultIcon 'get ' : 
+    Universe.Browser HostWebBrowser 'get ' : 
+    System.Windows.Forms.Form MainForm 'get set' : 
+    System.Collections.Generic.Dictionary`2[System.Object,Universe.Wormhole] Wormholes 'get ' : 
+  Events:
+    FormNodeCreated OnFormNodeCreated: SpecialName
+    CustomizedDOMElement OnCustomizedDOMElement: SpecialName
+    CosmosMsgReceived OnWebRTMsgReceived: SpecialName
+    CosmosMsg OnWebRTMsg: SpecialName
+    TangramDebugDelegate OnWebRTDebugDelegate: SpecialName
+    AppMsgLoop OnAppMsgLoop: SpecialName
+    OpenComplete OnObserveComplete: SpecialName
+    BindCLRObjToWebPage OnBindCLRObjToWebPage: SpecialName
+    GetSubObjForWebPage OnGetSubObjForWebPage: SpecialName
+    GetAppIcon OnGetAppIcon: SpecialName
+    EclipseAppInit OnEclipseAppInit: SpecialName
+    TangramAppInit OnAppInit: SpecialName
+    CloudAppIdle OnCloudAppIdle: SpecialName
+    Close OnClose: SpecialName
+    CosmosActionDelegate OnWebRTActionDelegate: SpecialName
+  Methods:
+    WebRTInit(String): PrivateScope, Public, Static, HideBySig
+    CreateNucleusGroup(Control, Object): PrivateScope, Public, Static, HideBySig
+    CreateNucleusGroup(IntPtr): PrivateScope, Public, Static, HideBySig
+    GetUIData(Control): PrivateScope, Public, Static, HideBySig
+    GetCtrlTag(Control): PrivateScope, Public, Static, HideBySig
+    CreateObject(String): PrivateScope, Public, Static, HideBySig
+    CreateForm(IWin32Window, String): PrivateScope, Public, Static, HideBySig
+    GetType(String): PrivateScope, Public, Static, HideBySig
+    ActiveMethod(String, String, Object[]): PrivateScope, Public, Static, HideBySig
+    ActiveObjectMethod(Object, String, Object[]): PrivateScope, Public, Static, HideBySig
+    CreateApplication(String, String): PrivateScope, Public, Static, HideBySig
+    RemoteActiveWorkBenchWindow(String): PrivateScope, Public, Static, HideBySig
+    GetMDIClient(Form): PrivateScope, Public, Static, HideBySig
+    ExtendMDIClient(Form, String, String): PrivateScope, Public, Static, HideBySig
+    FindFiles(String, String, Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
+    GetHostBrowser(Object): PrivateScope, Public, Static, HideBySig
+    GetXobjFromHandle(IntPtr): PrivateScope, Public, Static, HideBySig
+    GetXobjFromControl(Control): PrivateScope, Public, Static, HideBySig
+    RegComponentForTangram(String, Assembly): PrivateScope, Public, Static, HideBySig
+    UpdateNewTabPageLayout(String): PrivateScope, Public, Static, HideBySig
+    BindObjToWebPage(IntPtr, Object, String): PrivateScope, Public, Static, HideBySig
+    GetWormholeFromObj(Object): PrivateScope, Public, Static, HideBySig
+    Observe(Control, String, String): PrivateScope, Public, Static, HideBySig
+    GetWebRT(): PrivateScope, Public, Static, HideBySig
+    InitWebRTApp(Boolean(HasFieldMarshal), CosmosAppType): PrivateScope, Public, Static, HideBySig
+    WebRuntimeInit(): PrivateScope, Public, Static, HideBySig
+    InitEclipse(): PrivateScope, Public, Static, HideBySig
+    SendXmlMessage(Xobj, String): PrivateScope, Public, Static, HideBySig
+    Run(ApplicationContext): PrivateScope, Public, Static, HideBySig
+    Run(Form): PrivateScope, Public, Static, HideBySig
+    Run(): PrivateScope, Public, Static, HideBySig
+    GetXobjFromObj(Object): PrivateScope, Public, Static, HideBySig
+    CreateBKPage(Form, String): PrivateScope, Public, Static, HideBySig
+    GetObjAssemblyName(Object): PrivateScope, Public, Static, HideBySig
+    LoadCLRResource(Object, String): PrivateScope, Public, Static, HideBySig
+    BindToCtrl(String, String, Control, Int32, String): PrivateScope, Public, Static, HideBySig
+    BindToCtrl(Control, Control, String): PrivateScope, Public, Static, HideBySig
+    add_OnWebRTActionDelegate(CosmosActionDelegate): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnWebRTActionDelegate(CosmosActionDelegate): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnWebRTActionDelegate(Xobj, String): PrivateScope, Public, Static, HideBySig
+    get_Wormholes(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MainForm(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_MainForm(Form): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HostWebBrowser(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DefaultIcon(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SupportCrashReporting(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_SupportCrashReporting(Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AppType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_AppType(CosmosAppType): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TangramCore(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CreatingXobj(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ActiveEclipseTopFrame(): PrivateScope, Public, Static, HideBySig, SpecialName
+    CreateBrowser(IntPtr, String): PrivateScope, Public, Static, HideBySig
+    get_RemoteTangram(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ActiveWorkBenchWindow(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AppCommonFormsPath(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AppFormsPath(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AppDataPath(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_NTPXml(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_NTPXml(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_WizData(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_WizData(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnClose(Close): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnClose(Close): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnClose(): PrivateScope, Public, Static, HideBySig
+    add_OnCloudAppIdle(CloudAppIdle): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnCloudAppIdle(CloudAppIdle): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnCloudAppIdle(): PrivateScope, Public, Static, HideBySig
+    add_OnAppInit(TangramAppInit): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnAppInit(TangramAppInit): PrivateScope, Public, Static, HideBySig, SpecialName
+    raise_OnAppInit(): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnAppInit(): PrivateScope, Public, Static, HideBySig
+    add_OnEclipseAppInit(EclipseAppInit): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnEclipseAppInit(EclipseAppInit): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnEclipseAppInit(): PrivateScope, Public, Static, HideBySig
+    add_OnGetAppIcon(GetAppIcon): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGetAppIcon(GetAppIcon): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnGetAppIcon(Int32): PrivateScope, Public, Static, HideBySig
+    add_OnGetSubObjForWebPage(GetSubObjForWebPage): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGetSubObjForWebPage(GetSubObjForWebPage): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnGetSubObjForWebPage(Object, String): PrivateScope, Public, Static, HideBySig
+    add_OnBindCLRObjToWebPage(BindCLRObjToWebPage): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnBindCLRObjToWebPage(BindCLRObjToWebPage): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnBindCLRObjToWebPage(Object, Wormhole, String): PrivateScope, Public, Static, HideBySig
+    add_OnObserveComplete(OpenComplete): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnObserveComplete(OpenComplete): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnObserveComplete(IntPtr, String, Xobj): PrivateScope, Public, Static, HideBySig
+    add_OnAppMsgLoop(AppMsgLoop): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnAppMsgLoop(AppMsgLoop): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnAppMsgLoop(IntPtr, IntPtr, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig
+    add_OnWebRTDebugDelegate(TangramDebugDelegate): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnWebRTDebugDelegate(TangramDebugDelegate): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnWebRTDebugDelegate(String): PrivateScope, Public, Static, HideBySig
+    add_OnWebRTMsg(CosmosMsg): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnWebRTMsg(CosmosMsg): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnWebRTMsg(IntPtr, String, String, String): PrivateScope, Public, Static, HideBySig
+    add_OnWebRTMsgReceived(CosmosMsgReceived): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnWebRTMsgReceived(CosmosMsgReceived): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnWebRTMsgReceived(Wormhole): PrivateScope, Public, Static, HideBySig
+    add_OnCustomizedDOMElement(CustomizedDOMElement): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnCustomizedDOMElement(CustomizedDOMElement): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnCustomizedDOMElement(IntPtr, String, String): PrivateScope, Public, Static, HideBySig
+    add_OnFormNodeCreated(FormNodeCreated): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnFormNodeCreated(FormNodeCreated): PrivateScope, Public, Static, HideBySig, SpecialName
+    Fire_OnFormNodeCreated(String, Form, Xobj): PrivateScope, Public, Static, HideBySig
+    get_AppKeyValue(String): PrivateScope, Public, HideBySig, SpecialName
+    set_AppKeyValue(String, String): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Universe.WebRT+CosmosActionDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+Close: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+CloudAppIdle: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+TangramAppInit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+EclipseAppInit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+GetAppIcon: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Int32): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Int32, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+GetSubObjForWebPage: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+BindCLRObjToWebPage: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, Wormhole, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, Wormhole, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+OpenComplete: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IntPtr, String, Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(IntPtr, String, Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+AppMsgLoop: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IntPtr, IntPtr, IntPtr, IntPtr): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(IntPtr, IntPtr, IntPtr, IntPtr, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+TangramDebugDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+CosmosMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IntPtr, String, String, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(IntPtr, String, String, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+CosmosMsgReceived: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Wormhole): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Wormhole, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+CustomizedDOMElement: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IntPtr, String, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(IntPtr, String, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.WebRT+FormNodeCreated: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(String, Form, Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(String, Form, Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Nuclei: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Collections.Generic.Dictionary`2[System.String,Universe.WinNucleus]
+    Void .ctor(INuclei*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Windows.Forms.IWin32Window
+    System.IDisposable
+  Fields:
+    INuclei* m_pNuclei : Public
+  Properties:
+    Universe.WinNucleus Galaxys [System.Object] 'get ' : 
+    System.String NucleusName [IntPtr] 'get ' : 
+    System.String NucleusName [System.Windows.Forms.Control] 'get ' : 
+    IntPtr Handle 'get ' : 
+  Events:
+    GalaxyClusterLoad OnGalaxyClusterLoad: SpecialName
+    TabChange OnTabChange: SpecialName
+    Destroy OnDestroy: SpecialName
+    IPCMsg OnIPCMsg: SpecialName
+    DocumentComplete OnDocumentComplete: SpecialName
+  Methods:
+    get_Handle(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_NucleusName(IntPtr): PrivateScope, Public, HideBySig, SpecialName
+    get_NucleusName(Control): PrivateScope, Public, HideBySig, SpecialName
+    get_Galaxys(Object): PrivateScope, Public, HideBySig, SpecialName
+    GetXobj(String, String): PrivateScope, Public, HideBySig
+    CreateNucleus(IntPtr, String): PrivateScope, Public, HideBySig
+    CreateNucleus(Control, String): PrivateScope, Public, HideBySig
+    ObserveNuclei(String, String, String, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    add_OnDocumentComplete(DocumentComplete): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDocumentComplete(DocumentComplete): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnDocumentComplete(Nuclei, Object, String): PrivateScope, Public, HideBySig
+    add_OnIPCMsg(IPCMsg): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnIPCMsg(IPCMsg): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnIPCMsg(WinNucleus, String, String, String): PrivateScope, Public, HideBySig
+    add_OnDestroy(Destroy): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDestroy(Destroy): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnDestroy(Xobj): PrivateScope, Public, HideBySig
+    add_OnTabChange(TabChange): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnTabChange(TabChange): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnTabChange(Xobj, Int32, Int32): PrivateScope, Public, HideBySig
+    add_OnGalaxyClusterLoad(GalaxyClusterLoad): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnGalaxyClusterLoad(GalaxyClusterLoad): PrivateScope, Public, HideBySig, SpecialName
+    Fire_OnGalaxyClusterLoad(Nuclei): PrivateScope, Public, HideBySig
+    GetPageXML(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Universe.Nuclei+DocumentComplete: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Nuclei, Object, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Nuclei, Object, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Nuclei+IPCMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(WinNucleus, String, String, String): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(WinNucleus, String, String, String, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Nuclei+Destroy: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Nuclei+TabChange: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Xobj, Int32, Int32): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Xobj, Int32, Int32, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.Nuclei+GalaxyClusterLoad: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Nuclei): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Nuclei, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Universe.EclipseView: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(IEclipseCtrl*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    IEclipseCtrl* m_pCtrl : Public
+  Properties:
+    IntPtr Handle 'get ' : 
+  Methods:
+    get_Handle(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Observe(String, String, String): PrivateScope, Public, HideBySig
+Class Universe.WorkBenchWindow: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(IWorkBenchWindow*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Collections.IEnumerable
+    System.IDisposable
+  Properties:
+    Int32 NodeCount 'get ' : 
+    Universe.EclipseView Item [Int32] 'get ' : 
+  Methods:
+    Active(): PrivateScope, Public, HideBySig
+    SWTExtend(String, String): PrivateScope, Public, HideBySig
+    SWTExtendInView(Int32, String, String): PrivateScope, Public, HideBySig
+    GetEnumerator(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    CloseTangramUI(): PrivateScope, Public, HideBySig
+    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_NodeCount(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Interface Universe.IWebRTEventObjProxy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit
+Interface Universe.IWebRTWndXobjProxy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit
+  Methods:
+    OnObserveComplete(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnDestroy(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnXobjAddInCreated(Object, String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnXobjAddInsCreated(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnXobjDocumentComplete(Object, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnControlNotify(Xobj, Int32 IsLong, Int32 IsLong, IntPtr, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnTabChange(Int32 IsLong, Int32 IsLong): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Universe.INucleiProxy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit
+  Methods:
+    OnNucleiLoaded(Nuclei, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnXobjCreated(Xobj): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnAddInCreated(Xobj, Object, String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnBeforeOpenXml(String, IntPtr): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnOpenXmlComplete(String, IntPtr, Xobj): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnDestroy(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnNodeMouseActivate(Xobj): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnClrControlCreated(Xobj, Control, String, IntPtr): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnTabChange(Xobj, Int32 IsLong, Int32 IsLong): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnControlNotify(Xobj, Int32 IsLong, Int32 IsLong, IntPtr, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnWebRTEvent(IWebRTEventObjProxy): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Universe.IGalaxyProxy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit
+  Methods:
+    OnExtend(Xobj, String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Universe.IVSProxy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit
+  Methods:
+    OnConnect(String, IntPtr): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Universe.IWebRTApp: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit
+  Methods:
+    TangramClose(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnXobjInit(Xobj): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnNucleusCreated(WinNucleus): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnNucleiCreated(Nuclei): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnObserveComplete(IntPtr, String, Xobj): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnWebRTEvent(IWebRTEventObjProxy): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Struct Disposition: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Disposition UNKNOWN = 0 : Public, Static, Literal, HasDefault
+    Disposition CURRENT_TAB = 1 : Public, Static, Literal, HasDefault
+    Disposition SINGLETON_TAB = 2 : Public, Static, Literal, HasDefault
+    Disposition NEW_FOREGROUND_TAB = 3 : Public, Static, Literal, HasDefault
+    Disposition NEW_BACKGROUND_TAB = 4 : Public, Static, Literal, HasDefault
+    Disposition NEW_POPUP = 5 : Public, Static, Literal, HasDefault
+    Disposition NEW_WINDOW = 6 : Public, Static, Literal, HasDefault
+    Disposition SAVE_TO_DISK = 7 : Public, Static, Literal, HasDefault
+    Disposition OFF_THE_RECORD = 8 : Public, Static, Literal, HasDefault
+    Disposition IGNORE_ACTION = 9 : Public, Static, Literal, HasDefault
+    Disposition SWITCH_TO_TAB = 10 : Public, Static, Literal, HasDefault
+Struct Universe.CosmosAppType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Universe.CosmosAppType APPWIN32 = 500 : Public, Static, Literal, HasDefault
+    Universe.CosmosAppType APPBROWSER = 1000 : Public, Static, Literal, HasDefault
+    Universe.CosmosAppType APPECLIPSE = 2000 : Public, Static, Literal, HasDefault
+    Universe.CosmosAppType APPBROWSER_ECLIPSE = 3000 : Public, Static, Literal, HasDefault
+    Universe.CosmosAppType APPBROWSERAPP = 4000 : Public, Static, Literal, HasDefault
+    Universe.CosmosAppType APPOTHER = 0 : Public, Static, Literal, HasDefault
+Class Universe.NewChildForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.Form m_pParent : Public
+  Methods:
+    GetListView(): PrivateScope, Public, HideBySig

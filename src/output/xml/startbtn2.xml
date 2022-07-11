@@ -1,0 +1,15 @@
+﻿<content_grid target="mainClient">
+  <nucleus> 
+    <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+      <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+      <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+      <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+      <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+      <xobj objid="nucleus"></xobj>
+      <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+      <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+      <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+      <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+    </xobj>
+  </nucleus> 
+</content_grid>

@@ -1,0 +1,59 @@
+﻿<!-- This is "index.html". Normally, it is named "ProjectName.index.html". This webpage is the real entry point of the HTML-driven App. -->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>欢迎您进入一个全新的.NET世界, 我是您的朋友WebRuntime</title>
+    <link rel="icon" href="webpage/app.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <cosmos>
+        <define tagName="webViewport"></define>
+        <webViewport>
+            <fission>
+                <xobj rows="1" cols="3" width="750,300,200," id="xxx">
+                    <xobj objid="FirstApp.Form1,host" id="navCtrl">
+                    </xobj>
+                    <xobj objid="nucleus" id="mainClient">
+                    </xobj>
+                    <xobj objid="FirstApp.Form1,host" id="navCtrl2">
+                    </xobj>
+                </xobj>
+            </fission>
+        </webViewport>
+    </cosmos>
+    <strong style="font-size:32px; color:black">欢迎<i style="color:fuchsia">您来到</i><i style="color:blue">Web Runtime的 </i><b style="color:coral">.NET桌面编程世界</b>!</strong>
+</body>
+</html>

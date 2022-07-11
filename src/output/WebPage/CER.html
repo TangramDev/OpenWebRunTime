@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Common Eclipse Runtime</title>
+    <link rel="icon" href="eclipse48.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+    <script type="text/javascript"></script>
+</head>
+<body background="cerbk.jpg">
+    <define tagName="webViewport"></define>
+    <define tagName="gridTemplate"></define>
+    <webViewport>
+        <fission> 
+            <xobj rows="1" cols="2" width="550,">
+                <xobj objid="SunnyCtrl.CERCtrl,SunnyCtrl" id="navCtrl"></xobj>
+                <xobj objid="nucleus" id="mainClient"></xobj>
+            </xobj>
+        </fission> 
+    </webViewport>
+    <p style="font-size:40px; color:blue">Sunny's <i style="font-size:40px; color:fuchsia">New </i>World of .NET<strong></strong></p>
+    <center style="font-size:40px; color:blue"><h2>Common Eclipse Runtime</h2></center>
+    <p style="font-size:32px; color:crimson">The Common Eclipse Runtime(CER) is the dynamic link library version of the <strong><i style="font-size:32px; color:fuchsia">Eclipse </i>Project</strong></p>
+    <h3>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspIt contains all the code for the eclipse project. Its goal is to make the windows desktop application implement the built-in eclipse model according to the consistent scheme,
+        and make the host desktop software become the startup program of eclipse naturally.
+    </h3>
+    <h3>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDifferent from the traditional eclipse, the application integrated with CER (Common Eclipse Runtime) has its own application object model.
+        Since all the functions of the eclipse part are provided based on the dll mode, CER does not know in advance whether the host application is What, what object model the host application contains,
+        CER solves the connection problem between the host model and the eclipse standard model, so the real eclipse model can only be determined after the host application is clear. At the same time,
+        the OSGi model of the host application will be larger than the standard eclipse OSGi model. In other words, the host application system will provide application model parts that are not provided in the standard eclipse.
+    </h3>
+    <h3>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThe actual OSGi model of the host application may include members that are not part of the standard eclipse OSGi model,
+        which means that the host application supports both standard eclipse components and application-based eclipse components, and does not provide specific application-oriented components in the standard Eclipse mode eclipse components.
+        Because the host application has all the functions of the Eclipse project built-in, application developers can develop new application content for the host application based on Eclipse technology,
+        so that the host application becomes a software ecosystem based on Java technology.
+    </h3>
+</body>
+</html>

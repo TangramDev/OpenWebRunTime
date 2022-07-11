@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <define tagname="application"></define>
+    <define tagname="mainwindow"></define>
+    <define tagname="webviewport"></define>
+    <define tagname="gridTemplate"></define>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+    <style type="text/css">
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.grids = {};
+
+        function system_requirements_extra(linkElm) {
+            var grid_ = window.grids['system_requirements_extra'];
+            if (!!grid_) {
+                grid_.xobj.setStr("msgID", "system_requirements_extra_update_label");
+                var label_text = linkElm.getAttribute("data-label-text");
+                grid_.xobj.setStr("label_text", label_text);
+                grid_.sendMessage(grid_.xobj);
+            }
+        }
+
+        reactor.onXobjCreated = function (e) {
+            window.grids[e.xobj.name] = e.grid;
+            if (e.xobj.name == 'navcontrol') {
+                e.grid.addEventListener("treeView1", "OnAfterSelect", function (e) {
+                    var name = e.getStr("name");
+                    var contentElements = document.getElementsByClassName("contents")[0].children;
+                    for (var i = 0; i < contentElements.length; i++) {
+                        var classList = contentElements[i].classList;
+                        var bContains = classList.contains(name);
+                        classList.remove(bContains ? "hidden" : "show");
+                        classList.add(bContains ? "show" : "hidden");
+                        if (bContains) {
+                            var nativeElms = contentElements[i].getElementsByTagName("native");
+                            if (nativeElms.length > 0) {
+                                var nativeElm = nativeElms[0];
+
+                                var parentgrid = e.grid.parent;
+                                var type = e.grid.parent.xobj.getLong("gridtype");
+                                if (parentgrid != null&&type==4) {
+                                   parentgrid.Observe(0, 0, name, nativeElm.outerHTML, 0, 1);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <application>
+        <modules>
+            <module libname="KnowledgeBase.exe" objname="Cas.WebAgent" functionname="Load"></module>
+        </modules>
+    </application>
+    <mainwindow objid="KnowledgeBase.Form1,KnowledgeBase" width="1200" height="800">
+        <panel1>
+            <default>
+                <fission> 
+                    <xobj url="host"></xobj>
+                </fission> 
+            </default>
+        </panel1>
+    </mainwindow>
+    <gridTemplate type="usercontrol" objid="KnowledgeBase.NavControl,KnowledgeBase" uikey="navcontrol">
+        <treeView1>
+            <uidata key="uidata" treenode="true" text="Checking out and Building Chromium for Windows">
+                <treeView1_tag name="index"></treeView1_tag>
+                <node1 treenode="true" text="System requirements"></node1>
+                <node1_tag name="system_requirements"></node1_tag>
+                <node2 treenode="true" text="Setting up Windows"></node2>
+                <node2_tag name="setting_up_windows"></node2_tag>
+                <node3 treenode="true" text="Install"></node3>
+                <node3_tag name="install"></node3_tag>
+                <node4 treenode="true" text="Get the code"></node4>
+                <node4_tag name="get_the_code"></node4_tag>
+                <node5 treenode="true" text="Setting up the build">
+                    <node51 treenode="true" text="Using the Visual Studio IDE"></node51>
+                    <node52 treenode="true" text="Faster builds"></node52>
+                    <node53 treenode="true" text="Why is my build slow?"></node53>
+                </node5>
+                <node5_tag name="setting_up_the_build"></node5_tag>
+                <node6 treenode="true" text="Build Chromium"></node6>
+                <node6_tag name="build_chromium"></node6_tag>
+                <node7 treenode="true" text="Run Chromium"></node7>
+                <node7_tag name="run_chromium"></node7_tag>
+            </uidata>
+        </treeView1>
+    </gridTemplate>
+    <webviewport>
+        <fission> 
+            <xobj rows="1" cols="2" width="400,400,">
+                <xobj objid="navcontrol" id="navcontrol"></xobj>
+                <xobj objid="nucleus" id="main"></xobj>
+            </xobj>
+        </fission> 
+    </webviewport>
+    <div class="contents">
+        <div class="show index markdown-body">
+            <h1>Checking out and Building Chromium for Windows</h1>
+        </div>
+        <div class="hidden system_requirements markdown-body">
+            <h2>System requirements</h2>
+            <ul>
+                <li><a href="javascript:;" data-label-text="In practice, 8GB of memory is not enough. In the C++ link phase, a lot of memory is consumed. We recommend 32GB RAM." onclick="system_requirements_extra(this);">A 64-bit Intel machine with at least 8GB of RAM. More than 16GB is highly recommended.</a></li>
+                <li><a href="javascript:;" data-label-text="100GB of disk space is not enough. Different build arguments (debug, release, x64, x86, component build, etc.) result in multiple build copies. Each build copy requires approximately 100GB of disk space." onclick="system_requirements_extra(this);">At least 100GB of free disk space on an NTFS-formatted hard drive. FAT32 will not work, as some of the Git packfiles are larger than 4GB.</a></li>
+                <li><a href="javascript:;" data-label-text="We recommend using the latest version of Visual Studio and Windows. (Now Visual Studio 2019 and Windows 10)" onclick="system_requirements_extra(this);">An appropriate version of Visual Studio, as described below.</a></li>
+                <li><a href="javascript:;" data-label-text="We recommend using the latest version of Visual Studio and Windows. (Now Visual Studio 2019 and Windows 10)" onclick="system_requirements_extra(this);">Windows 7 or newer.</a></li>
+            </ul>
+            <native>
+                <fission> 
+                    <xobj rows="2" cols="1" height="400,400,">
+                        <xobj objid="nucleus"></xobj>
+                        <xobj id="system_requirements_extra" objid="KnowledgeBase.SystemRequirementsExtra,KnowledgeBase"></xobj>
+                    </xobj>
+                </fission> 
+            </native>
+        </div>
+        <div class="hidden setting_up_windows markdown-body">
+            <h2>Setting up Windows</h2>
+            <h3>Visual Studio</h3>
+            <p>Chromium requires Visual Studio 2017 (>=15.7.2) to build, but VS2019 (>=16.0.0) is preferred. Visual Studio can also be used to debug Chromium, and VS2019 is preferred for this as it handles Chromium's large debug information much better. The clang-cl compiler is used but Visual Studio's header files, libraries, and some tools are required. Visual Studio Community Edition should work if its license is appropriate for you. You must install the "Desktop development with C++" component and the "MFC/ATL support" sub-components. This can be done from the command line by passing these arguments to the Visual Studio installer (see below for ARM64 instructions):</p>
+            <div class="highlight highlight-source-shell">
+                <pre>$ PATH_TO_INSTALLER.EXE ^
+--add Microsoft.VisualStudio.Workload.NativeDesktop ^
+--add Microsoft.VisualStudio.Component.VC.ATLMFC ^
+--add Microsoft.VisualStudio.Component.VC.Tools.ARM64 ^
+--add Microsoft.VisualStudio.Component.VC.MFC.ARM64 ^
+--includeRecommended</pre>
+            </div>
+            <p>You must have the version 10.0.19041 or higher Windows 10 SDK installed. This can be installed separately or by checking the appropriate box in the Visual Studio Installer.</p>
+            <p>The SDK Debugging Tools must also be installed. If the Windows 10 SDK was installed via the Visual Studio installer, then they can be installed by going to: Control Panel → Programs → Programs and Features → Select the "Windows Software Development Kit" → Change → Change → Check "Debugging Tools For Windows" → Change. Or, you can download the standalone SDK installer and use it to install the Debugging Tools.</p>
+        </div>
+        <div class="hidden install markdown-body">
+            Install
+        </div>
+        <div class="hidden get_the_code markdown-body">
+            Get the Code
+        </div>
+        <div class="hidden setting_up_the_build markdown-body">
+            Setting up the Build
+        </div>
+        <div class="hidden build_chromium markdown-body">
+            Build Chromium
+        </div>
+        <div class="hidden run_chromium markdown-body">
+            Run Chromium
+        </div>
+    </div>
+</body>
+</html>

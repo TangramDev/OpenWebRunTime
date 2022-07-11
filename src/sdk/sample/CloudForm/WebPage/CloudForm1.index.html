@@ -1,0 +1,239 @@
+﻿<!-- This is "index.html". Normally, it is named "ProjectName.index.html". This webpage is the real entry point of the HTML-driven App. -->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>欢迎您进入一个全新的.NET世界, 我是您的朋友WebRuntime</title>
+    <link rel="icon" href="webpage/app.png" sizes="32x32">
+    <script type="text/javascript">
+        reactor.onLoadCloudForm = function (e) {
+            form = e.form;
+            switch (form.name) {
+                case "mainForm":
+                    {
+                        form.onCloudMessageForCloudForm = function (e) {
+                            switch (this.msgID) {
+                                case "button1_OnClick":
+                                    alert(this.workElement.outerHTML);
+                                    this.Observe("panel1", "default", this.workElement.outerHTML);
+                                    reactor.Observe("__viewport_default__", "");
+                                    break;
+                                case "button2_OnClick":
+                                    alert(this.workElement.outerHTML);
+                                    this.Observe("panel1", this.workElement.tagName, this.workElement.outerHTML);
+                                    break;
+                                case "button3_OnClick":
+                                    alert(this.workElement.outerHTML);
+                                    this.Observe("panel1", this.workElement.tagName, this.workElement.outerHTML);
+                                    reactor.Observe(this.workElement.tagName, reactor.getElementById("layout_4"));
+                                    break;
+                                case "button4_OnClick":
+                                    this.Observe("panel1", "button4", reactor.getElementById("layout_4"));
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+            }
+        };
+        function OpenAppURL1() {
+            reactor.openUrl("host:webpage/WebApp1.html", 100);
+        }
+        function OpenAppURL2() {
+            reactor.openUrl("host:webpage/WebApp2.html", 100);
+        }
+        function OpenAppURL3() {
+            reactor.openUrl("host:webpage/WebApp3.html", 100);
+        }
+        function OpenAppURL4() {
+            reactor.openUrl("host:webpage/WebApp4.html", 100);
+        }
+        function OpenAppURL5() {
+            reactor.openUrl("host:webpage/WebApp5.html", 100);
+        }
+        function OpenAppURL6() {
+            reactor.openUrl("host:webpage/WebApp6.html", 100);
+        }
+
+        function OpenCWRURL() {
+            reactor.openUrl("host:webpage/CWR.html", 2);
+        }
+
+        function OpenCERURL() {
+            reactor.openUrl("host:webpage/CER.html", 2);
+        }
+        function OpenAppURLAsSubPage1() {
+            reactor.openUrl("host:webpage/SubWebApp1.html", 2);
+        }
+        function OpenAppURLAsSubPage2() {
+            reactor.openUrl("host:webpage/SubWebApp2.html", 2);
+        }
+        function OpenAppURLAsSubPage3() {
+            reactor.openUrl("host:webpage/WebApp3.html", 2);
+        }
+    </script>
+</head>
+<body>
+    <cosmos>
+        <!-- Define new DOM elements -->
+        <define tagName="mainWindow"></define>
+        <define tagName="application"></define>
+        <define tagName="webViewport"></define>
+        <!-- End Define new DOM elements -->
+        <!-- The "application" element is required, it can provide application-level configuration. -->
+        <application>
+            <modules>
+                <module libname="CloudForm.exe" objname="CloudForm.WebDelegate" functionname="Init"></module>
+            </modules>
+            <urls>
+                <url url="host:WebPage/sunny.html"></url>
+            </urls>
+        </application>
+        <mainWindow objid="CloudForm.Form1,host" caption="Web Runtime" width="1800" height="1200" id="mainForm">
+            <eventmap>
+                <button1 event="OnClick">
+                    <default>
+                        <fission>
+                            <xobj style="39" activepage="1">
+                                <xobj caption="Cloudx Application" id='Splitter1' rows='1' cols='2' height='250,' width='350,350,' borderwidth='0' splitterwidth='6'>
+                                    <xobj objid="nucleus">
+                                    </xobj>
+                                    <xobj objid="" id="Sunny_ntpctrl">
+                                    </xobj>
+                                </xobj>
+                                <xobj caption="Common Web Runtime for Application" url="host"></xobj>
+                            </xobj>
+                        </fission>
+                    </default>
+                </button1>
+                <button2 event="OnClick">
+                    <layout_2 id="layout_2">
+                        <fission>
+                            <xobj style="33">
+                                <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                    <xobj style="18" activepage="0">
+                                        <xobj caption="First Page" id="host"></xobj>
+                                        <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                    </xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                </xobj>
+                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                        </fission>
+                    </layout_2>
+                </button2>
+                <button3 event="OnClick">
+                    <layout_3 id="layout_3">
+                        <fission>
+                            <xobj style="23">
+                                <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100" masterrow="1" mastercol="1">
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                    <xobj style="18" activepage="1">
+                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                        <xobj objid="" caption="Compound grid World Gives You An Unexpected Surprise" id="host"></xobj>
+                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                    </xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                </xobj>
+                                <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                        </fission>
+                    </layout_3>
+                </button3>
+                <button4 event="OnClick">
+                    <xx></xx>
+                </button4>
+            </eventmap>
+            <panel1 id="mainworkclient">
+                <default>
+                    <fission>
+                        <xobj style="39" activepage="1">
+                            <xobj caption="Cloudx Application" id='Splitter1' rows='1' cols='2' height='250,' width='350,350,' borderwidth='0' splitterwidth='6'>
+                                <xobj objid="nucleus">
+                                </xobj>
+                                <xobj objid="" id="Sunny_ntpctrl">
+                                </xobj>
+                            </xobj>
+                            <xobj caption="Common Web Runtime for Application" url="host" id="host"></xobj>
+                        </xobj>
+                    </fission>
+                </default>
+            </panel1>
+        </mainWindow>
+        <webViewport>
+            <fission>
+                <xobj rows="1" cols="2" width="750," id="xxx" caption="test caption">
+                    <xobj objid="CloudForm.Form1,host" id="navCtrl">
+                    </xobj>
+                    <xobj objid="nucleus" id="mainClient">
+                    </xobj>
+                </xobj>
+            </fission>
+        </webViewport>
+        <fission>
+            <layout_4 id="layout_4">
+                <fission>
+                    <xobj style="43">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="29" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="" id="host" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_4>
+        </fission>
+    </cosmos>
+    <strong style="font-size:32px; color:black">欢迎<i style="color:fuchsia">您来到</i><i style="color:blue">CloudForm的 </i><b style="color:coral">.NET桌面软件生态世界</b>!</strong>
+    <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下超链接</i> 体验全新的Web页面...</h1>
+    <p>
+        <a href="javascript:void(0);" onclick="OpenAppURL1();" style="font-size:16px;color:firebrick"><b>The First WebPage for Application</b></a>
+        <hr />
+        <a href="javascript:void(0);" onclick="OpenAppURL2();" style="font-size:16px;color:blueviolet"><b>让您的应用系统拥有互联网基因</b></a>
+        <hr />
+        <a href="javascript:void(0);" onclick="OpenAppURL3();" style="font-size:16px;color:forestgreen"><b>新的Web页面，新的表现力</b></a>
+        <hr />
+        <a href="javascript:void(0);" onclick="OpenAppURL4();" style="font-size:16px;color:brown"><b>让Web应用与桌面应用之间的鸿沟渐渐消失</b></a>
+        <hr />
+        <a href="javascript:void(0);" onclick="OpenAppURL5();" style="font-size:16px;color:cadetblue"><b>冲破约束，一片新天地呼之欲出</b></a>
+        <hr />
+        <a href="javascript:void(0);" onclick="OpenAppURL6();" style="font-size:16px;color:dodgerblue"><b>您可以做更多的事情，你的Web你做主</b></a>
+        <hr />
+        <a href="javascript:void(0);" onclick="OpenAppURLAsSubPage1();" style="font-size:16px;color:saddlebrown"><b>页面无处不在</b></a>
+        <hr />
+        <a href="javascript:void(0);" onclick="OpenAppURLAsSubPage2();" style="font-size:16px;color:springgreen"><b>您的创造力无限……</b></a>
+        <hr />
+    </p>
+</body>
+</html>

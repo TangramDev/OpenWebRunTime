@@ -1,0 +1,9 @@
+﻿<tabgrid target="mainClient">
+  <fission> 
+    <xobj style="23">
+      <xobj caption="Introduction to Tabbed Grid" objid="nucleus"></xobj>
+      <xobj caption="Second Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+      <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+    </xobj>
+  </fission> 
+</tabgrid>

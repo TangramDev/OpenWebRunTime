@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Common Web Runtime</title>
+    <link rel="icon" href="chromium.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+</head>
+<body background="cwrbk.jpg">
+    <define tagName="webViewport"></define>
+    <define tagName="gridTemplate"></define>
+    <webViewport>
+        <fission> 
+            <xobj rows="1" cols="2" width="550,">
+                <xobj objid="SunnyForms.CWBForm,SunnyForms" id="navCtrl"></xobj>
+                <xobj objid="nucleus" id="mainClient"></xobj>
+            </xobj>
+        </fission> 
+    </webViewport>
+    <p style="font-size:40px; color:forestgreen">WebRuntime的.NET<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></p>
+    <center style="font-size:40px; color:cadetblue"><h2>Common Web Runtime</h2></center>
+    <p style="font-size:32px; color:darkblue">Common Web Runtime(CWR)是<strong><i style="font-size:32px; color:darkviolet">Google Chromium </i>项目的动态链接库版本</strong></p>
+    <p>
+        <b style="font-size:20px; color:Highlight">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCWR包含Chromium项目的所有代码。其目标是使Windows桌面应用程序按照一致的方案实现内置的现代浏览器模型，
+            使宿主桌面软件自然成为现代web浏览器。与传统浏览器不同的是，与CWR集成的应用程序有自己的应用对象模型，
+            由于浏览器部分的所有功能都是基于dll模式提供的，CWR事先并不知道宿主应用程序是什么，也不清楚宿主应用
+            程序包含什么对象模型，CWR解决了宿主模型和浏览器标准模型之间的连接问题，因此只有在定义了特定的宿主应用
+            程序之后才能确定真正的浏览器模型。
+        </b>
+    </p>
+    <p>
+        <b style="font-size:20px; color:blue">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp宿主应用程序的DOM模型将是标准浏览器的DOM模型的一个超集。换句话说，宿主应用程序系统将提供标准浏览器中无法提供的应用
+            模型部分。宿主应用程序的实际DOM模型可能包括不属于标准浏览器DOM模型的成员，这意味着宿主应用程序同时支持标准网页和基于
+            应用程序的网页（标准浏览器模式下没有基于应用程序的网页）。由于宿主应用程序内置了Chromium项目的所有功能，应用程序开发
+            人员可以基于Web技术为宿主应用程序开发新的应用程序内容，使宿主应用程序成为基于Web技术的软件生态系统。
+        </b>
+    </p>
+    <p>
+        <b style="font-size:20px; color:black">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCWR在DOM方面，增加了.NET Framework的支持，允许在Web页面上用DOM的规则写针对.NET UI的DOM元素，也就是说
+            WinForm、Usercontrol、WPF等对象可以做为页面元素的一部分体现在实际的开发之中，这一点对形成应用生态非常重要。
+        </b>
+    </p>
+</body>
+</html>

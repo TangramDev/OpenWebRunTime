@@ -1,0 +1,62 @@
+﻿<!-- This is "index.html". Normally, it is named "ProjectName.index.html". This webpage is the real entry point of the HTML-driven App. -->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>欢迎您进入一个全新的.NET世界, 我是您的朋友WebRuntime</title>
+    <link rel="icon" href="webpage/app.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <cosmos>
+        <!-- Define new DOM elements -->
+        <define tagName="mainWindow"></define>
+        <define tagName="application"></define>
+        <!-- End Define new DOM elements -->
+        <!-- The "application" element is required, it can provide application-level configuration. -->
+        <application>
+            <ntp>
+                <fission>
+                    <xobj id='grid' rows='1' cols='2' width='350,350,' splitterwidth='6'>
+                        <xobj objid="FirstApp.Form1,host"></xobj>
+                        <xobj objid="nucleus"></xobj>
+                    </xobj>
+                </fission>
+            </ntp>
+        </application>
+        <mainWindow objid="FirstApp.Form1,host" caption="Web Runtime" width="2400" height="1600" id="mainForm">
+        </mainWindow>
+    </cosmos>
+</body>
+</html>

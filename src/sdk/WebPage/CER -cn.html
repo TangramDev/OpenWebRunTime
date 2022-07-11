@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Common Eclipse Runtime</title>
+    <link rel="icon" href="eclipse48.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+    <script type="text/javascript"></script>
+</head>
+<body background="cerbk.jpg">
+    <define tagName="webViewport"></define>
+    <define tagName="gridTemplate"></define>
+    <webViewport>
+        <fission> 
+            <xobj rows="1" cols="2" width="550,">
+                <xobj objid="SunnyCtrl.CERCtrl,SunnyCtrl" id="navCtrl"></xobj>
+                <xobj objid="nucleus" id="mainClient"></xobj>
+            </xobj>
+        </fission> 
+    </webViewport>
+    <p style="font-size:40px; color:crimson">WebRuntime的.NET<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></p>
+    <center style="font-size:40px; color:blue"><h2>Common Eclipse Runtime</h2></center>
+    <p style="font-size:32px; color:crimson">Common Eclipse Runtime(CER)是<strong><i style="font-size:32px; color:fuchsia">Eclipse </i>项目的动态链接库版本</strong></p>
+    <h3>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp包含Eclipse项目的所有代码。其目标是使windows桌面应用程序按照一致的方案实现内置的Eclipse模型，
+        使宿主桌面软件自然成为Eclipse的启动程序。
+    </h3>
+    <h3>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp与传统的eclipse不同的是，与CER(Common Eclipse Runtime)集成的应用程序有自己的应用程序对象模型，
+        由于eclipse部分的所有功能都是基于dll模式提供的，因此CER事先不知道宿主应用程序是什么，宿主应用程序
+        包含什么对象模型，CER解决了宿主模型和eclipse标准模型之间的连接问题，因此只有在明确宿主应用程序之后才能确定真正的
+        eclipse模型。同时，宿主应用程序的OSGi模型将比标准eclipse的OSGi模型更大。换句话说，宿主应用程序系统将提供标准eclipse中
+        没有提供的应用模型部分。
+    </h3>
+    <h3>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp宿主应用程序的实际OSGi模型可能包括不属于标准eclipse OSGi模型的成员，这意味着宿主应用程序同时支持标准eclipse组件
+        和基于应用程序的eclipse组件，并且在标准Eclipse模式下没有提供面向具体应用程序的eclipse组件。由于宿主应用程序内置了Eclipse项目
+        的所有功能，应用程序开发人员可以基于Eclipse技术为宿主应用程序开发新的应用程序内容，从而使宿主应用程序成为一个基于Java技术
+        的软件生态系统。
+    </h3>
+</body>
+</html>

@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>New Web, New World</title>
+    <link rel="icon" href="tangram.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+    <style type="text/css">
+        table.dock, td.sunnysolution, th.sunnysolution {
+            border: 5px solid blue
+        }
+
+        table.dock2 {
+            border: 1px solid blue;
+            border-collapse: collapse;
+        }
+
+        .outTable {
+            width: 100%;
+            height: auto;
+        }
+
+        .inTable {
+            width: 100%;
+            height: 100%;
+        }
+
+        .outTable td {
+            border: 1px solid #ccc;
+        }
+
+        .div {
+            width: 600px;
+            height: auto;
+        }
+
+        td.dotnetuitype {
+            height: 50px;
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+        window.grids = {};
+        reactor.onXobjCreated = function (e) {
+            window.grids[e.xobj.name] = e.grid;
+            switch (e.xobj.name) {
+                case "SunnyForm_Form1":
+                case "SunnyForm_Form3":
+                case "SunnyForm_Form5":
+                    {
+                        e.grid.addEventListener("button1", "OnClick", function (e) {
+                            switch (e.xobj.name) {
+                                case "SunnyForm_Form1":
+                                    {
+                                        e.grid.Observe("panel1", "panel1", document.getElementById("form_panel1_0").outerHTML);
+                                        var grid_ = window.grids['SunnyForm_Form6'];
+                                        if (!!grid_) {
+                                            grid_.Observe("panel1", "panel1", document.getElementById("form_panel1_1").outerHTML);
+                                        }
+
+                                        grid_ = window.grids['SunnyForm_Form4'];
+                                        if (!!grid_) {
+                                            grid_.Observe("panel1", "panel1", document.getElementById("form_panel1_2").outerHTML);
+                                        }
+                                    }
+                                    break;
+                                case "SunnyForm_Form3":
+                                    {
+                                        e.grid.Observe("panel1", "panel1", document.getElementById("form_panel1_0").outerHTML);
+                                    }
+                                    break;
+                            }
+                        });
+                    }
+                    break;
+                case "SunnyCtrl_UserControl4":
+                    alert("UserControl Created: " + e.xobj.name);
+                    e.grid.addEventListener("button1", "OnClick", function (e) {
+                        switch (e.xobj.name) {
+                            case "SunnyCtrl_UserControl4":
+                                {
+                                    e.grid.Observe("panel1", "panel1", document.getElementById("form_panel1_0").outerHTML);
+                                    var grid_ = window.grids['SunnyCtrl_UserControl6'];
+                                    if (!!grid_) {
+                                        grid_.Observe("panel1", "xxx", document.getElementById("form_panel1_1").outerHTML);
+                                    }
+
+                                    grid_ = window.grids['SunnyCtrl_UserControl1'];
+                                    if (!!grid_) {
+                                        grid_.Observe("panel1", "panel1", document.getElementById("form_panel1_2").outerHTML);
+                                    }
+                                }
+                                break;
+                        }
+                    });
+                    break;
+            }
+        }
+
+        reactor.onCosmosMessageReceived = function (e) {
+            switch (e.xobj.getStr("msgID")) {
+                case "TANGRAMAPP_READY":
+                    {
+                    }
+                    break;
+                case "testButton1_click":
+                    {
+                        var grid_ = window.grids['SunnyForm_Form10'];
+                        grid_ = window.grids['SunnyForm_Form10'];
+                        if (!!grid_) {
+                            grid_.Observe("panel1", "panel1", document.getElementById("form_panel1_1").outerHTML);
+                        }
+                        grid_ = window.grids['SunnyForm_Form5'];
+                        if (!!grid_) {
+
+                            grid_.xobj.setStr("msgID", "testButtonClickCallback");
+                            grid_.xobj.setStr("callbackval", "just a test");
+                            grid_.sendMessage(grid_.xobj);
+                        }
+                    }
+                    break;
+                case "UserControl1_testButton1_click":
+                    {
+                        var grid_ = window.grids['SunnyCtrl_UserControl6'];
+                        if (!!grid_) {
+
+                            grid_.xobj.setStr("msgID", "UserControl6_testButtonClickCallback");
+                            grid_.xobj.setStr("callbackval", "just a test");
+                            grid_.sendMessage(grid_.xobj);
+                        }
+                        grid_ = window.grids['SunnyCtrl_UserControl1'];
+                        if (!!grid_) {
+                            grid_.xobj.setStr("msgID", "UserControl6_testButtonClickCallback");
+                            grid_.xobj.setStr("callbackval", "just a test");
+                            grid_.sendMessage(grid_.xobj);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        function NewDocument() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".xxxx", "test1", "");
+        }
+
+        function NewDocument2() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".xxxx", "test", "");
+        }
+
+        function OnDockdemo() {
+            reactor.Observe("dockdemo", document.getElementById("dockdemo").outerHTML);
+        }
+        function OnDockdemo2() {
+            reactor.Observe("dockdemo2", document.getElementById("dockdemo2").outerHTML);
+        }
+        function OnDockdemo3() {
+            reactor.Observe("dockdemo3", document.getElementById("dockdemo3").outerHTML);
+        }
+    </script>
+</head>
+<body background="newworld.jpg">
+    <define tagName="webViewport"></define>
+    <define tagName="gridTemplate"></define>
+    <strong style="font-size:40px; color:indianred">WebRuntime的.NET<i style="color:fuchsia">新 </i>世界</strong>
+    <p><center><strong style="font-size:36px; color:blue">一个全新的Web在这里拉开了帷幕...</strong></center></p>
+    <p>
+        <button style="font-size: 18px; font-weight:bold; color:darkgreen" onclick="OnDockdemo()"><i>Press me to continus</i>...</button>&nbsp
+        <button style="font-size: 18px; font-weight:bold; color:crimson" onclick="OnDockdemo2()"><i>看看WebRuntime如何动态组织 WinForm对象</i>...</button>&nbsp
+        <button style="font-size: 18px; font-weight:bold; color:darkmagenta" onclick="OnDockdemo3()"><i>看看WebRuntime如何组织 Usercontrol对象</i>...</button>
+    </p>
+    <br />
+    <strong style="font-size:32px; color:darkred">Dock：既熟悉又陌生的属性</strong>
+    <p style="font-size: 20px; font-weight:bold; color:midnightblue">
+        每一个.NET UI(WinForm、Usercontrol、WPF)对象都拥有Dock属性，自从.NET Framework诞生以来，
+        这个属性一直都存在。长年以来，我们已经习惯了Dock属性的<i style="font-weight:bold; color:red">约定成熟 </i>的使用方式，进而思维陷入了惯性，
+        形成了盲点。一般说来，Dock属性将UI对象分为两大类，如右侧的表所示。
+        <center>
+            <table class="dock" border="5">
+                <thead>
+                    <tr style="font-size: 18px; font-weight:bold; color:midnightblue">
+                        <th> 关于Dock属性
+                        <th width="300"> 按Dock属性控件分类
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td>
+    <p style="font-size: 20px; font-weight:bold; color:midnightblue">
+        由于Dock属性为第二类的控件必须依赖于某个特定的控件，这种依赖关系确定了<i style=" font-weight: bold;
+                                color: red; text-decoration: underline">这类控件一般不能成为某类内容的主体承载控件</i>。
+    </p>
+    <p style="font-size: 20px; font-weight:bold; color:midnightblue">
+        第一类控件包含如下两种情况：
+        <ul style="font-size: 18px; font-weight:900; color:mediumvioletred">
+            <li>控件本身是另外一个.NET UI控件的子对象</li>
+            <li>是另外一个非.NET UI对象的子窗口(DockStyle.None)</li>
+        </ul>
+    </p>
+    </td>
+    <td class="dotnetuitype">
+        <center>
+            <table border="1" frame="void" class="dock2">
+                <thead>
+                    <tr style="font-size: 18px; font-weight:bold; color:midnightblue">
+                        <th> 第一类Dock属性值
+                        <th> 第二类Dock属性值
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td class="dotnetuitype">
+                            <ol style="font-size: 20px; font-weight:900; color:darkblue">
+                                <li>DockStyle.None</li>
+                                <li>DockStyle.Fill</li>
+                            </ol>
+                        </td>
+                        <td class="dotnetuitype">
+                            <ol style="font-size: 18px; font-weight:900; color:mediumvioletred">
+                                <li>DockStyle.Left</li>
+                                <li>DockStyle.Top</li>
+                                <li>DockStyle.Right</li>
+                                <li>DockStyle.Bottom</li>
+                            </ol>
+                        </td>
+                </tbody>
+            </table>
+        </center>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </center>
+    <br />
+    <strong style="font-size:32px; color:darkblue">动态编程、可描述的编程模式从第一类控件开始...</strong>
+    <p style="font-size: 20px; font-weight:bold; color:midnightblue">
+        一般情况下，一个WinForm窗体，会至少包含一个第一类.NET UI对象，让我们看看，Dock属性究竟隐藏了什么？
+    </p>
+
+    <fission> 
+        <dockdemo id="dockdemo">
+            <fission> 
+                <xobj style="17">
+                    <xobj rows="1" cols="2" width="200,600" caption="New Web,New World">
+                        <xobj rows="2" cols="1" height="200,600">
+                            <xobj objid="nucleus"></xobj>
+                            <xobj objid="SunnyCtrl.democtrl,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj style="18" caption="Introduction to Open Universe">
+                            <xobj caption="Using WinForm"></xobj>
+                            <xobj caption="Using WPF Control"></xobj>
+                            <xobj caption="Using UserControl"></xobj>
+                        </xobj>
+                    </xobj>
+                </xobj>
+            </fission> 
+        </dockdemo>
+        <dockdemo id="dockdemo2">
+            <fission> 
+                <xobj style="17">
+                    <xobj rows="1" cols="2" width="400,600" caption="New Web,New World">
+                        <xobj style="18" caption="Introduction to Open Universe">
+                            <xobj objid="SunnyForms.Form1,SunnyForms" caption="SunnyForm-Form1" id="SunnyForm_Form1"></xobj>
+                            <xobj objid="SunnyForms.Form2,SunnyForms" caption="SunnyForm-Form2" id="SunnyForm_Form2"></xobj>
+                            <xobj objid="SunnyForms.Form3,SunnyForms" caption="SunnyForm-Form3" id="SunnyForm_Form3"></xobj>
+                        </xobj>
+                        <xobj rows="2" cols="1" height="400,600">
+                            <xobj rows="1" cols="2" width="400,300">
+                                <xobj objid="nucleus"></xobj>
+                                <xobj style="47">
+                                    <xobj objid="SunnyForms.Form4,SunnyForms" caption="SunnyForm-Form4" id="SunnyForm_Form4"></xobj>
+                                    <xobj objid="SunnyForms.Form5,SunnyForms" caption="SunnyForm-Form5" id="SunnyForm_Form5"></xobj>
+                                </xobj>
+                            </xobj>
+                            <xobj style="17">
+                                <xobj objid="SunnyForms.Form6,SunnyForms" caption="SunnyForm-Form6" id="SunnyForm_Form6"></xobj>
+                                <xobj objid="SunnyForms.Form7,SunnyForms" caption="SunnyForm-Form7" id="SunnyForm_Form7"></xobj>
+                                <xobj objid="SunnyForms.Form8,SunnyForms" caption="SunnyForm-Form8" id="SunnyForm_Form8"></xobj>
+                            </xobj>
+                        </xobj>
+                    </xobj>
+                    <xobj objid="SunnyForms.Form9,SunnyForms" caption="SunnyForm-Form9" id="SunnyForm_Form9"></xobj>
+                    <xobj objid="SunnyForms.Form10,SunnyForms" caption="SunnyForm-Form10" id="SunnyForm_Form10"></xobj>
+                </xobj>
+            </fission> 
+        </dockdemo>
+        <dockdemo id="dockdemo3">
+            <fission> 
+                <xobj style="19">
+                    <xobj rows="1" cols="2" width="200,600" caption="New Web,New World">
+                        <xobj rows="2" cols="1" height="300,600">
+                            <xobj rows="1" cols="2" width="400,300">
+                                <xobj style="29">
+                                    <xobj objid="SunnyCtrl.Usercontrol4,SunnyCtrl" caption="SunnyCtrl-UserControl4" id="SunnyCtrl_UserControl4"></xobj>
+                                    <xobj objid="SunnyCtrl.Usercontrol5,SunnyCtrl" caption="SunnyCtrl-UserControl5" id="SunnyCtrl_UserControl5"></xobj>
+                                </xobj>
+                                <xobj objid="nucleus"></xobj>
+                            </xobj>
+                            <xobj style="13">
+                                <xobj objid="SunnyCtrl.Usercontrol6,SunnyCtrl" caption="SunnyCtrl-UserControl6" id="SunnyCtrl_UserControl6"></xobj>
+                                <xobj objid="SunnyCtrl.Usercontrol7,SunnyCtrl" caption="SunnyCtrl-UserControl7" id="SunnyCtrl_UserControl7"></xobj>
+                                <xobj objid="SunnyCtrl.Usercontrol8,SunnyCtrl" caption="SunnyCtrl-UserControl8" id="SunnyCtrl_UserControl8"></xobj>
+                            </xobj>
+                        </xobj>
+                        <xobj style="18" caption="Introduction to Open Universe">
+                            <xobj objid="SunnyCtrl.Usercontrol1,SunnyCtrl" caption="SunnyCtrl-UserControl1" id="SunnyCtrl_UserControl1"></xobj>
+                            <xobj objid="SunnyCtrl.Usercontrol2,SunnyCtrl" caption="SunnyCtrl-UserControl2" id="SunnyCtrl_UserControl2"></xobj>
+                            <xobj objid="SunnyCtrl.Usercontrol3,SunnyCtrl" caption="SunnyCtrl-UserControl3" id="SunnyCtrl_UserControl3"></xobj>
+                        </xobj>
+                    </xobj>
+                    <xobj objid="SunnyCtrl.Usercontrol9,SunnyCtrl" caption="SunnyCtrl-UserControl9" id="SunnyCtrl_UserControl9"></xobj>
+                    <xobj objid="SunnyCtrl.Usercontrol10,SunnyCtrl" caption="SunnyCtrl-UserControl10" id="SunnyCtrl_UserControl10"></xobj>
+                    <xobj caption="Introduction of Open Universe"></xobj>
+                </xobj>
+            </fission> 
+        </dockdemo>
+        <testpanel id="form_panel1_0">
+            <fission> 
+                <xobj rows="3" cols="1" height="200,300,100">
+                    <xobj objid="SunnyCtrl.Usercontrol7,SunnyCtrl"></xobj>
+                    <xobj objid="nucleus"></xobj>
+                    <xobj objid="SunnyCtrl.Usercontrol8,SunnyCtrl"></xobj>
+                </xobj>
+            </fission> 
+        </testpanel>
+        <testpanel id="form_panel1_1">
+            <fission> 
+                <xobj style="33">
+                    <xobj objid="nucleus" caption="I'm panel1"></xobj>
+                    <xobj objid="SunnyForms.Form6,SunnyForms" caption="SunnyForms-Form6"></xobj>
+                    <xobj objid="SunnyForms.Form9,SunnyForms" caption="SunnyForms-Form9"></xobj>
+                </xobj>
+            </fission> 
+        </testpanel>
+        <testpanel id="form_panel1_2">
+            <fission> 
+                <xobj style="23">
+                    <xobj objid="nucleus" caption="I'm panel1"></xobj>
+                    <xobj objid="SunnyCtrl.Usercontrol7,SunnyCtrl" caption="SunnyCtrl-UserControl2"></xobj>
+                    <xobj objid="SunnyCtrl.Usercontrol8,SunnyCtrl" caption="SunnyCtrl-UserControl3"></xobj>
+                </xobj>
+            </fission> 
+        </testpanel>
+    </fission> 
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <define tagname="application"></define>
+    <define tagname="mainwindow"></define>
+    <define tagname="cloudwinform"></define>
+
+    <script type="text/javascript">
+
+        tangram.onTangramNodeCreated = function (e) {
+            console.log("star " + e.node.name + " is created\n" + "star Handle:" + e.node.handle.toString(16) + "\nNode ObjID:" + e.node.objtype);
+            if (e.node.name == "usercontrol1") {
+                e.node.addEventListener("button1", "OnClick", function (e) {
+                    alert(e.getStr("currentsubobj") + " was clicked.");
+                    alert(e.node.parentNode.getChild(0, 0));
+                    alert(1);
+                });
+                e.node.rootNode.getChild(0, 0).addEventListener("button2", "OnClick", function (e) {
+                    alert(e.getStr("currentsubobj") + " was clicked.");
+                });
+            }
+            if (e.node.name == "usercontrol2") {
+                e.node.addEventListener("OnMyEvent", function (e) {
+                    var message = e.getStr("currentsubobj") + " was fired.\n\n";
+                    message += "MyEventArgs.Value is " + e.getStr("value");
+                    alert(message);
+                });
+            }
+            if (e.node.name == "usercontrol1_in_form2") {
+                e.node.addEventListener("button1", "OnClick", function (e) {
+                    alert(e.getStr("currentsubobj") + " was clicked.");
+                });
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <application>
+        <modules>
+            <module libname="SessionApi.exe" objname="Cas.WebAgent" functionname="Load"></module>
+        </modules>
+    </application>
+    <mainwindow objid="" caption="Test Title" width="1200" height="800">
+        <panel1>
+            <default>
+                <fission>
+                    <star nodetype="splitter" rows="3" cols="4" width="400,400,100" height="200,200,300,">
+                        <star id="usercontrol1" nodetype="clrctrl" objid="SessionApi.UserControl1,SessionApi"></star>
+                        <star nodetype="splitter" rows="2" cols="1" height="400,400,">
+                            <star url="host"></star>
+                            <star id="usercontrol2" nodetype="clrctrl" objid="SessionApi.UserControl2,SessionApi"></star>
+                        </star>
+                    </star>
+                </fission>
+            </default>
+        </panel1>
+    </mainwindow>
+    <cloudwinform objid="SessionApi.Form2,SessionApi" caption="Form 2 Test">
+        <panel1>
+            <default>
+                <fission>
+                    <star nodetype="splitter" rows="2" cols="1" height="200,200,">
+                        <star id="usercontrol1_in_form2" nodetype="clrctrl" objid="SessionApi.UserControl1,SessionApi"></star>
+                        <star id="usercontrol2_in_form2" nodetype="clrctrl" objid="SessionApi.UserControl2,SessionApi"></star>
+                    </star>
+                </fission>
+            </default>
+        </panel1>
+    </cloudwinform>
+
+    <h1>This is web page.</h1>
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<compositegrid target="mainClient">
+  <nucleus> 
+    <xobj style="23">
+      <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+        <xobj style="18" activepage="1">
+          <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+          <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+          <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+        </xobj>
+        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+      </xobj>
+      <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+      <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+    </xobj>
+  </nucleus> 
+</compositegrid>

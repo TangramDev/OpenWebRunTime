@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{881F6A97-D539-4C48-B401-DF04385B2343}</ProjectGuid>
+    <RootNamespace>sandbox</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.28307.799</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader />
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="acl.cc" />
+    <ClCompile Include="broker_services.cc" />
+    <ClCompile Include="crosscall_server.cc" />
+    <ClCompile Include="dep.cc" />
+    <ClCompile Include="eat_resolver.cc" />
+    <ClCompile Include="filesystem_dispatcher.cc" />
+    <ClCompile Include="filesystem_interception.cc" />
+    <ClCompile Include="filesystem_policy.cc" />
+    <ClCompile Include="interception.cc" />
+    <ClCompile Include="interception_agent.cc" />
+    <ClCompile Include="job.cc" />
+    <ClCompile Include="named_pipe_dispatcher.cc" />
+    <ClCompile Include="named_pipe_interception.cc" />
+    <ClCompile Include="named_pipe_policy.cc" />
+    <ClCompile Include="pe_image.cc" />
+    <ClCompile Include="policy_broker.cc" />
+    <ClCompile Include="policy_engine_opcodes.cc" />
+    <ClCompile Include="policy_engine_processor.cc" />
+    <ClCompile Include="policy_low_level.cc" />
+    <ClCompile Include="policy_target.cc" />
+    <ClCompile Include="process_thread_dispatcher.cc" />
+    <ClCompile Include="process_thread_interception.cc" />
+    <ClCompile Include="process_thread_policy.cc" />
+    <ClCompile Include="registry_dispatcher.cc" />
+    <ClCompile Include="registry_interception.cc" />
+    <ClCompile Include="registry_policy.cc" />
+    <ClCompile Include="resolver.cc" />
+    <ClCompile Include="restricted_token.cc" />
+    <ClCompile Include="restricted_token_utils.cc" />
+    <ClCompile Include="sandbox.cc" />
+    <ClCompile Include="sandbox_nt_util.cc" />
+    <ClCompile Include="sandbox_policy_base.cc" />
+    <ClCompile Include="sandbox_utils.cc" />
+    <ClCompile Include="service_resolver.cc" />
+    <ClCompile Include="sharedmem_ipc_client.cc" />
+    <ClCompile Include="sharedmem_ipc_server.cc" />
+    <ClCompile Include="shared_handles.cc" />
+    <ClCompile Include="sid.cc" />
+    <ClCompile Include="sidestep\ia32_modrm_map.cpp" />
+    <ClCompile Include="sidestep\ia32_opcode_map.cpp" />
+    <ClCompile Include="sidestep\mini_disassembler.cpp" />
+    <ClCompile Include="sidestep\preamble_patcher_with_stub.cpp" />
+    <ClCompile Include="sidestep_resolver.cc" />
+    <ClCompile Include="stdafx.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="sync_dispatcher.cc" />
+    <ClCompile Include="sync_interception.cc" />
+    <ClCompile Include="sync_policy.cc" />
+    <ClCompile Include="target_interceptions.cc" />
+    <ClCompile Include="target_process.cc" />
+    <ClCompile Include="target_services.cc" />
+    <ClCompile Include="win2k_threadpool.cc" />
+    <ClCompile Include="window.cc" />
+    <ClCompile Include="win_utils.cc" />
+    <ClCompile Include="Wow64.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="acl.h" />
+    <ClInclude Include="broker_services.h" />
+    <ClInclude Include="crosscall_client.h" />
+    <ClInclude Include="crosscall_params.h" />
+    <ClInclude Include="crosscall_server.h" />
+    <ClInclude Include="dep.h" />
+    <ClInclude Include="eat_resolver.h" />
+    <ClInclude Include="filesystem_dispatcher.h" />
+    <ClInclude Include="filesystem_interception.h" />
+    <ClInclude Include="filesystem_policy.h" />
+    <ClInclude Include="interception.h" />
+    <ClInclude Include="interception_agent.h" />
+    <ClInclude Include="interception_internal.h" />
+    <ClInclude Include="internal_types.h" />
+    <ClInclude Include="ipc_tags.h" />
+    <ClInclude Include="job.h" />
+    <ClInclude Include="named_pipe_dispatcher.h" />
+    <ClInclude Include="named_pipe_interception.h" />
+    <ClInclude Include="named_pipe_policy.h" />
+    <ClInclude Include="nt_internals.h" />
+    <ClInclude Include="pe_image.h" />
+    <ClInclude Include="policy_broker.h" />
+    <ClInclude Include="policy_engine_opcodes.h" />
+    <ClInclude Include="policy_engine_params.h" />
+    <ClInclude Include="policy_engine_processor.h" />
+    <ClInclude Include="policy_low_level.h" />
+    <ClInclude Include="policy_params.h" />
+    <ClInclude Include="policy_target.h" />
+    <ClInclude Include="process_thread_dispatcher.h" />
+    <ClInclude Include="process_thread_interception.h" />
+    <ClInclude Include="process_thread_policy.h" />
+    <ClInclude Include="registry_dispatcher.h" />
+    <ClInclude Include="registry_interception.h" />
+    <ClInclude Include="registry_policy.h" />
+    <ClInclude Include="resolver.h" />
+    <ClInclude Include="restricted_token.h" />
+    <ClInclude Include="restricted_token_utils.h" />
+    <ClInclude Include="sandbox.h" />
+    <ClInclude Include="sandbox_factory.h" />
+    <ClInclude Include="sandbox_nt_types.h" />
+    <ClInclude Include="sandbox_nt_util.h" />
+    <ClInclude Include="sandbox_policy.h" />
+    <ClInclude Include="sandbox_policy_base.h" />
+    <ClInclude Include="sandbox_types.h" />
+    <ClInclude Include="sandbox_utils.h" />
+    <ClInclude Include="security_level.h" />
+    <ClInclude Include="service_resolver.h" />
+    <ClInclude Include="sharedmem_ipc_client.h" />
+    <ClInclude Include="sharedmem_ipc_server.h" />
+    <ClInclude Include="shared_handles.h" />
+    <ClInclude Include="sid.h" />
+    <ClInclude Include="sidestep\mini_disassembler.h" />
+    <ClInclude Include="sidestep\mini_disassembler_types.h" />
+    <ClInclude Include="sidestep\preamble_patcher.h" />
+    <ClInclude Include="sidestep_resolver.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="sync_dispatcher.h" />
+    <ClInclude Include="sync_interception.h" />
+    <ClInclude Include="sync_policy.h" />
+    <ClInclude Include="target_interceptions.h" />
+    <ClInclude Include="target_process.h" />
+    <ClInclude Include="target_services.h" />
+    <ClInclude Include="win2k_threadpool.h" />
+    <ClInclude Include="window.h" />
+    <ClInclude Include="win_utils.h" />
+    <ClInclude Include="Wow64.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

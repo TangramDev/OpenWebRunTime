@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Common Layout Engine</title>
+    <link rel="icon" href="tangram.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+    <script type="text/javascript">
+        function DynLayout() {
+            reactor.Observe("layout_1", document.getElementById("layout_1").outerHTML);
+        }
+
+        function DynLayout1() {
+            reactor.Observe("layout_2", document.getElementById("layout_2").outerHTML);
+        }
+
+        function DynLayout2() {
+            reactor.Observe("layout_3", document.getElementById("layout_3").outerHTML);
+        }
+
+        function DynLayout3() {
+            reactor.Observe("layout_4", document.getElementById("layout_4").outerHTML);
+        }
+
+        function DynLayout4() {
+            reactor.Observe("layout_5", document.getElementById("layout_5").outerHTML);
+        }
+
+        function DynLayout5() {
+            reactor.Observe("layout_6", document.getElementById("layout_6").outerHTML);
+        }
+
+    </script>
+</head>
+<body background="clebk.jpg">
+    <define tagName="webViewport"></define>
+    <define tagName="gridTemplate"></define>
+    <webViewport>
+        <fission> 
+            <xobj rows="1" cols="2" width="550,">
+                <xobj objid="SunnyCtrl.CLECtrl,SunnyCtrl" id="navCtrl"></xobj>
+                <xobj objid="nucleus" id="mainClient"></xobj>
+            </xobj>
+        </fission> 
+    </webViewport>
+    <x style="font-size:40px; color:crimson">Sunny's <i style="font-size:40px; color:fuchsia">New </i>World of .NET<strong></strong></x>
+    <center style="font-size:40px; color:green"><h2>Common Layout Engine</h2></center>
+    <p style="font-size: 28px;font-weight: bold; color: black">Common Layout Engine is a Multi-Level, Gridded, Nestable, easy to describe UI layout description engine.</p>
+    <p style="font-size: 24px;font-weight: bold; color: blue">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThe so-called <i style="color:brown">grid</i> is a window matrix with m rows and n columns (a grid with 1 row and n columns can be understood as a tab window with n tabs),
+        and nestable means that each "grid" in the matrix can be Multiple grid layers are dynamically nested, and only one layer is visible at runtime.
+    </p>
+    <p style="font-size: 24px;font-weight: bold; color:cornflowerblue">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspGenerally speaking, a layout may be uncertain at design time and can be dynamically generated at runtime.
+        Due to different scenarios, permissions and other factors, different dynamic matching may be carried out. In fact, flexible layout is the result of dynamic changes of multi-layer grid.
+    </p>
+    <p style="font-size: 24px;font-weight: bold; color:burlywood">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThere are two ways to describe grid: one is based on XML, which can be used in various programming languages; the other is based on DOM element of web page.
+        The advantage of this scheme is that it is easy to connect with mainstream Internet technology.
+    </p>
+    <contentcle target="mainClient">
+        <fission> 
+            <xobj objid="nucleus"></xobj>
+        </fission> 
+    </contentcle>
+    <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout()">Dynamic Layout One</button>
+    <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout1()">Dynamic Layout Two</button>
+    <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout2()">Dynamic Layout Three</button>
+    <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout3()">Dynamic Layout Four</button>
+    <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout4()">Dynamic Layout Five</button>
+    <button style="font-size: 24px;font-weight: bold; color:crimson" onclick="DynLayout5()">Dynamic Layout Six</button>
+    <h3>Dynamic layout DOM description (press a button to see DOM output):</h3>
+    <fission> 
+        <layout_1 id="layout_1">
+            <fission> 
+                <xobj style="18">
+                    <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyForms.Form2,SunnyForms"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj style="39" activepage="1">
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                            <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj objid="SunnyForms.Form3,SunnyForms"></xobj>
+                        <xobj objid="SunnyForms.Form2,SunnyForms"></xobj>
+                    </xobj>
+                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+            </fission> 
+        </layout_1>
+        <layout_2 id="layout_2">
+            <fission> 
+                <xobj style="33">
+                    <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" id="SunnyCtrl_UserControl1"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" id="SunnyCtrl_UserControl2"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" id="SunnyCtrl_UserControl3"></xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj style="18" activepage="1">
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                            <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" id="SunnyCtrl_UserControl11"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" id="SunnyCtrl_UserControl12"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" id="SunnyCtrl_UserControl13"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" id="SunnyCtrl_UserControl14"></xobj>
+                    </xobj>
+                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" id="SunnyCtrl_UserControl31" caption="Second Page"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" id="SunnyCtrl_UserControl21" caption="Third Page"></xobj>
+                </xobj>
+            </fission> 
+        </layout_2>
+        <layout_3 id="layout_3">
+            <fission> 
+                <xobj style="23">
+                    <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj style="18" activepage="1">
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                            <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                    </xobj>
+                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+            </fission> 
+        </layout_3>
+        <layout_4 id="layout_4">
+            <fission> 
+                <xobj style="43">
+                    <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj style="29" activepage="1">
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                            <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                    </xobj>
+                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+            </fission> 
+        </layout_4>
+        <layout_5 id="layout_5">
+            <fission> 
+                <xobj style="37">
+                    <xobj caption="Start Page" rows="2" cols="2" width="150,100,100" height="200,180,100">
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj style="19" activepage="1">
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                            <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                        </xobj>
+                    </xobj>
+                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+            </fission> 
+        </layout_5>
+        <layout_6 id="layout_6">
+            <fission> 
+                <xobj style="23">
+                    <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj style="18" activepage="1">
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                            <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                        <xobj objid="SunnyForms.Form7,SunnyForms"></xobj>
+                        <xobj objid="SunnyForms.Form3,SunnyForms"></xobj>
+                        <xobj objid="SunnyForms.Form2,SunnyForms"></xobj>
+                    </xobj>
+                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                </xobj>
+            </fission> 
+        </layout_6>
+    </fission> 
+</body>
+</html>

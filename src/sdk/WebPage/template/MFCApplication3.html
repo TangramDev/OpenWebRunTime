@@ -1,0 +1,1824 @@
+﻿<!-- This is "index.html". Normally, it is named "ProjectName.index.html". This webpage is the real entry point of the HTML-driven App. -->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>欢迎您进入一个全新的WebRuntime世界</title>
+    <link rel="icon" href="webpage/app.png" sizes="32x32">
+    <style type="text/css">
+        .comments {
+            width: 100%; /*自动适应父布局宽度*/
+            height: auto;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        <style type="text/css" >
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+
+    <style type="text/css">
+        table.sunnysolution, td.sunnysolution, th.sunnysolution {
+            border: 2px solid midnightblue;
+        }
+
+        td.sunnysolution {
+            vertical-align: top;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var form = null;
+        var treegrid = null;
+        var panel1_ = null;
+        var Splitter_ = null;
+        var CompositeGrid_Splitter_ = null;
+
+        reactor.onLoadMdiCloudForm = function (e) {
+            form = e.form;
+            switch (form.name) {
+                case "mainForm":
+                    {
+                        form.onGalaxyCreated = function (e) {
+                        }
+                        form.onXobjCreated = function (e) {
+                            var galaxy = e.xobj.getStr("galaxy");
+                            var nucleus = e.xobj.getStr("nucleus"); //alert(galaxy);
+                            switch (galaxy) {
+                                case "webviewport":
+                                    {
+                                        switch (nucleus) {
+                                            case "__viewport_default__":
+                                                {
+                                                    switch (e.xobj.name) {
+                                                        case "navCtrl":
+                                                            {
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "treeView1_OnAfterSelect":
+                                                                            break;
+                                                                        case "button1_OnClick":
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "webviewclient":
+                                                            {
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "treeView1_OnAfterSelect":
+                                                                            {
+                                                                                if (!!this.workElement) {
+                                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                                    if (this.objtype == "nucleus") {
+                                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                        case "DynLayoutBtn_OnClick":
+                                                                            {
+                                                                                if (!!this.workElement) {
+                                                                                    this.Observe(this.workElement.getAttribute("targetcluster") + "_OnClick", this.workElement.outerHTML);
+                                                                                    if (this.objtype == "nucleus") {
+                                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                        case "button1_OnClick":
+                                                                            {
+                                                                                if (!!this.workElement) {
+                                                                                    var xobj = this.sender;
+                                                                                    this.element.setAttribute("w12", "12345678");
+                                                                                    if (!!xobj) {
+                                                                                        xobj.ObserveEx("key1", reactor.getElementById("mainwindow_1"));
+                                                                                        if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                                            xobj.parent.Observe(0, 0, "key1", reactor.getElementById("mainwindow_2").outerHTML);
+                                                                                        }
+                                                                                    } else {
+                                                                                        alert(this.sender + " sender is form");
+                                                                                    }
+                                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                                }
+
+                                                                                if (this.objtype == "nucleus") {
+                                                                                    this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                        case "button2_OnClick":
+                                                                            {
+                                                                                if (!!this.workElement) {
+                                                                                    var xobj = this.sender;
+                                                                                    var xml = reactor.getElementById("mainwindow_2").outerHTML;
+                                                                                    xobj.Observe("key2", xml);
+                                                                                    if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                                        xobj.parent.ObserveEx(0, 0, "key2", reactor.getElementById("mainwindow_1"));
+                                                                                    }
+                                                                                    this.ObserveEx(this.workElement.getAttribute("targetcluster"), this.workElement);
+                                                                                    if (this.objtype == "nucleus") {
+                                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case "panel1":
+                                    {
+                                        panel1_ = e.galaxy;
+                                        switch (nucleus) {
+                                            case "default":
+                                                {
+                                                    switch (e.xobj.name) {
+                                                        case "Sunny_ntpctrl":
+                                                            {
+                                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                                    switch (this.msgID) {
+                                                                        case "button1_OnClick":
+                                                                            {
+                                                                                alert(this.docFragment.firstChild.outerHTML);
+                                                                            }
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "Splitter1":
+                                                            {
+                                                                Splitter_ = e.grid;
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case "mainclient@__viewport_default__@default_frame":
+                                    {
+                                        switch (nucleus) {
+                                            case "startup":
+                                                break;
+                                            case "compositegrid":
+                                                {
+                                                    switch (e.xobj.name) {
+                                                        case "CompositeGrid_Splitter":
+                                                            CompositeGrid_Splitter_ = e.grid;
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                            }
+                        };
+                    }
+                    break;
+                case "create_form_1":
+                    {
+                        form.onCloudMessageForCloudForm = function (e) {
+                            switch (e.msgID) {
+                                case "button1_OnClick":
+                                    {
+                                        alert("您好\n" + e.form.workElement.outerHTML + "****\n" + e.form.getStr("textBox1"));
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+                case "create_form_2":
+                    {
+                        //alert(form);
+                    }
+                    break;
+            }
+        };
+        reactor.onLoadCloudForm = function (e) {
+        };
+
+        reactor.onXobjCreated = function (e) {
+            var galaxy = e.xobj.getStr("galaxy");
+            var nucleus = e.xobj.getStr("nucleus");
+            switch (galaxy) {
+                case "client":
+                    switch (nucleus) {
+                        case "default":
+                            switch (e.xobj.name) {
+                                case "Sunny_ntpctrl":
+                                    {
+                                        e.xobj.onCloudMessageForXobj = function (e) {
+                                            switch (this.msgID) {
+                                                case "button1_OnClick":
+                                                    {
+                                                        var xobj = this.sender;
+                                                        if (!!xobj) {
+                                                            //alert(xobj.parent.getLong("gridtype"));
+                                                            //xobj.ObserveEx("key1", reactor.getElementById("mainwindow_1"));
+                                                            if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                xobj.parent.Observe(0, 1, "key1", reactor.getElementById("mainwindow_2").outerHTML);
+                                                            }
+                                                        } else {
+                                                            alert(this.sender + " sender is form");
+                                                        }
+                                                        alert(this.docFragment.firstChild.outerHTML);
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case "Splitter1":
+                                    {
+                                        Splitter_ = e.grid;
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case "file_view":
+                    {
+                        // alert(e.xobj.name);
+                    }
+                    break;
+                case "webviewport":
+                    {
+                        switch (nucleus) {
+                            case "__viewport_default__":
+                                {
+                                    switch (e.xobj.name) {
+                                        case "navCtrl":
+                                            {
+                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                    switch (this.msgID) {
+                                                        case "treeView1_OnAfterSelect":
+                                                            break;
+                                                        case "button1_OnClick":
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "webviewclient":
+                                            {
+                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                    switch (this.msgID) {
+                                                        case "treeView1_OnAfterSelect":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                    if (this.objtype == "nucleus") {
+                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "DynLayoutBtn_OnClick":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    this.Observe(this.workElement.getAttribute("targetcluster") + "_OnClick", this.workElement.outerHTML);
+                                                                    if (this.objtype == "nucleus") {
+                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "button1_OnClick":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    var xobj = this.sender;
+                                                                    this.element.setAttribute("w12", "12345678");
+                                                                    if (!!xobj) {
+                                                                        xobj.ObserveEx("key1", reactor.getElementById("mainwindow_1"));
+                                                                        if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                            xobj.parent.Observe(0, 0, "key1", reactor.getElementById("mainwindow_2").outerHTML);
+                                                                        }
+                                                                    } else {
+                                                                        alert(this.sender + " sender is form");
+                                                                    }
+                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                }
+
+                                                                if (this.objtype == "nucleus") {
+                                                                    this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "button2_OnClick":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    var xobj = this.sender;
+                                                                    var xml = reactor.getElementById("mainwindow_2").outerHTML;
+                                                                    xobj.Observe("key2", xml);
+                                                                    if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                        xobj.parent.ObserveEx(0, 0, "key2", reactor.getElementById("mainwindow_1"));
+                                                                    }
+                                                                    this.ObserveEx(this.workElement.getAttribute("targetcluster"), this.workElement);
+                                                                    if (this.objtype == "nucleus") {
+                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                    }
+                                }
+                                break;
+                            case "default":
+                                {
+                                    switch (e.xobj.name) {
+                                        case "navCtrl":
+                                            {
+                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                    switch (this.msgID) {
+                                                        case "treeView1_OnAfterSelect":
+                                                            break;
+                                                        case "button1_OnClick":
+                                                            alert(e.xobj.name);
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "mdiclient":
+                                            {
+                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                    switch (this.msgID) {
+                                                        case "treeView1_OnAfterSelect":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                }
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "webviewclient":
+                                            {
+                                                //alert(e.xobj);
+                                                e.xobj.onCloudMessageForXobj = function (e) {
+                                                    switch (this.msgID) {
+                                                        case "treeView1_OnAfterSelect":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                    if (this.objtype == "docwebhost") {
+                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "DynLayoutBtn_OnClick":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    this.Observe(this.workElement.getAttribute("targetcluster") + "_OnClick", this.workElement.outerHTML);
+                                                                    if (this.objtype == "docwebhost") {
+                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "button1_OnClick":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    var xobj = this.sender;
+                                                                    this.element.setAttribute("w12", "12345678");
+                                                                    if (!!xobj) {
+                                                                        xobj.ObserveEx("key1", reactor.getElementById("mainwindow_1"));
+                                                                        if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                            xobj.parent.Observe(0, 0, "key1", reactor.getElementById("mainwindow_2").outerHTML);
+                                                                        }
+                                                                    } else {
+                                                                        alert(this.sender + " sender is form");
+                                                                    }
+                                                                    this.Observe(this.workElement.getAttribute("targetcluster"), this.workElement.outerHTML);
+                                                                }
+
+                                                                if (this.objtype == "nucleus") {
+                                                                    this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "button2_OnClick":
+                                                            {
+                                                                if (!!this.workElement) {
+                                                                    var xobj = this.sender;
+                                                                    var xml = reactor.getElementById("mainwindow_2").outerHTML;
+                                                                    xobj.Observe("key2", xml);
+                                                                    if (xobj.parent != null && xobj.parent.getLong("gridtype") == 4) {
+                                                                        xobj.parent.ObserveEx(0, 0, "key2", reactor.getElementById("mainwindow_1"));
+                                                                    }
+                                                                    this.ObserveEx(this.workElement.getAttribute("targetcluster"), this.workElement);
+                                                                    if (this.objtype == "nucleus") {
+                                                                        this.ShowWebContent("contents", this.workElement.getAttribute("content"));
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        reactor.onCosmosMessageReceived = function (e) {
+            switch (e.xobj.msgID) {
+                case "TANGRAMAPP_READY":
+                    {
+                    }
+                    break;
+                case "TEST_MFC_MSG":
+                    {
+                        //alert(e.xobj.getStr("testinfo")+e.xobj.handle);
+                    }
+                    break;
+                case "TREECTRL_TvnSelchanged":
+                    {
+                        var name = e.xobj.getStr("treenodekey");
+                        alert(name);
+                        //alert(e.xobj.element.outerHTML);
+                        alert(e.xobj.getElementById(name).outerHTML);
+                        //alert(e.xobj.getElementById(name));
+                        var elems = e.xobj.getElementsByTagName(name);
+                        alert(elems[0].outerHTML);
+                    }
+                    break;
+                case "WM_COMMAND":
+                    {
+                        alert(e.xobj.name);
+                        switch (e.xobj.getStr("CtrlClass")) {
+                            case "Button":
+                                {
+                                    alert("DocType:" + e.xobj.getStr("DocTypeID"));
+                                    alert("galaxy:" + e.xobj.getStr("galaxy"));
+                                    alert("nucleus:" + e.xobj.getStr("nucleus"));
+                                    alert(e.xobj.name);
+                                    console.log("WM_COMMAND_button\n");
+                                    //reactor.sendMessage("COSMOS_CREATE_DOC", ".xxxx", "test", "33");
+                                }
+                                break;
+                            case "Edit":
+                                {
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        reactor.onMessageReceived = function (e) {
+            if (e.param3 != null) {
+                switch (e.param3) {
+                    default:
+                        break;
+                }
+            }
+        }
+
+        reactor.onBindCLRObject = function (e) {
+            alert(e.name); alert(e.objtype); alert(e.hwnd);
+        }
+
+        //****************************************************************
+        function CompositeGrid1() {
+            var grid = reactor.getXobj("default", "__viewport_default__", "navCtrl");
+            alert(grid);
+            var node = reactor.getXobj("mainclient@webviewport@default_frame", "compositegrid", "CompositeGrid_Splitter");
+            if (node) {
+                node.getChild(0, 1).Observe("layout_1", document.getElementById("layout_1").outerHTML);
+            }
+        }
+
+        function OnCreate_Form1_SunnyForms2() {
+            var elem = reactor.getElementById("create_form_1");
+            var xform = reactor.createWinForm(elem,
+                0,
+                function (form) {
+                    form.addEventListener("button1", "OnClick", function (e) {
+                        e.setStr("textBox1", "fill textbox by javascript: " + e.handle);
+                    });
+                    form.BindCtrlValue("textBox1;button1", function (e) {
+                        alert("hi" + "  --  " + e.getStr("textBox1"));
+                    });
+                });
+        }
+
+        function OnCreate_Form2_SunnyForms2() {
+            var xform = reactor.createWinForm(reactor.getElementById("create_form_2"),
+                0,
+                function (x) {
+                    x.addEventListener("button1", "OnClick", function (e) {
+                        alert(e);
+                        alert("hi" + "  --  " + e.handle);
+                        e.setStr("textBox1", "test modify textbox");
+                    });
+                    x.BindCtrlValue("textBox1", function (e) {
+                        //alert("hi" + "  --  " + e.getStr("textBox1"));
+                    });
+                });
+        }
+
+        function BrowserFormApp1() {
+            var xform = reactor.createWinForm(reactor.getElementById("create_form_3"),
+                0,
+                function (x) {
+                    x.form.addEventListener("button1", "OnClick", function (e) {
+                        alert("hi" + "  --  " + x.form.handle);
+                        //x.form.xobj.setStr("textBox1", "test modify textbox");
+                    });
+                });
+        }
+
+        function BrowserFormApp2() {
+            var xform = reactor.createWinForm(reactor.getElementById("create_form_4"),
+                0,
+                function (x) {
+                    x.form.addEventListener("button1", "OnClick", function (e) {
+                        alert("hi" + "  --  " + x.form.handle);
+                        //x.form.xobj.setStr("textBox1", "test modify textbox");
+                    });
+                });
+        }
+
+        function OpenMdiApp1() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiform1.html|host:webpage/sunny.html", 200);
+        }
+        function OpenMdiFormApp1() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp1.html|host:webpage/sunny.html", 200);
+        }
+        function OpenMdiFormApp2() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp2.html|host:webpage/sunny.html", 200);
+        }
+        function OpenMdiFormApp3() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp3.html|host:webpage/sunny.html", 200);
+        }
+        function OpenMdiFormApp4() {
+            //    reactor.openUrl("host:WebPage/mdiform1.html", 200);
+            reactor.openUrl("host:WebPage/mdiformapp4.html|host:webpage/sunny.html", 200);
+        }
+
+        function OpenNewWebURL(e) {
+            reactor.openUrl("host:WebPage/newweb.html", 2);
+        }
+
+        //function NewDocument() {
+        //    reactor.sendMessage("COSMOS_CREATE_DOC", ".xxxx", "test1", "");
+        //}
+        function NewDocument() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "test1", "");
+        }
+
+        function NewDocTemplate1() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate1", "");
+        }
+        function NewDocTemplate2() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate2", "");
+        }
+        function NewDocTemplate3() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate3", "");
+        }
+        function NewDocTemplate4() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate4", "");
+        }
+        function NewDocTemplate5() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate5", "");
+        }
+
+        function NewDocTemplate1() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate1", "");
+        }
+        function NewDocTemplate2() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate2", "");
+        }
+        function NewDocTemplate3() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate3", "");
+        }
+        function NewDocTemplate4() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate4", "");
+        }
+        function NewDocTemplate5() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate5", "");
+        }
+        function NewDocTemplate6() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate6", "");
+        }
+        function NewDocTemplate7() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate7", "");
+        }
+        function NewDocTemplate8() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate8", "");
+        }
+        function NewDocTemplate9() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate9", "");
+        }
+        function NewDocTemplate10() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "doctemplate10", "");
+        }
+
+        function NewDocument2() {
+            reactor.sendMessage("COSMOS_CREATE_DOC", ".abc", "default", "");
+        }
+
+        function OpenCLEURL() {
+            reactor.openUrl("host:webpage/CLE.html", 2);
+        }
+
+        function OpenAppURL(e) {
+            alert(e + "123");
+            reactor.openUrl("host:sunny2.html|host:WebPage/newweb.html", 200);
+        }
+
+
+        function OpenAppURL1() {
+            reactor.openUrl("host:webpage/WebApp1.html", 100);
+        }
+        function OpenAppURL2() {
+            reactor.openUrl("host:webpage/WebApp2.html", 100);
+        }
+        function OpenAppURL3() {
+            reactor.openUrl("host:webpage/WebApp3.html", 100);
+        }
+        function OpenAppURL4() {
+            reactor.openUrl("host:webpage/WebApp4.html", 100);
+        }
+        function OpenAppURL5() {
+            reactor.openUrl("host:webpage/WebApp5.html", 100);
+        }
+        function OpenAppURL6() {
+            reactor.openUrl("host:webpage/WebApp6.html", 100);
+        }
+
+        function OpenCWRURL() {
+            reactor.openUrl("host:webpage/CWR.html", 2);
+        }
+
+        function OpenCERURL() {
+            reactor.openUrl("host:webpage/CER.html", 2);
+        }
+        function OpenAppURLAsSubPage1() {
+            reactor.openUrl("host:webpage/WebApp1.html", 2);
+        }
+        function OpenAppURLAsSubPage2() {
+            reactor.openUrl("host:webpage/WebApp2.html", 2);
+        }
+        function OpenAppURLAsSubPage3() {
+            reactor.openUrl("host:webpage/WebApp3.html", 2);
+        }
+
+    </script>
+</head>
+<body background="image/sunny.jpg">
+    <cosmos>
+        <!-- Define new DOM elements -->
+        <define tagName="mainWindow"></define>
+        <define tagName="application"></define>
+        <define tagName="webViewport"></define>
+        <!-- End Define new DOM elements -->
+        <!-- The "application" element is required, it can provide application-level configuration. -->
+        <webViewport caption="test">
+            <fission>
+                <xobj rows="1" cols="2" width="750," id="xxx">
+                    <xobj objid="SunnyCtrl.NavControl,SunnyCtrl" id="navCtrl">
+                        <eventmap>
+                            <treeView1 event="OnAfterSelect">
+                                <Client target="webviewclient" nucleus="__viewport_default__" galaxy="default" content="compilecfg" targetcluster="compilecfg">
+                                    <fission>
+                                        <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="nucleus"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                        </xobj>
+                                    </fission>
+                                </Client>
+                            </treeView1>
+                        </eventmap>
+                        <treeView1>
+                            <uidata key="uidata" treenode="true" text="Web Runtime开发桌面应用软件">
+                                Web技术大行其道的今天，桌面软件开发面临着巨大的挑战，
+                                为此，我们需要一场变革，让桌面软件开发成为互联网时代的中心……
+                                Web Runtime希望成为这一次变革的先行者，那么变革从哪里开始呢？
+                                <treeView1_tag>
+                                    <onafterselect>
+                                        <startup target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="startup" targetcluster="startup">
+                                            <fission>
+                                                <xobj>
+                                                    <xobj caption="New Web, New Desktop World" objid="nucleus"></xobj>
+                                                    <xobj caption="New Start point" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </startup>
+                                    </onafterselect>
+                                </treeView1_tag>
+                                <node1 treenode="true" text="准备工作">
+                                    准备工作包括下载二进制SDK包、以及一个已存在的源代码工程；
+                                    可以是一个WinForm工程；
+                                    或者是一个MFC工程……
+                                </node1>
+                                <node1_tag>
+                                    <onafterselect>
+                                        <content target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="content1" targetcluster="content1">
+                                            <fission>
+                                                <xobj style="18" id="test">
+                                                    <xobj caption="The mixed world of web and native UI" objid="nucleus"></xobj>
+                                                    <xobj caption="Second Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    <xobj caption="Third Page" objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </content>
+                                    </onafterselect>
+                                </node1_tag>
+                                <virtuallayoutengine treenode="true" text="调整工程配置">
+                                    <xobj treenode="true" text="编译配置"></xobj>
+                                    <xobj_tag>
+                                        <OnAfterSelect>
+                                            <mainClient target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="compilecfg" targetcluster="compilecfg">
+                                                <fission>
+                                                    <xobj rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="nucleus"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    </xobj>
+                                                    <ddd-www-aaa></ddd-www-aaa>
+                                                </fission>
+                                            </mainClient>
+                                        </OnAfterSelect>
+                                    </xobj_tag>
+                                    <manifestcfg treenode="true" text="Manifest配置"></manifestcfg>
+                                    <manifestcfg_tag>
+                                        <onafterselect>
+                                            <tab_grid target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="manifestcfg" targetcluster="manifestcfg">
+                                                <fission>
+                                                    <xobj>
+                                                        <xobj caption="Introduction to Tabbed Grid" objid="nucleus"></xobj>
+                                                        <xobj caption="Second Page" objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                        <xobj caption="Third Page" objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </tab_grid>
+                                        </onafterselect>
+                                    </manifestcfg_tag>
+                                    <node6 treenode="true" text="编译输出路径"></node6>
+                                    <node6_tag>
+                                        <onafterselect>
+                                            <outputcfg target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="outputcfg" targetcluster="outputcfg">
+                                                <fission>
+                                                    <xobj style="23">
+                                                        <xobj caption="Start Page" id="CompositeGrid_Splitter" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                                                            <xobj style="18" activepage="1">
+                                                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                                                            </xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                                                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                                        </xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </outputcfg>
+                                        </onafterselect>
+                                    </node6_tag>
+                                </virtuallayoutengine>
+                                <virtuallayoutengine_tag>
+                                    <onafterselect>
+                                        <prjcfg target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="prjcfg" targetcluster="prjcfg">
+                                            <fission>
+                                                <xobj objid="nucleus"></xobj>
+                                            </fission>
+                                        </prjcfg>
+                                    </onafterselect>
+                                </virtuallayoutengine_tag>
+                                <openwebruntime treenode="true" text="MFC Developer">
+                                    <usingbuiltbrowser treenode="true" text="MFC应用源代码修改规则"></usingbuiltbrowser>
+                                    <usingbuiltbrowser_tag>
+                                        <onafterselect>
+                                            <mfcprojectcodemdify target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="mfcprojectcodemdify" targetcluster="mfcprojectcodemdify">
+                                                <fission>
+                                                    <xobj style="43">
+                                                        <xobj objid="nucleus" caption="Using Browser Window"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </mfcprojectcodemdify>
+                                        </onafterselect>
+                                    </usingbuiltbrowser_tag>
+                                </openwebruntime>
+                                <openwebruntime_tag>
+                                    <OnAfterSelect>
+                                        <mfcdev target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="mfcdev" targetcluster="mfcdev">
+                                            <fission>
+                                                <xobj style="27">
+                                                    <xobj objid="nucleus" caption="Common WebBrowser Runtime"></xobj>
+                                                    <xobj caption="Page1"></xobj>
+                                                    <xobj caption="Page2"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </mfcdev>
+                                    </OnAfterSelect>
+                                </openwebruntime_tag>
+                                <openeclipseruntime treenode="true" text=".NET Developer">
+                                    <node_workbench treenode="true" text="引用Cosmos.dll"></node_workbench>
+                                    <node_workbench_tag>
+                                        <onafterselect>
+                                            <content_using_workbench target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_workbench" targetcluster="content_using_workbench">
+                                                <fission>
+                                                    <xobj style="29">
+                                                        <xobj objid="nucleus" caption="Using Eclipse Workbench"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </content_using_workbench>
+                                        </onafterselect>
+                                    </node_workbench_tag>
+                                    <node_swt treenode="true" text="修改Application.Run"></node_swt>
+                                    <node_swt_tag>
+                                        <OnAfterSelect>
+                                            <content_using_swt target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="content_using_swt">
+                                                <fission>
+                                                    <xobj style="18">
+                                                        <xobj objid="nucleus" caption="Using java swt"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                                                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                    </xobj>
+                                                </fission>
+                                            </content_using_swt>
+                                        </OnAfterSelect>
+                                    </node_swt_tag>
+                                </openeclipseruntime>
+                                <openeclipseruntime_tag>
+                                    <onafterselect>
+                                        <dotnetdev target="webviewclient" nucleus="__viewport_default__" galaxy="webviewport" content="dotnetdev">
+                                            <fission>
+                                                <xobj objid="nucleus"></xobj>
+                                            </fission>
+                                        </dotnetdev>
+                                    </onafterselect>
+                                </openeclipseruntime_tag>
+                            </uidata>
+                        </treeView1>
+                    </xobj>
+                    <xobj objid="nucleus" id="webviewclient">
+                    </xobj>
+                </xobj>
+            </fission>
+            <client>
+                <fission>
+                    <xobj style="13" activepage="1">
+                        <xobj caption="Cloudx Application" id='Splitter1' rows='1' cols='2' height='250,' width='350,350,' borderwidth='0' splitterwidth='6'>
+                            <xobj objid="" id="xxxx">
+                                <messagemap>
+                                    <messa></messa>
+                                    <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                                </messagemap>
+                                <eventmap></eventmap>
+                            </xobj>
+                            <xobj objid="Sunny.NtpCtrl,SunnyCtrl" id="Sunny_ntpctrl">
+                                <eventmap>
+                                    <button1 event="OnClick">
+                                        <btn content="mfcprojectcodemdify" targetcluster="mfcprojectcodemdify">
+                                            <fission>
+                                                <xobj style="29">
+                                                    <xobj objid="nucleus" caption="test button onclick 2"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page 2"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </btn>
+                                        <xxxx target="webviewclient" nucleus="__viewport_default__" galaxy="default" content="mfcprojectcodemdify" targetcluster="mfcprojectcodemdify">
+                                            <fission>
+                                                <xobj style="18">
+                                                    <xobj objid="nucleus" caption="test button onclick 2"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page 2"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </xxxx>
+                                    </button1>
+                                    <button2 event="OnClick">
+                                        <btn target="webviewclient" nucleus="__viewport_default__" galaxy="default" content="startup" targetcluster="mfcprojectcodemdify3">
+                                            <fission>
+                                                <xobj style="39">
+                                                    <xobj objid="nucleus" caption="test button onclick 2"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page 2"></xobj>
+                                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                                </xobj>
+                                            </fission>
+                                        </btn>
+                                    </button2>
+                                </eventmap>
+                            </xobj>
+                        </xobj>
+                        <xobj caption="xx Web Runtime for Application" url="host" id="webviewclient"></xobj>
+                        <xobj caption="Web Runtime for Application" id='grid' rows='1' cols='2' width='350,350,' splitterwidth='6'>
+                            <xobj xobjtype="main_panel"></xobj>
+                            <xobj objid="nucleus" id="xxxx"></xobj>
+                        </xobj>
+                    </xobj>
+                </fission>
+            </client>
+            <controlbars>
+                <controlbar1 caption="Class View 1" ctrlbarid="134" clientid="2">
+                    <fission>
+                        <xobj id='grid' rows='1' cols='2' width='350,350,' splitterwidth='6'>
+                            <xobj xobjtype="main_panel" objid="host"></xobj>
+                            <xobj objid="nucleus"></xobj>
+                        </xobj>
+                    </fission>
+                </controlbar1>
+                <controlbar2 caption="File View 2" ctrlbarid="133" clientid="4" usingwebdata="true">
+                    <uidata text="test1" id="uidata_tag" treeitem="true">
+                        <xxx text="222222222222" id="xxx_tag" treeitem="true">
+                            <xxxx>
+                                <jjjj></jjjj>
+                            </xxxx>
+                            <jhjhj></jhjhj>
+                        </xxx>
+                        <xxx_tag text="222222222222" sw="true" id="x123root"></xxx_tag>
+                        <xxx1 text="2222" id="xxx1_tag" treeitem="true"></xxx1>
+                        <xxx1_tag text="eeeeeeeeeee" sw="true" id="r4"></xxx1_tag>
+                    </uidata>
+                    <uidata_tag id="x123"></uidata_tag>
+                    <fission>
+                        <xobj id='grid' rows='2' cols='1' height='350,350,' splitterwidth='6'>
+                            <xobj xobjtype="main_panel" objid="host"></xobj>
+                            <xobj objid="nucleus">
+                                <xx></xx>
+                            </xobj>
+                        </xobj>
+                    </fission>
+                </controlbar2>
+                <controlbar3 caption="Output 3" ctrlbarid="149" clientid="1">
+                    <fission>
+                        <xobj id='grid' rows='1' cols='2' width='350,350,' splitterwidth='6'>
+                            <xobj xobjtype="main_panel" objid="host"></xobj>
+                            <xobj objid="nucleus"></xobj>
+                        </xobj>
+                    </fission>
+                </controlbar3>
+            </controlbars>
+        </webViewport>
+        <fission>
+            <layout_1 id="layout_1">
+                <fission>
+                    <xobj style="18">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="39" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_1>
+            <layout_2 id="layout_2">
+                <fission>
+                    <xobj style="33">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="18" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_2>
+            <layout_3 id="layout_3">
+                <fission>
+                    <xobj style="23">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="18" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_3>
+            <layout_4 id="layout_4">
+                <fission>
+                    <xobj style="43">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="29" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_4>
+            <layout_5 id="layout_5">
+                <fission>
+                    <xobj style="37">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="19" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_5>
+            <layout_6 id="layout_6">
+                <fission>
+                    <xobj style="18">
+                        <xobj caption="Start Page" rows="3" cols="3" width="150,100,100" height="200,180,100">
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyForms.Form1,SunnyForms"></xobj>
+                            <xobj style="18" activepage="1">
+                                <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="First Page"></xobj>
+                                <xobj objid="nucleus" caption="Compound grid World Gives You An Unexpected Surprise"></xobj>
+                                <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl" caption="Third Page"></xobj>
+                            </xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl1,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl"></xobj>
+                            <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl"></xobj>
+                        </xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </layout_6>
+
+            <form1 id="mainwindow_1">
+                <fission>
+                    <xobj id='properties' rows='2' cols='2' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                        <xobj id='tangramtabctrl_Page2' objid="nucleus" caption=''></xobj>
+                        <xobj id='test1'></xobj>
+                    </xobj>
+                </fission>
+            </form1>
+            <form id="mainwindow_2">
+                <fission>
+                    <xobj style="18">
+                        <xobj id='tangramtabctrl_Page2' objid="nucleus" caption='Page 1'></xobj>
+                        <xobj id='test1' caption='Page 2'></xobj>
+                        <xobj id='test2' caption='Page 3'></xobj>
+                        <xobj id='test3' caption='Page 4'></xobj>
+                    </xobj>
+                </fission>
+            </form>
+            <subversion id="subversion">
+                <fission>
+                    <xobj rows="2" cols="1" height="400,500">
+                        <xobj objid="nucleus"></xobj>
+                        <xobj url="host:WebPage\webdesktop.html"></xobj>
+                    </xobj>
+                </fission>
+            </subversion>
+        </fission>
+        <Forms>
+            <Form1 objid="sunnyForms2.Form1,sunnyForms2" caption="Form1@SunnyForm2" id="create_form_1" width="1600" height="1200" model="2">
+                <mainpanel id="123">
+                    <default>
+                        <fission>
+                            <xobj id='properties' rows='2' cols='1' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                                <xobj id='tangramtabctrl_Page2' objid="nucleus" caption=''></xobj>
+                                <xobj id='create_form_message' objid="sunnyForms2.Form4,sunnyForms2"></xobj>
+                            </xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+                <eventmap>
+                    <button1 event="OnClick">
+                        <btn content="mfcprojectcodemdify" targetcluster="mfcprojectcodemdify2">
+                            <fission>
+                                <xobj style="29">
+                                    <xobj objid="nucleus" caption="test button onclick 2"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page 2"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                </xobj>
+                            </fission>
+                        </btn>
+                        <btn target="webviewclient" nucleus="__viewport_default__" galaxy="default" content="mfcprojectcodemdify" targetcluster="mfcprojectcodemdify2">
+                            <fission>
+                                <xobj style="18">
+                                    <xobj objid="nucleus" caption="test button onclick 2 from a form button click"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page 2"></xobj>
+                                    <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                                </xobj>
+                            </fission>
+                        </btn>
+                    </button1>
+                </eventmap>
+            </Form1>
+            <Form2 type="winform" objid="sunnyForms2.Form2,sunnyForms2" caption="Form2@SunnyForm2" id="create_form_2" width="1600" height="1200">
+                <mainpanel>
+                    <default>
+                        <fission>
+                            <xobj id='properties' height='300,250,100,' width='300,200,100,' middlecolor='RGB(255,224,192)'>
+                                <xobj id='tangramtabctrl_Page2' objid="nucleus" caption='111'></xobj>
+                                <xobj id='create_form_message' objid="sunnyForms2.Form4,sunnyForms2" caption='222'></xobj>
+                                <xobj id='create_form_message2' objid="sunnyForms2.Form4,sunnyForms3" caption='333'></xobj>
+                            </xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+            </Form2>
+            <Form3 type="winform" objid="sunnyForms2.Form3,sunnyForms2" caption="Form3@SunnyForm2" id="create_form_3" width="2000" height="1600">
+                <mainpanel>
+                    <default>
+                        <fission>
+                            <xobj id='tangramtabctrl_Page1' url="host:webpage\cwr.html" caption='Form3'></xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+            </Form3>
+            <Form4 type="winform" objid="sunnyForms2.Form4,sunnyForms2" caption="Form4@SunnyForm2" id="create_form_4" width="2000" height="1600">
+                <mainpanel>
+                    <default>
+                        <fission>
+                            <xobj rows="1" cols="2" width="500,200" masterrow="0" mastercol="0">
+                                <xobj rows="2" cols="1" height="400,200" masterrow="0" mastercol="0">
+                                    <xobj id='Page1' url="host:webpage\cwr.html|host:sunny2.html"></xobj>
+                                </xobj>
+                                <xobj id='Page2' caption='Form3'></xobj>
+                            </xobj>
+                        </fission>
+                    </default>
+                </mainpanel>
+            </Form4>
+        </Forms>
+    </cosmos>
+    <div class="contents">
+        <article class="show startup markdown-body">
+            <strong style="font-size:28px; color:black"><i style="color:fuchsia">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当我们谈起被称之为</i><i style="color:blue">“经典”</i><b style="color:coral">的那些技术，我们内心充满着感激、忐忑与敬畏……</b></strong>
+            <p style="font-size: 18px; font-weight:bold; color:black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp科技发展的不同阶段，都会存在对应时代的经典之笔，以点缀那个时代的精彩。经典之所以被称之为“经典”，不仅仅是因为其价值本身，
+                同时还意味着一种特定时期产生的深远影响……。我们应该怎样表达对经典的敬畏？
+                <i style="color:blue">让经典顺应时代的节奏得以传承 </i>或许是向经典致敬的一种方式……。
+                我们很幸运，因为我们受益于大量的经典之作，<i style="color:orangered">是造就经典的那些人、那些成果让我们看得更远，激励我们不断的创造……</i>。
+            </p>
+            <p style="font-size: 32px; font-weight:bold; color:black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWeb Runtime的核心使命是揭示Win32桌面应用存在强大的互联网基因，这个<x style="font-size: 36px; color: brown">互联网基因</x>取决于Windows窗口的<i style="font-size: 36px; color:darkblue">几何位置表现</i>，与具体的软件设计目标没有关系。
+            </p>
+            <hr />
+            <center>
+                <table class="sunnysolution" border="1" cellpadding="10">
+                    <thead>
+                        <tr style="font-size: 16px; font-weight:bold; color:midnightblue">
+                            <th> 第一组例子
+                            <th> 第二组例子</tr>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下按钮</i> 体验基于Web技术的MFC Doc/View...</h1>
+                                <p>
+                                    <button style="font-size: 24px; font-weight:bold; color:chocolate" onclick="NewDocument()">NewDoc</button>
+                                    <button style="font-size: 24px; font-weight:bold; color:chocolate" onclick="NewDocTemplate1()">Cloud Doc1</button>
+                                    <button style="font-size: 24px; font-weight:bold; color:chocolate" onclick="NewDocTemplate2()">Cloud Doc2</button>
+                                </p>
+                                <p>
+                                    <button style="font-size: 24px; font-weight:bold; color:chocolate" onclick="NewDocTemplate3()">Cloud Doc3</button>
+                                    <button style="font-size: 24px; font-weight:bold; color:chocolate" onclick="NewDocTemplate4()">Cloud Doc4</button>
+                                    <button style="font-size: 24px; font-weight:bold; color:chocolate" onclick="NewDocTemplate5()">Cloud Doc5</button>
+                                </p>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                                <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下按钮</i> 体验基于Web技术的Sub WinForm...</h1>
+                                <button onclick="OnCreate_Form1_SunnyForms2()"><b style="font-size:24px; color:darkgreen">Create SubForm</b></button>
+                                <hr />
+                                <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下按钮</i> 体验基于Web技术的WinForm...</h1>
+                                <button onclick="OnCreate_Form2_SunnyForms2()"><b style="font-size:24px; color:darkgreen">Create Form</b></button>
+                                <hr />
+                                <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下超链接</i> 开始体验新Web页面...</h1>
+                                <p>
+                                    <a href="javascript:void(0);" onclick="OpenAppURL1();" style="font-size:24px;color:forestgreen"><b>WebPage1</b></a>
+                                    &nbsp&nbsp&nbsp
+                                    <a href="javascript:void(0);" onclick="OpenAppURL2();" style="font-size:24px;color:forestgreen"><b>WebPage2</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURL3();" style="font-size:24px;color:forestgreen"><b>WebPage3</b></a>
+                                    &nbsp&nbsp&nbsp
+                                    <a href="javascript:void(0);" onclick="OpenAppURL4();" style="font-size:24px;color:forestgreen"><b>WebPage4</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURL5();" style="font-size:24px;color:forestgreen"><b>WebPage5</b></a>
+                                    &nbsp&nbsp&nbsp
+                                    <a href="javascript:void(0);" onclick="OpenAppURL6();" style="font-size:24px;color:forestgreen"><b>WebPage6</b></a>
+                                    <hr />
+                                    <a href="javascript:void(0);" onclick="OpenAppURLAsSubPage1();" style="font-size:24px;color:forestgreen"><b>SubPage1</b></a>
+                                    &nbsp&nbsp&nbsp
+                                    <a href="javascript:void(0);" onclick="OpenAppURLAsSubPage2();" style="font-size:24px;color:forestgreen"><b>SubPage2</b></a>
+                                    <hr />
+                                </p>
+                            </td>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">点击以下超链接</i> 体验基于Web技术的WinForm...</h1>
+                                <a href="javascript:void(0);" onclick="OpenMdiFormApp1();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm1</b></a>
+                                &nbsp&nbsp&nbsp
+                                <a href="javascript:void(0);" onclick="OpenMdiFormApp2();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm2</b></a>
+                                <hr />
+                                <a href="javascript:void(0);" onclick="OpenMdiFormApp3();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm3</b></a>
+                                &nbsp&nbsp&nbsp
+                                <a href="javascript:void(0);" onclick="OpenMdiFormApp4();" style="font-size:24px;color:forestgreen"><b>CloudMDIForm4</b></a>
+                            </td>
+                    </tbody>
+                </table>
+            </center>
+
+            <p style="font-size: 18px; font-weight:bold; color:black">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp按照我们这里给出的步骤，您可以对已存在的应用做适当的调整，即可使得一个桌面应用拥有极为强大的互联网适配能力，这里的步骤非常简单，对已有应用系统的源代码修改量极小，从这个意义上看，一个系统内置的互联网适配能力，与具体的软件结构关系不大。Web Runtime不支持那些基于CEF、WebView2技术的软件系统。
+            </p>
+            <hr />
+            <center>
+                <table class="sunnysolution" border="1" cellpadding="10">
+                    <thead>
+                        <tr style="font-size: 16px; font-weight:bold; color:midnightblue">
+                            <th> MFC Web Runtime工程需要修改的基类
+                            <th> .NET Web Runtime工程需要建立的引用
+                        </tr>
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <ol style="font-size: 16px; font-weight:bold; color:midnightblue">
+                                    <li>
+                                        <p>App类 <i style="font-style:oblique; color:chocolate">的基类</i>：</p>
+                                        <p>
+                                            <center>CWinApp(Ex) 修改为: CWebRTApp(Ex)</center>
+                                        </p>
+                                        <hr />
+                                    </li>
+                                    <li>
+                                        <p>MDI应用之中 <i style="font-style:oblique; color:chocolate">主窗口类的基类</i>：</p>
+                                        <p>
+                                            <center>CMDIFrameWndEx 修改为: CWebRTMDIFrame</center>
+                                        </p>
+                                    </li>
+                                </ol>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5>
+                                <h1 style="font-size: 16px; color:midnightblue"><i style="font-size:32px; color:blue">在工程文件夹</i> 中找到reactor.dll，引用reactor.dll</h1>
+                            </td>
+                    </tbody>
+                </table>
+            </center>
+
+            <hr />
+            <center>
+                <table class="sunnysolution" border="1" cellpadding="10">
+                    <thead>
+                        <tr style="font-size: 16px; font-weight:bold; color:midnightblue">
+                            <th> MFC Web Runtime工程<i style="color:crimson">代码修改的基本环节</i>
+                            <th> .NET Web Runtime工程代码修改环节
+                        </tr>
+
+                    <tbody>
+                        <tr>
+                            <td class="sunnysolution" width="50%">
+                                <ol style="font-size: 16px; font-weight:bold; color:midnightblue">
+                                    <li>
+                                        <p>MFC <i style="font-style:oblique; color:chocolate">Tabbed MDI Documents</i>应用，</p>
+                                        <p>
+                                            <center>BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx);</center>
+                                        </p>
+                                        <p>
+                                            修改为:
+                                        </p><p>
+                                            <center>BEGIN_MESSAGE_MAP(CMainFrame, CWebRTMDIFrame);</center>
+                                        </p><hr />
+                                    </li>
+                                    <li>
+                                        <p>MFC <i style="font-style:oblique; color:chocolate">对话框</i>应用：</p>
+                                        <p>
+                                            <center>App类的InitInstance()函数返回值修改为true</center>
+                                        </p><hr />
+                                    </li>
+                                    <li>
+                                        <p>CFormView <i style="font-style:oblique; color:chocolate">OnInitialUpdate()</i>函数体中:</p>
+                                        <p>
+                                            <center>删除ResizeParentToFit()调用。</center>
+                                        </p><hr />
+                                    </li>
+                                    <li>
+                                        <p>CView <i style="font-style:oblique; color:chocolate">派生类对象作为扩展Web DOM</i>元素:</p>
+                                        <p>
+                                            在App类的InitInstance()函数的开始部分，按如下规则建立一个“CString-CView”映射表：
+                                        </p>
+                                        <p>
+                                            <center>m_mapDOMObj[_T("some_name")] = RUNTIME_CLASS(CXXXView);</center>
+                                        </p><hr />
+                                    </li>
+                                    <li>
+                                        <p>CDocument <i style="font-style:oblique; color:chocolate">序列化</i>支持,Serialize(CArchive& ar)函数实现中增加代码块:</p>
+                                        <p>
+                                            <xmp style=" font-size: 16px; font-weight: 900; color: blue">
+                                                if (ar.IsStoring()){
+                                                ar << theApp.GetDocTemplateID(this);
+                                                // TODO: add storing code here
+                                                }
+                                                else
+                                                {
+                                                ar >> theApp.m_strCreatingDOCID;
+                                                // TODO: add loading code here
+                                                }
+                                            </xmp>
+                                        </p>
+                                    </li>
+                                </ol>
+                            </td>
+                            <td class="sunnysolution" width="50%" rowspan=5 style="font-size: 16px; font-weight:bold; color:midnightblue">
+                                <p>在.NET工程之中找到 <i style="font-style:oblique; color:chocolate">Main函数，</i>然后将：</p>
+                                <p>
+                                    <center>Application.Run</center>
+                                </p>
+                                <p>
+                                    替换为:
+                                </p><p>
+                                    <center>Universe.Cosmos.Run</center>
+                                </p>
+                                <p>参数不变。</p>
+                            </td>
+                    </tbody>
+                </table>
+            </center>
+            <hr />
+        </article>
+        <article class="hidden content1 markdown-body">
+            <x style="font-size:40px; color:crimson">准备<strong style="font-size:40px; color:blue">工作</strong></x>
+            <center><p style="font-size: 32px; font-weight: bold; color: blue"><i style="color:brown">下载 </i>二进制开发包</p></center>
+            <h4>访问Web Runtime的Git站点，下载开发所需的必要开发包以及文档</h4>
+            <p>
+                Common Web Runtime constructs a new mixed world of native UI elements and web elements.
+                In this world, a new web page is defined. While taking into account the standard web page,
+                the ability to use native components as DOM elements is added ...
+            </p>
+        </article>
+        <article class="hidden prjcfg markdown-body">
+            <x style="font-size:40px; color:crimson">WebRuntime的桌面应用<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></x>
+            <center style="font-size:40px; color:green"><h2>Common Layout Engine</h2></center>
+            <p style="font-size: 28px;font-weight: bold; color: black">Common Layout Engine是一个多层次、网格化、可嵌套、易于描述的UI布局描述引擎。</p>
+            <p style="font-size: 24px;font-weight: bold; color: blue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp所谓<i style="color:brown">网格</i>，是一个m行n列的窗口矩阵（1行n列的网格可以理解为有n个选项卡的<b>选项卡窗口</b>），
+                而可嵌套是指矩阵中的每个“格”可以动态嵌套多个网格层，运行时只有一层可见。
+            </p>
+            <p style="font-size: 24px;font-weight: bold; color:cornflowerblue">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp一般说来，某个布局在设计时可能是不确定的，并且可以在运行时动态生成，由于不同的场景、权限等因素，
+                可能会进行不同的动态匹配。实际上，柔性布局是多层网格动态变化的结果。
+            </p>
+            <p style="font-size: 24px;font-weight: bold; color:burlywood">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp网格有两种描述方式：其一是基于XML，这样的描述可以用于各种编程语言；其二是基于Web页面的
+                DOM元素，这个方案的优势是易于与主流的互联网技术衔接。
+            </p>
+        </article>
+        <article class="hidden compilecfg markdown-body">
+            <center style="font-size:36px; color:blue"><b>编译配置</b></center>
+            <p style="font-size:24px; color:chocolate">
+                <b>
+                    <i>Web Runtime只提供</i> <x style="font-size:24px; color:black">
+                        X64支持，所以所有的编译模式（Debug、Release）都只支持X64。
+                    </x>
+                </b>
+                <center>
+                    <table border="1" cellpadding="10">
+                        <thead>
+                            <tr>
+                                <th> 配置编译模式为64位编译
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b style="font-size:28px; color:blue">
+                                        按如图所示配置C++/MFC工程的编译模式，Debug、Release都需要正确配置编译模式为X64。
+                                        <center><img src="image/mfccompilemodel.jpg" width="900" height="560" /></center>
+                                        </bstyle="font-size:36px;>
+                            <tr>
+                                <td>
+                                    <b style="font-size:28px; color:blue">
+                                        按如图所示配置.net工程的编译模式，Debug、Release都需要正确配置编译模式为X64
+                                        <center><img src="image/dotnetoutputpath.jpg" width="900" height="640" /></center>
+                                    </b>
+                    </table>
+                </center>
+            </p>
+        </article>
+        <article class="hidden manifestcfg markdown-body">
+            <center style="font-size:36px; color:blue"><b>Manifest配置</b></center>
+            <p style="font-size:24px; color:black">
+                <b>
+                    对每一个支持Web Runtime服务的桌面应用，正确配置Manifest编译开关是不可忽略的重要步骤。
+                    对.NET以及C++开发者而言，建议阅读相关文档，以便深入理解Manifest配置。
+                </b>
+            </p>
+            <figcaption>
+                <p>
+                    <b>
+                        我们这里给出具体配置Manifest的步骤，需要的app.manifest文件在DotNetPlus以及MFCPlus文件夹之中。
+                    </b>
+                </p>
+            </figcaption>
+            <center>
+                <table border="1" cellpadding="10">
+                    <thead>
+                        <tr>
+                            <th> 配置Manifest
+
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b style="font-size:28px; color:blue">
+                                    按如图所示配置C++/MFC工程的manifest配置项，mfcapp.manifest包含于MFCPlus文件夹，强调的是Debug、Release都需要正确配置manifest。
+                                    <center><img src="image/mfcmanifest.png" width="900" height="560" /></center>
+                                </bstyle="font-size:36px;>
+                        <tr>
+                            <td> 
+                                <b style="font-size:28px; color:blue">
+                                    按如图所示配置.net工程的Manifest配置项，app.manifest包含于DotNetPlus文件夹配置
+                                    <center><img src="image/clrmanifest.jpg" width="900" height="640" /></center>
+                                </b>
+                </table>
+            </center>
+        </article>
+        <article class="hidden outputcfg markdown-body">
+            <center style="font-size: 36px; font-weight: 900; color: blue"><b>编译输出路径</b></center>
+            <p style="font-size: 24px; font-weight: 900; color: black">
+                <i style="font-size: 32px; font-style: oblique; color:magenta">
+                    Web Runtime运行时支持包</i> 要复制到这个路径指定的文件夹，以确保编译之后的可执行文件正常运行。
+                    <center>
+                        <table border="1" cellpadding="10">
+                            <thead>
+                                <tr>
+                                    <th> 配置编译输出路径
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <b style="font-size:28px; color:blue">
+                                            按如图所示配置C++/MFC工程的编译输出路径，Debug、Release都需要正确配置编译输出路径。
+                                            <center><img src="image/mfcoutputpath.jpg" width="900" height="560" /></center>
+                                            </bstyle="font-size:36px;>
+                                <tr>
+                                    <td>
+                                        <b style="font-size:28px; color:blue">
+                                            按如图所示配置.net工程的编译输出路径，Debug、Release都需要正确配置编译输出路径
+                                            <center><img src="image/dotnetoutputpath.jpg" width="900" height="640" /></center>
+                                        </b>
+                        </table>
+                    </center>
+</p>
+        </article>
+        <article class="hidden mfcdev markdown-body">
+            <p style="font-size:40px; color:forestgreen">MFC桌面应用工程基类<strong><i style="font-size:40px; color:fuchsia">修改 </i>以及工程代码调整规则</strong></p>
+            <center style="font-size:40px; color:tomato"><h2>MFC应用中基类调整规则</h2></center>
+            <ol style="font-size: 36px; font-weight:bold; color:midnightblue">
+                <li>
+                    <p>App类 <i style="font-style:oblique; color:chocolate">的基类</i>：</p>
+                    <p>
+                        <center>CWinApp(Ex) 修改为: CWebRTApp(Ex)</center>
+                    </p>
+                    <hr />
+                </li>
+                <li>
+                    <p>MDI应用之中 <i style="font-style:oblique; color:chocolate">主窗口类的基类</i>：</p>
+                    <p>
+                        <center>CMDIFrameWndEx 修改为: CWebRTMDIFrame</center>
+                    </p>
+                </li>
+            </ol>
+            <hr />
+            <h2><center style="font-size: 40px; color: midnightblue ">MFC应用<i style="font-size: 40px; color: red ">代码调整 </i>规则</center></h2>
+            <ol style="font-size: 36px; font-weight:bold; color:midnightblue">
+                <li>
+                    <p>MFC <i style="font-style:oblique; color:chocolate">Tabbed MDI Documents </i>应用，</p>
+                    <p>
+                        <center>BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx);</center>
+                    </p>
+                    <p>
+                        修改为:
+                    </p><p>
+                        <center>BEGIN_MESSAGE_MAP(CMainFrame, CWebRTMDIFrame);</center>
+                    </p><hr />
+                </li>
+                <li>
+                    <p>MFC <i style="font-style:oblique; color:chocolate">对话框 </i>应用：</p>
+                    <p>
+                        <center>App类的InitInstance()函数返回值修改为true</center>
+                    </p><hr />
+                </li>
+                <li>
+                    <p>CFormView <i style="font-style:oblique; color:chocolate">OnInitialUpdate() </i>函数体中:</p>
+                    <p>
+                        <center>删除ResizeParentToFit()调用。</center>
+                    </p><hr />
+                </li>
+                <li>
+                    <p>CView <i style="font-style:oblique; color:chocolate">派生类对象作为扩展Web DOM </i>元素:</p>
+                    <p>
+                        在App类的InitInstance()函数的开始部分，按如下规则建立一个“CString-CView”映射表：
+                    </p>
+                    <p>
+                        <center>m_mapDOMObj[_T("some_name0")] = RUNTIME_CLASS(CXXXView0);</center>
+                        <center>m_mapDOMObj[_T("some_name1")] = RUNTIME_CLASS(CXXXView1);</center>
+                        <center>… … … … … …</center>
+                        <center>m_mapDOMObj[_T("some_namek")] = RUNTIME_CLASS(CXXXViewk);</center>
+                    <p style="font-size:24px; color:blueviolet">
+                        CXXXView0,CXXXView1,……,CXXXViewk是MFC工程之中的k个CView派生类对象.
+                    </p><hr />
+                </li>
+                <li>
+                    <p>CDocument <i style="font-style:oblique; color:chocolate">序列化 </i>支持,Serialize(CArchive& ar)函数实现中增加代码块:</p>
+                    <p>
+<xmp style=" font-size: 32px; font-weight: 900; color: blue">
+    if (ar.IsStoring()){
+        ar << theApp.GetDocTemplateID(this);
+        // TODO: add storing code here
+    }
+    else
+    {
+        ar >> theApp.m_strCreatingDOCID;
+        // TODO: add loading code here
+    }
+</xmp>
+                    </p>
+                </li>
+            </ol>
+            <hr />
+        </article>
+        <article class="hidden mfcprojectcodemdify markdown-body">
+            <strong style="font-size:36px; color:navy">MFC应用 <i style="font-size:36px; color:fuchsia">代码调整 </i>规则</strong>
+            <ol style="font-size: 28px; font-weight:bold; color:midnightblue">
+                <li>
+                    <p>MFC <i style="font-style:oblique; color:chocolate">Tabbed MDI Documents </i>应用，</p>
+                    <p>
+                        <center>BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx);</center>
+                    </p>
+                    <p>
+                        修改为:
+                    </p><p>
+                        <center>BEGIN_MESSAGE_MAP(CMainFrame, CWebRTMDIFrame);</center>
+                    </p><hr />
+                </li>
+                <li>
+                    <p>MFC <i style="font-style:oblique; color:chocolate">对话框 </i>应用：</p>
+                    <p>
+                        <center>App类的InitInstance()函数返回值修改为true</center>
+                    </p><hr />
+                </li>
+                <li>
+                    <p>CFormView <i style="font-style:oblique; color:chocolate">OnInitialUpdate() </i>函数体中:</p>
+                    <p>
+                        <center>删除ResizeParentToFit()调用。</center>
+                    </p><hr />
+                </li>
+                <li>
+                    <p>CView <i style="font-style:oblique; color:chocolate">派生类对象作为扩展Web DOM </i>元素:</p>
+                    <p>
+                        在App类的InitInstance()函数的开始部分，按如下规则建立一个“CString-CView”映射表：
+                    </p>
+                    <p>
+                        <center>m_mapDOMObj[_T("some_name0")] = RUNTIME_CLASS(CXXXView0);</center>
+                        <center>m_mapDOMObj[_T("some_name1")] = RUNTIME_CLASS(CXXXView1);</center>
+                        <center>… … … … … …</center>
+                        <center>m_mapDOMObj[_T("some_namek")] = RUNTIME_CLASS(CXXXViewk);</center>
+                    <p style="font-size:24px; color:blueviolet">
+                        CXXXView0,CXXXView1,……,CXXXViewk是MFC工程之中的k个CView派生类对象.
+                    </p><hr />
+                </li>
+                <li>
+                    <p>CDocument <i style="font-style:oblique; color:chocolate">序列化 </i>支持,Serialize(CArchive& ar)函数实现中增加代码块:</p>
+                    <p>
+<xmp style=" font-size: 24px; font-weight: 900; color: blue">
+    if (ar.IsStoring()){
+        ar << theApp.GetDocTemplateID(this);
+        // TODO: add storing code here
+    }
+    else
+    {
+        ar >> theApp.m_strCreatingDOCID;
+        // TODO: add loading code here
+    }
+</xmp>
+                    </p>
+                </li>
+            </ol>
+            <hr />
+        </article>
+        <article class="hidden dotnetdev markdown-body">
+            <p style="font-size:40px; color:blue">WebRuntime .NET桌面应用<strong><i style="font-size:40px; color:fuchsia">新 </i>世界</strong></p>
+            <center style="font-size:40px; color:blue"><h2>Web Runtime .NET开发</h2></center>
+            <ol style="font-size: 36px; font-weight:bold; color:midnightblue">
+                <li>
+                    <p>引用 <i style="font-style:oblique; color:chocolate">reactor.dll </i>组件库；</p>
+                    <hr />
+                </li>
+                <li>
+                    <p>program.cs之中 <i style="font-style:oblique; color:chocolate">main函数 </i>修改：</p>
+                    <p>
+                        <center>Application.Run</center>
+                    </p>
+                    <p>
+                        修改为:
+                    </p><p>
+                        <center>Universe.Cosmos.Run</center>
+                    </p><hr />
+                </li>
+            </ol>
+        </article>
+        <article class="hidden content_using_workbench markdown-body">
+            <p style="font-size:40px; color:crimson">使用<strong><i style="font-size:40px; color:fuchsia">WorkBench </i>窗口</strong></p>
+            <center><img src="image/eclipse.png" width="900" height="450" /></center>
+        </article>
+        <article class="hidden content_using_swt markdown-body">
+            <p style="font-size:40px; color:crimson">使用<strong><i style="font-size:40px; color:fuchsia">SWT </i>Form</strong></p>
+        </article>
+        <article class="hidden content_using_winform markdown-body">
+            <p style="font-size:40px; color:darkgreen">Web页面中使用<strong><i style="font-size:40px; color:fuchsia">WinForm </i>窗口</strong></p>
+            <content_using_winform target="webviewclient">
+                <fission>
+                    <xobj style="29">
+                        <xobj objid="nucleus" caption="Using Window Form"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl3,SunnyCtrl" caption="Second Page"></xobj>
+                        <xobj objid="SunnyCtrl.UserControl2,SunnyCtrl" caption="Third Page"></xobj>
+                    </xobj>
+                </fission>
+            </content_using_winform>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="OnCreate_Form1_SunnyForms2()">Form App 1</button>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="OnCreate_Form2_SunnyForms2()">Form App 2</button>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="BrowserFormApp1()">Form App 3</button>
+            <button style="font-size:32px; font-weight: 900; color:darkgreen" onclick="BrowserFormApp2()">Form App 4</button>
+        </article>
+    </div>
+    <div class="applicationcontents">
+        <div class="show Mainform maincontent">
+        </div>
+        <div class="hidden sunnymdiforms">
+            <h1>About Cloud Form</h1>
+            <p>
+                <b>
+                    <span lang=EN-US style='font-size:14.0pt'>
+                        <a href="test.html">Click me to see what will happen ...</a>
+                    </span>
+                </b>
+                <input type="button" value="Send Message" onclick="" />
+            <p />
+        </div>
+        <div class="hidden sunnymdiforms_mdichild_1">
+            <h1 align=center style='text-align:center'>About Cloud MDI Child WinForm 1</h1>
+            <p>
+                <b>
+                    <span lang=EN-US style='font-size:14.0pt'>
+                        <a href="test.html">Hi, Im a Active Child Form</a>
+                    </span>
+                </b>
+                <input type="button" value="Send Message" onclick="" />
+            <p />
+        </div>
+        <div class="hidden sunnymdiforms_mdichild_2">
+            <h1 align=center style='text-align:center'>About Cloud MDI Child WinForm 2</h1>
+            <p>
+                First name: <input type="text" id="fname"><br>
+                Last name: <input type="text" id="lname"><br>
+            <p />
+        </div>
+        <div class="hidden sunnymdiforms_mdichild_3">
+            <h1 align=center style='text-align:center'>About Cloud MDI Child WinForm 3</h1>
+            <p>
+                <b>
+                    <span lang=EN-US style='font-size:14.0pt'>
+                        <a href="test.html">Hi, Im a Active Child Form</a>
+                    </span>
+                </b>
+                <input type="button" value="Send Message" onclick="" />
+            <p />
+        </div>
+    </div>
+
+</body>
+</html>

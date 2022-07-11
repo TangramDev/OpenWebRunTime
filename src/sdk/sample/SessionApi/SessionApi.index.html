@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <define tagname="application"></define>
+    <define tagname="mainwindow"></define>
+    <define tagname="cloudwinform"></define>
+
+    <script type="text/javascript">
+
+        fission.onXobjCreated = function (e) {
+            console.log("grid " + e.xobj.name + " is created\n" + "grid Handle:" + e.grid.handle.toString(16) + "\nNode ObjID:" + e.grid.objtype);
+            switch (e.xobj.name) {
+                case "usercontrol1":
+                    {
+                        e.grid.addEventListener("button1", "OnClick", function (e) {
+                            alert(e.getStr("currentsubobj") + "xxx测试 was clicked.");
+                            alert(e.grid.parent.getChild(0, 0));
+                            alert(1);
+                        });
+                        e.grid.root.getChild(0, 0).addEventListener("button2", "OnClick", function (e) {
+                            alert(e.getStr("currentsubobj") + " was clicked.");
+                        });
+                    }
+                    break;
+                case "usercontrol2":
+                    {
+                        e.grid.addEventListener("OnMyEvent", function (e) {
+                            var message = e.getStr("currentsubobj") + " was fired.\n\n";
+                            message += "MyEventArgs.Value is " + e.getStr("value");
+                            alert(message);
+                        });
+                    }
+                    break;
+                case "usercontrol1_in_form2":
+                    {
+                        e.grid.addEventListener("button1", "OnClick", function (e) {
+                            alert(e.getStr("currentsubobj") + " was clicked.");
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <application>
+        <modules>
+            <module libname="SessionApi.exe" objname="Cas.WebAgent" functionname="Load"></module>
+        </modules>
+    </application>
+    <mainwindow objid="" caption="Test Title" width="1200" height="800">
+        <panel1>
+            <default>
+                <fission> 
+                    <xobj rows="3" cols="4" width="400,400,100" height="200,200,300,">
+                        <xobj rows="3" cols="4" width="400,400,100" height="200,200,300,">
+                            <!--<xobj id="usercontrol1" objid="SessionApi.UserControl1,SessionApi"></xobj>
+                            <xobj rows="2" cols="1" height="400,400,">
+                                <xobj url="host"></xobj>
+                                <xobj id="usercontrol2" objid="SessionApi.UserControl2,SessionApi"></xobj>
+                            </xobj>-->
+                        </xobj>
+                        <!--<xobj id="usercontrol1" objid="SessionApi.UserControl1,SessionApi"></xobj>
+                        <xobj rows="2" cols="1" height="400,400,">
+                            <xobj url="host"></xobj>
+                            <xobj id="usercontrol2" objid="SessionApi.UserControl2,SessionApi"></xobj>
+                        </xobj>-->
+                    </xobj>
+                </fission> 
+            </default>
+        </panel1>
+    </mainwindow>
+    <cloudwinform objid="SessionApi.Form2,SessionApi" caption="Form 2 Test">
+        <panel1>
+            <default>
+                <fission> 
+                    <xobj rows="2" cols="1" height="200,200,">
+                        <xobj id="usercontrol1_in_form2" objid="SessionApi.UserControl1,SessionApi"></xobj>
+                        <xobj id="usercontrol2_in_form2" objid="SessionApi.UserControl2,SessionApi"></xobj>
+                    </xobj>
+                </fission> 
+            </default>
+        </panel1>
+    </cloudwinform>
+
+    <h1>This is web page.</h1>
+</body>
+</html>
