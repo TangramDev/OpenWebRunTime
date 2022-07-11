@@ -4788,8 +4788,6 @@ void CWebRT::OnTabChangedAt(HWND hWebView, HWND hBrowser, int nIndex, BrowserTab
 			{
 				pBrowser->m_bSZMode = true;
 				theApp.m_bAppStarting = false;
-				if (pBrowser->m_pMDIParent)
-					pBrowser->m_pMDIParent->m_bCreateNewDoc = false;
 				pBrowser->m_pVisibleWebView->m_bCanShow = true;
 				::PostMessage(hBrowser, WM_BROWSERLAYOUT, 1, 7);
 			}

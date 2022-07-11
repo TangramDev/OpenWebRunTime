@@ -163,32 +163,6 @@ private:
 	void OnFinalMessage(HWND hWnd);
 };
 
-class CCloudMDIChild :
-	public CWindowImpl<CCloudMDIChild, CWindow>
-{
-public:
-	CCloudMDIChild(void);
-	virtual ~CCloudMDIChild(void);
-
-	HWND		m_hClient;
-
-	CString		m_strKey;
-	CString		m_strDocXml = _T("");
-	CString		m_strDocTemplateKey = _T("");
-
-	CNucleus* m_pNucleus = nullptr;
-	CCloudMDIFrame* m_pParent = nullptr;
-	BEGIN_MSG_MAP(CCloudMDIChild)
-	END_MSG_MAP()
-
-private:
-	void OnFinalMessage(HWND hWnd);
-	LRESULT OnMDIActivate(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnWebRTMg(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnWebRTDocObserveed(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnWindowPosChanging(UINT, WPARAM, LPARAM, BOOL&);
-};
-
 class CCloudMDTFrame :
 	public CWindowImpl<CCloudMDTFrame, CWindow>
 {
@@ -222,43 +196,6 @@ private:
 	LRESULT OnDpiChanged(UINT, WPARAM, LPARAM, BOOL&);
 
 	void OnFinalMessage(HWND hWnd);
-};
-
-class CCloudMDIFrame :
-	public CWindowImpl<CCloudMDIFrame, CWindow>
-{
-public:
-	CCloudMDIFrame(void);
-	virtual ~CCloudMDIFrame(void);
-
-	BOOL						m_bActiveChild = false;
-	BOOL						m_bDestroy = false;
-	BOOL						m_bDpiChanged = false;
-	BOOL						m_bCreateNewDoc = false;
-	BOOL						m_bProcessBrowserPos = false;
-	HWND						m_hMDIClient = nullptr;
-
-	CNucleus* m_pNucleus = nullptr;
-	CBrowser* m_pHostBrowser = nullptr;
-	CCloudMDIChild* m_pActiveMDIChild = nullptr;
-	WebRTFrameWndInfo* m_pWebRTFrameWndInfo = nullptr;
-	map<CString, CString>		m_mapClientCtrlBarData;
-	map<CString, CString>		m_mapDocAppName;
-	map<CString, CString>		m_mapDocTemplate;
-	map<CString, CString>		m_mapDocDefaultName;
-	map<HWND, CCloudMDIChild*>	m_mapMDIChild;
-
-	BEGIN_MSG_MAP(CCloudMDIFrame)
-	END_MSG_MAP()
-
-	void OnFinalMessage(HWND hWnd);
-	LRESULT OnDestroy(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnWebRTMsg(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnExitSZ(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnEnterSZ(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnSysCommand(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnActivate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
-	LRESULT OnDpiChanged(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 };
 
 class CCloudWinForm :
@@ -373,8 +310,6 @@ public:
 	CCloudWinForm* m_pParentWinForm = nullptr;
 	CCloudWinForm* m_pParentMDIWinForm = nullptr;
 	CCloudMDTFrame* m_pCloudMDTFrame = nullptr;
-	CCloudMDIChild* m_pCloudMDIChild = nullptr;
-	CCloudMDIFrame* m_pMDIParent = nullptr;
 	CWebView* m_pWebPageWnd = nullptr;
 	CXobj* m_pHostWebBrowserNode = nullptr;
 	CBrowser* m_pHostWebBrowserWnd = nullptr;

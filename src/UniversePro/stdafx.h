@@ -129,7 +129,6 @@ class CWebRTAppCtrl;
 class CTangramListView;
 class CWebRTEvent;
 class CNuclei;
-class CCloudMDIFrame;
 class CXobjCollection;
 class CTangramHtmlTreeWnd;
 

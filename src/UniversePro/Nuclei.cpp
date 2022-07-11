@@ -340,24 +340,9 @@ STDMETHODIMP CNuclei::CreateNucleus(VARIANT ParentObj, VARIANT HostWnd, BSTR bst
 					_pGalaxy->m_nGalaxyType = MDIClientGalaxy;
 					_pGalaxy->m_strDocTemplateID = _T("MDIClient");
 				}
-				CCloudMDIFrame* pMDIParent = nullptr;
+
 				HWND hTopParent = ::GetAncestor(hPWnd, GA_ROOT);
-				auto it2 = g_pWebRT->m_mapMDIParent.find(hTopParent);
-				if (it2 != g_pWebRT->m_mapMDIParent.end())
-				{
-					pMDIParent = it2->second;
-					if (!::IsChild(pMDIParent->m_hMDIClient, _hWnd))
-					{
-						_pGalaxy->m_pMDIParent = pMDIParent;
-						_pGalaxy->m_pWebRTFrameWndInfo = pMDIParent->m_pWebRTFrameWndInfo;
-					}
-					if (pMDIParent->m_hMDIClient == _hWnd)
-					{
-						_pGalaxy->m_pWebRTFrameWndInfo = pMDIParent->m_pWebRTFrameWndInfo;
-						pMDIParent->m_pNucleus = _pGalaxy;
-					}
-				}
-				else if (g_pWebRT->m_pCLRProxy)
+				if (g_pWebRT->m_pCLRProxy)
 				{
 					__int64 nMDIClient = 100;
 					HWND hForm = g_pWebRT->m_pCLRProxy->GetWinForm(_hWnd, nMDIClient);

@@ -1108,28 +1108,19 @@ BOOL CXobj::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, 
 		{
 			bRet = m_pHostWnd->SubclassWindow(hWnd);
 			HWND hTopParent = ::GetAncestor(hWnd, GA_ROOT);
-			CCloudMDIFrame* pMDIParent = nullptr;
-			auto it = g_pWebRT->m_mapMDIParent.find(hTopParent);
-			if (it != g_pWebRT->m_mapMDIParent.end())
+			auto it = g_pWebRT->m_mapMDTWindow.find(hTopParent);
+			if (it != g_pWebRT->m_mapMDTWindow.end())
 			{
-				pMDIParent = it->second;
-			}
-			else
-			{
-				auto it = g_pWebRT->m_mapMDTWindow.find(hTopParent);
-				if (it != g_pWebRT->m_mapMDTWindow.end())
+				if (_strURL == _T("host"))
 				{
-					if (_strURL == _T("host"))
+					CCloudMDTFrame* pWnd = it->second;
+					if (pWnd->m_pBrowser && pWnd->m_pBrowser->m_pParentXobj)
 					{
-						CCloudMDTFrame* pWnd = it->second;
-						if (pWnd->m_pBrowser && pWnd->m_pBrowser->m_pParentXobj)
-						{
-							pWnd->m_pBrowser->m_pParentXobj->m_pWebBrowser = nullptr;
-							pWnd->m_pBrowser->m_pParentXobj = this;
-							m_pWebBrowser = pWnd->m_pBrowser;
-							::SetParent(pWnd->m_pBrowser->m_hWnd, hWnd);
-							::SetWindowPos(pWnd->m_pBrowser->m_hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOREDRAW);
-						}
+						pWnd->m_pBrowser->m_pParentXobj->m_pWebBrowser = nullptr;
+						pWnd->m_pBrowser->m_pParentXobj = this;
+						m_pWebBrowser = pWnd->m_pBrowser;
+						::SetParent(pWnd->m_pBrowser->m_hWnd, hWnd);
+						::SetWindowPos(pWnd->m_pBrowser->m_hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOREDRAW);
 					}
 				}
 			}

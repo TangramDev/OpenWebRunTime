@@ -151,7 +151,6 @@ class ATL_NO_VTABLE CWebRT :
 	friend class CEclipseWnd;
 	friend class CCloudWinForm;
 	friend class CNuclei;
-	friend class CCloudMDIFrame;
 	friend class CCloudMDTFrame;
 public:
 	CWebRT();
@@ -215,7 +214,6 @@ public:
 	map<HWND, CCloudWinForm*>				m_mapNeedQueryOnClose;
 	map<HWND, CCloudWinForm*>				m_mapWinForm;
 	map<HWND, CCloudMDTFrame*>				m_mapMDTWindow;
-	map<HWND, CCloudMDIFrame*>				m_mapMDIParent;
 	map<HWND, CBrowser*>					m_mapSizingBrowser;
 	map<HWND, CBrowser*>					m_mapDpiChangedBrowser;
 	map<IPCSession*, CWormhole*>			m_mapWormhole;

@@ -360,15 +360,6 @@ namespace Browser {
 			return 0;
 		if (m_pWebRTFrameWndInfo && m_pWebRTFrameWndInfo->m_nFrameType == 2)
 		{
-			auto it = g_pWebRT->m_mapMDIParent.find(::GetParent(m_pWebRTFrameWndInfo->m_hClient));
-			if (it != g_pWebRT->m_mapMDIParent.end())
-			{
-				if (it->second->m_bCreateNewDoc)
-				{
-					m_bInTabChange = true;
-					return 0;
-				}
-			}
 			if (m_pVisibleWebView == m_pWebRTFrameWndInfo->m_pWebPage)
 			{
 				if (m_pVisibleWebView->m_bCanShow == false)
@@ -749,7 +740,7 @@ namespace Browser {
 		{
 			if (m_pParentXobj)
 			{
-				if (wParam == 7 && m_pMDIParent == nullptr)
+				if (wParam == 7)
 				{
 					m_bInTabChange = false;
 					::PostMessage(m_hWnd, WM_BROWSERLAYOUT, 1, 7);
@@ -813,22 +804,12 @@ namespace Browser {
 			{
 				m_bInTabChange = false;
 				m_bSZMode = false;
-				if (m_pMDIParent)
+				if (m_pParentXobj && m_pParentXobj->m_pParentWinFormWnd && m_pParentXobj->m_pParentWinFormWnd->m_hMDIClient)
 				{
-					if (g_pWebRT->m_pUniverseAppProxy->m_nShellCmd != CCommandLineInfo::FileNothing)
-					{
-						::PostMessage(m_pMDIParent->m_hWnd, WM_QUERYAPPPROXY, 0, 19651965);
-					}
+					::SendMessage(m_pParentXobj->m_pParentWinFormWnd->m_hMDIClient, WM_COSMOSMSG, 0, 20180115);
 				}
-				else
-				{
-					if (m_pParentXobj && m_pParentXobj->m_pParentWinFormWnd && m_pParentXobj->m_pParentWinFormWnd->m_hMDIClient)
-					{
-						::SendMessage(m_pParentXobj->m_pParentWinFormWnd->m_hMDIClient, WM_COSMOSMSG, 0, 20180115);
-					}
-					if (m_pParentXobj)
-						::PostMessage(m_pParentXobj->m_pXobjShareData->m_pNucleus->m_hWnd, WM_COSMOSMSG, 0, 20180115);
-				}
+				if (m_pParentXobj)
+					::PostMessage(m_pParentXobj->m_pXobjShareData->m_pNucleus->m_hWnd, WM_COSMOSMSG, 0, 20180115);
 			}
 			break;
 			case 2:
@@ -900,8 +881,6 @@ namespace Browser {
 				case 1:
 				{
 					m_bTabChange = false;
-					if (m_pMDIParent)
-						m_pMDIParent->m_bCreateNewDoc = false;
 					theApp.m_bAppStarting = false;
 					::PostMessage(m_hWnd, WM_BROWSERLAYOUT, 0, 7);
 					m_bSZMode = false;
@@ -909,8 +888,6 @@ namespace Browser {
 				break;
 				default:
 				{
-					if ((m_pMDIParent && m_pMDIParent->m_bCreateNewDoc) || !::IsWindowVisible(m_hWnd))
-						break;
 					if (g_pWebRT->m_nWaitTabCounts || m_bTabChange || m_bInTabChange)
 						break;
 					HWND hWnd = m_pBrowser->GetActiveWebContentWnd();
@@ -952,11 +929,7 @@ namespace Browser {
 							}
 						}
 					}
-					if (m_pMDIParent)
-					{
-						::PostMessage(m_pMDIParent->m_hWnd, WM_QUERYAPPPROXY, 0, 19651965);
-					}
-					else if (m_pParentXobj && ::IsWindowVisible(m_pParentXobj->m_pHostWnd->m_hWnd) && m_pParentXobj->m_pXobjShareData->m_pNucleus)
+					if (m_pParentXobj && ::IsWindowVisible(m_pParentXobj->m_pHostWnd->m_hWnd) && m_pParentXobj->m_pXobjShareData->m_pNucleus)
 					{
 						if (m_pVisibleWebView->m_pNucleus)
 						{

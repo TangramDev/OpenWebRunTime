@@ -751,46 +751,6 @@ void CMainDlg::OnFinalMessage(HWND hWnd)
 	delete this;
 }
 
-CCloudMDIChild::CCloudMDIChild(void)
-{
-	m_strKey = _T("");
-	m_hClient = nullptr;
-	m_pParent = nullptr;
-}
-
-CCloudMDIChild::~CCloudMDIChild(void)
-{
-}
-
-LRESULT CCloudMDIChild::OnWindowPosChanging(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	LRESULT l = DefWindowProc(uMsg, wParam, lParam);
-	return l;
-}
-
-LRESULT CCloudMDIChild::OnMDIActivate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	LRESULT l = DefWindowProc(uMsg, wParam, lParam);
-	return l;
-}
-
-LRESULT CCloudMDIChild::OnWebRTDocObserveed(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	return DefWindowProc(uMsg, wParam, lParam);
-}
-
-LRESULT CCloudMDIChild::OnWebRTMg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	LRESULT l = DefWindowProc(uMsg, wParam, lParam);
-	return l;
-}
-
-void CCloudMDIChild::OnFinalMessage(HWND hWnd)
-{
-	CWindowImpl::OnFinalMessage(hWnd);
-	delete this;
-}
-
 CCloudMDTFrame::CCloudMDTFrame(void)
 {
 	m_bDpiChanged = false;
@@ -974,94 +934,6 @@ void CCloudMDTFrame::OnFinalMessage(HWND hWnd)
 {
 	CWindowImpl::OnFinalMessage(hWnd);
 	delete this;
-}
-
-CCloudMDIFrame::CCloudMDIFrame(void)
-{
-	m_bActiveChild = false;
-	m_hMDIClient = nullptr;
-
-	m_pNucleus = nullptr;
-	m_pHostBrowser = nullptr;
-	m_pActiveMDIChild = nullptr;
-	m_pWebRTFrameWndInfo = nullptr;
-}
-
-CCloudMDIFrame::~CCloudMDIFrame(void)
-{
-	OutputDebugString(_T("------------------Release CCloudMDIFrame------------------------\n"));
-}
-
-void CCloudMDIFrame::OnFinalMessage(HWND hWnd)
-{
-	CWindowImpl::OnFinalMessage(hWnd);
-	delete this;
-}
-
-LRESULT CCloudMDIFrame::OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	if (m_pHostBrowser)
-	{
-		switch (wParam)
-		{
-		case SC_MOVE:
-			m_pHostBrowser->m_bSZMode = false;
-			break;
-		case SC_SIZE:
-			break;
-		}
-	}
-	LRESULT lRes = DefWindowProc(uMsg, wParam, lParam);
-	return lRes;
-}
-
-LRESULT CCloudMDIFrame::OnExitSZ(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&) {
-	if (m_pHostBrowser)
-	{
-		m_pHostBrowser->m_bSZMode = true;
-	}
-	if (m_bDpiChanged)
-	{
-		m_bDpiChanged = false;
-		::PostMessage(m_hWnd, WM_COSMOSMSG, (WPARAM)m_hWnd, 20210530);
-	}
-	if (m_pHostBrowser)
-	{
-		m_pHostBrowser->m_bSZMode = false;
-		::PostMessage(m_hWnd, WM_COSMOSMSG, 0, 20210213);
-	}
-
-	LRESULT lRes = DefWindowProc(uMsg, wParam, lParam);
-	return lRes;
-}
-
-LRESULT CCloudMDIFrame::OnEnterSZ(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&) {
-	if (m_pHostBrowser)
-		m_pHostBrowser->m_bSZMode = true;
-	LRESULT lRes = DefWindowProc(uMsg, wParam, lParam);
-	return lRes;
-}
-
-LRESULT CCloudMDIFrame::OnActivate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	LRESULT l = DefWindowProc(uMsg, wParam, lParam);
-	return l;
-}
-
-LRESULT CCloudMDIFrame::OnDpiChanged(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	return 0;
-}
-
-LRESULT CCloudMDIFrame::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&) {
-	m_bDestroy = true;
-	LRESULT lRes = DefWindowProc(uMsg, wParam, lParam);
-	return lRes;
-}
-
-LRESULT CCloudMDIFrame::OnWebRTMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
-{
-	return DefWindowProc(uMsg, wParam, lParam);
 }
 
 CCloudWinForm::CCloudWinForm(void)
@@ -1509,25 +1381,6 @@ LRESULT CCloudWinForm::OnWebRTMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&
 				{
 					RECT rc;
 					::GetClientRect(m_pXobj->m_pHostWnd->m_hWnd, &rc);
-					if (m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebRTFrameWndInfo)
-					{
-						int nFrameType = m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebRTFrameWndInfo->m_nFrameType;
-						switch (nFrameType)
-						{
-						case 1:
-							break;
-						case 2:
-						{
-							//CCloudMDIFrame* pMDIParent = m_pXobj->m_pXobjShareData->m_pNucleus->m_pMDIParent;
-							//if (m_pXobj->m_pWebBrowser == pMDIParent->m_pHostBrowser)
-							//{
-							//	if (m_pXobj->m_pWebBrowser->m_pParentXobj == nullptr)
-							//		return;
-							//}
-						}
-						break;
-						}
-					}
 					if (m_pXobj->m_pWebBrowser->m_pParentXobj)
 					{
 						HWND h = m_pXobj->m_pWebBrowser->m_pParentXobj->m_pHostWnd->m_hWnd;
@@ -2695,19 +2548,6 @@ STDMETHODIMP CNucleus::Observe(BSTR bstrKey, BSTR bstrXml, IXobj** ppRetXobj)
 	CXobj* pClientObj = m_pWorkXobj->GetVisibleChildByName(_T("hostclient"));
 	if (m_pWebRTFrameWndInfo && m_pWebRTFrameWndInfo->m_nFrameType == 2 && m_nGalaxyType != CtrlBarGalaxy)
 	{
-		if (m_pMDIParent == nullptr)
-		{
-			auto itFrame = g_pWebRT->m_mapMDIParent.find(::GetParent(m_pWebRTFrameWndInfo->m_hClient));
-			if (itFrame != g_pWebRT->m_mapMDIParent.end())
-				m_pMDIParent = itFrame->second;
-		}
-		if (m_pMDIParent)
-		{
-			if (pClientObj)
-			{
-				g_pWebRT->ModifyBindingXobj(m_pMDIParent->m_pNucleus, pClientObj);
-			}
-		}
 	}
 	else if (m_pParentMDIWinForm)
 	{
@@ -3292,11 +3132,6 @@ LRESULT CNucleus::OnWebRTMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
 	{
 		if (theApp.m_bAppStarting == false)
 		{
-			if (m_pMDIParent)
-			{
-				if (m_pMDIParent->m_bCreateNewDoc || m_pMDIParent->m_pHostBrowser->m_pVisibleWebView->m_bCanShow == false)
-					break;
-			}
 			HWND hTop = ::GetAncestor(m_hWnd, GA_ROOT);
 			::RedrawWindow(hTop, NULL, NULL, RDW_ERASE | RDW_FRAME | RDW_INVALIDATE | RDW_ALLCHILDREN /*| RDW_UPDATENOW*/);
 		}
@@ -3464,31 +3299,6 @@ LRESULT CNucleus::OnNcDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
 
 LRESULT CNucleus::OnQueryAppProxy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&)
 {
-	if (m_pWebRTFrameWndInfo)
-	{
-		CCloudMDIFrame* pMDIParent = nullptr;
-		auto it = g_pWebRT->m_mapMDIParent.find(::GetParent(m_pWebRTFrameWndInfo->m_hClient));
-		if (it != g_pWebRT->m_mapMDIParent.end())
-		{
-			pMDIParent = it->second;
-			if (lParam == 19651965)
-			{
-				m_bTabbedMDIClient = true;
-				LPRECT lpRECT = (LPRECT)wParam;
-				if (lpRECT && m_pWorkXobj && ::IsWindowVisible(m_pWorkXobj->m_pHostWnd->m_hWnd))
-				{
-					::SetWindowPos(m_pWorkXobj->m_pHostWnd->m_hWnd, HWND_BOTTOM, lpRECT->left, lpRECT->top, lpRECT->right - lpRECT->left, lpRECT->bottom - lpRECT->top, SWP_NOREDRAW | SWP_NOACTIVATE | SWP_NOZORDER);/*SWP_FRAMECHANGED| SWP_HIDEWINDOW | SWP_NOREDRAW */
-					if (m_pBindingXobj && ::IsWindowVisible(m_pBindingXobj->m_pHostWnd->m_hWnd))
-					{
-						m_pBindingXobj->m_pHostWnd->GetWindowRect(lpRECT);
-						pMDIParent->ScreenToClient(lpRECT);
-					}
-				}
-				return m_pWorkXobj ? ((LRESULT)m_pWorkXobj->m_pHostWnd->m_hWnd) : 0;
-			}
-		}
-	}
-
 	return DefWindowProc(uMsg, wParam, lParam);
 }
 
@@ -3606,17 +3416,7 @@ LRESULT CNucleus::OnWindowPosChanging(UINT uMsg, WPARAM wParam, LPARAM lParam, B
 		::InvalidateRect(m_hWnd, nullptr, true);
 	if (m_pBKWnd)
 	{
-		//::SetWindowPos(m_pBKWnd->m_hWnd, HWND_BOTTOM, 0, 0, lpwndpos->cx, lpwndpos->cy, SWP_NOZORDER | SWP_NOACTIVATE);
 		::SetWindowPos(m_pBKWnd->m_hWnd, HWND_BOTTOM, 2, 2, lpwndpos->cx - 4, lpwndpos->cy - 4, SWP_NOZORDER | SWP_NOACTIVATE);
-	}
-	if (m_pMDIParent && !m_bTabbedMDIClient && !m_bMDIChild)
-	{
-		HWND hTop = ::GetAncestor(m_hWnd, GA_ROOT);
-		if ((::GetWindowLongPtr(hTop, GWL_STYLE) & WS_CLIPCHILDREN) == false)
-		{
-			::RedrawWindow(hTop, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN /*RDW_FRAME || RDW_UPDATENOW*/);
-		}
-
 	}
 	return hr;
 }

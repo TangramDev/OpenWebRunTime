@@ -571,10 +571,6 @@ LRESULT CALLBACK CUniverse::CosmosMsgWndProc(_In_ HWND hWnd, UINT msg, _In_ WPAR
 				auto it = g_pWebRT->m_mapBrowserWnd.begin();
 				((CBrowser*)it->second)->SendMessageW(WM_CLOSE, 0, 0);
 			}
-			if (g_pWebRT->m_mapMDIParent.size() == 0)
-			{
-				::PostAppMessage(::GetCurrentThreadId(), WM_QUIT, 0, 0);
-			}
 		}
 	}
 	break;
@@ -1538,14 +1534,6 @@ LRESULT CALLBACK CUniverse::GetMessageProc(int nCode, WPARAM wParam, LPARAM lPar
 						auto it = g_pWebRT->m_mapMDTWindow.begin();
 						hWnd = it->first;
 					}
-					else
-					{
-						if (g_pWebRT->m_mapMDIParent.size())
-						{
-							auto it = g_pWebRT->m_mapMDIParent.begin();
-							hWnd = it->first;
-						}
-					}
 					if (hWnd)
 						g_pWebRT->m_pUniverseAppProxy->QueryWndInfo(QueryType::QueryDestroy, hWnd);
 				}
@@ -1593,8 +1581,6 @@ LRESULT CALLBACK CUniverse::GetMessageProc(int nCode, WPARAM wParam, LPARAM lPar
 								g_pWebRT->m_hFirstView = hClient;
 							}
 							CCloudMDTFrame* pFrameWnd = nullptr;
-							CCloudMDIChild* pWnd = nullptr;
-							CCloudMDIFrame* pMDIParent = nullptr;
 							CNuclei* pNuclei = nullptr;
 							WebRTFrameWndInfo* pWebRTFrameWndInfo = (WebRTFrameWndInfo*)::GetProp(hWnd, _T("WebRTFrameWndInfo"));
 							if (pWebRTFrameWndInfo)
@@ -1614,51 +1600,6 @@ LRESULT CALLBACK CUniverse::GetMessageProc(int nCode, WPARAM wParam, LPARAM lPar
 									}
 									else
 										pFrameWnd = it->second;
-								}
-								break;
-								case 2:
-								{
-									auto it = g_pWebRT->m_mapMDIParent.find(::GetParent(pWebRTFrameWndInfo->m_hClient));
-									if (it != g_pWebRT->m_mapMDIParent.end())
-									{
-										pMDIParent = it->second;
-										it->second->m_pWebRTFrameWndInfo = pWebRTFrameWndInfo;
-									}
-								}
-								break;
-								case 3:
-								{
-									HWND hFrame = ::GetParent(::GetParent(hWnd));
-									auto itMdiParent = g_pWebRT->m_mapMDIParent.find(hFrame);
-									if (itMdiParent != g_pWebRT->m_mapMDIParent.end())
-									{
-										pMDIParent = itMdiParent->second;
-										auto it = pMDIParent->m_mapMDIChild.find(hWnd);
-										if (it != pMDIParent->m_mapMDIChild.end())
-											pWnd = it->second;
-										else
-										{
-											pWnd = new CCloudMDIChild();
-											pWnd->m_hClient = hClient;
-											pWnd->SubclassWindow(hWnd);
-											pWnd->m_pParent = pMDIParent;
-										}
-										pMDIParent->m_bCreateNewDoc = true;
-										if (pMDIParent->m_pHostBrowser && pMDIParent->m_pHostBrowser->m_pVisibleWebView)
-										{
-											pMDIParent->m_pHostBrowser->m_pVisibleWebView->m_bCanShow = false;
-										}
-										pWnd->m_pParent->m_mapMDIChild[hWnd] = pWnd;
-										if (pMDIParent->m_pWebRTFrameWndInfo == nullptr)
-										{
-											pMDIParent->m_pWebRTFrameWndInfo = (WebRTFrameWndInfo*)::GetProp(hFrame, _T("WebRTFrameWndInfo"));
-										}
-										if (pMDIParent->m_pHostBrowser)
-										{
-											pMDIParent->m_pHostBrowser->m_bSZMode = true;
-											pMDIParent->m_pHostBrowser->OpenURL(CComBSTR(g_pWebRT->m_strStartupURL), BrowserWndOpenDisposition::SWITCH_TO_TAB, CComBSTR(""), CComBSTR(""));
-										}
-									}
 								}
 								break;
 								}
@@ -1703,21 +1644,10 @@ LRESULT CALLBACK CUniverse::GetMessageProc(int nCode, WPARAM wParam, LPARAM lPar
 								}
 
 								CString strTemplate = _T("");
-								if (pMDIParent)
+								auto it = g_pWebRT->m_mapDocTemplate.find(strKey);
+								if (it != g_pWebRT->m_mapDocTemplate.end())
 								{
-									auto it = pMDIParent->m_mapDocTemplate.find(strKey);
-									if (it != pMDIParent->m_mapDocTemplate.end())
-									{
-										strTemplate = it->second;
-									}
-								}
-								else
-								{
-									auto it = g_pWebRT->m_mapDocTemplate.find(strKey);
-									if (it != g_pWebRT->m_mapDocTemplate.end())
-									{
-										strTemplate = it->second;
-									}
+									strTemplate = it->second;
 								}
 								if (strTemplate != _T(""))
 								{
@@ -1752,61 +1682,12 @@ LRESULT CALLBACK CUniverse::GetMessageProc(int nCode, WPARAM wParam, LPARAM lPar
 												_pGalaxy->m_strDocTemplateID = strKey;
 											}
 											break;
-											case 3:
-											{
-												theApp.m_bAppStarting = true;
-												if (pWnd->m_strDocTemplateKey == _T(""))
-													pWnd->m_strDocTemplateKey = strKey;
-
-												CNucleus* pMainGalaxy = nullptr;
-												auto it = pWnd->m_pParent->m_pWebRTFrameWndInfo->m_mapCtrlBarNucleus.find(10000);
-												if (it != pWnd->m_pParent->m_pWebRTFrameWndInfo->m_mapCtrlBarNucleus.end())
-												{
-													pMainGalaxy = (CNucleus*)it->second;
-													pWnd->m_pParent->m_pNucleus = pMainGalaxy;
-												}
-												if (pMainGalaxy)
-												{
-													pMDIParent->m_pActiveMDIChild = pWnd;
-													if (pWnd->m_pNucleus == nullptr)
-														pWnd->m_pNucleus = (CNucleus*)pGalaxy;
-													pWnd->m_hClient = hClient;
-													pWnd->m_pNucleus->m_nGalaxyType = GalaxyType::MDIChildGalaxy;
-													pWnd->m_strKey = strKey;
-													pWnd->m_pNucleus->m_strDocTemplateID = strKey;
-													CString strAppName = _T("");
-													auto itName = pMDIParent->m_mapDocAppName.find(strKey);
-													if (itName != pMDIParent->m_mapDocAppName.end())
-														strAppName = itName->second;
-													CString strDefaultName = _T("");
-													itName = pMDIParent->m_mapDocDefaultName.find(strKey);
-													if (itName != pMDIParent->m_mapDocDefaultName.end())
-														strDefaultName = itName->second;
-													g_pWebRT->m_pUniverseAppProxy->SetFrameCaption(pWnd->m_hWnd, strDefaultName, strAppName);
-													if (pMDIParent)
-														::PostMessage(pMDIParent->m_hWnd, WM_COSMOSMSG, (WPARAM)pWnd, 20210202);
-												}
-											}
-											break;
 											}
 											pClient = m_Parse.GetChild(_T("hostpage"));
 											CNucleus* pGalaxy = nullptr;
 											bool bProcessWebPage = false;
 											if (pClient == nullptr)
 												bProcessWebPage = true;
-											if (pClient && pWebRTFrameWndInfo->m_nFrameType == 3 && pMDIParent->m_pNucleus && pMDIParent->m_pNucleus->m_pWebPageWnd)
-											{
-												HWND hFrame = ::GetParent(hWnd);
-												pGalaxy = static_cast<CNucleus*>(g_pWebRT->GetNucleus(::GetParent(hWnd)));
-												if (pMDIParent->m_pHostBrowser && pMDIParent->m_pHostBrowser->m_pVisibleWebView != pGalaxy->m_pWebPageWnd) {
-													bProcessWebPage = false;
-												}
-												else if (pGalaxy->m_pWebPageWnd->m_pNucleus->m_strCurrentKey != strKey)
-												{
-													pGalaxy->m_pWebPageWnd->LoadDocument2Viewport(strKey, pClient->xml());
-													bProcessWebPage = true;
-												}
-											}
 											if (bProcessWebPage || pWebRTFrameWndInfo->m_nFrameType == 1)
 											{
 												pClient = m_Parse.GetChild(_T("controlbars"));
@@ -1822,33 +1703,6 @@ LRESULT CALLBACK CUniverse::GetMessageProc(int nCode, WPARAM wParam, LPARAM lPar
 													{
 														hHandle = ::GetProp(hWnd, _T("WebRTFrameWndInfo"));
 														_pWebRTFrameWndInfo = (WebRTFrameWndInfo*)hHandle;
-													}
-													if (_pWebRTFrameWndInfo)
-													{
-														_pWebRTFrameWndInfo->m_pWebPage = pMDIParent->m_pHostBrowser->m_pVisibleWebView;
-
-														int nCount = pClient->GetCount();
-														for (int i = 0; i < nCount; i++)
-														{
-															CTangramXmlParse* pParse2 = pClient->GetChild(i);
-															int nBarID = pParse2->attrInt(_T("ctrlbarid"), 0);
-															if (nBarID)
-															{
-																if (pWebRTFrameWndInfo->m_nFrameType == 3)
-																{
-																	auto itX = _pWebRTFrameWndInfo->m_mapCtrlBarNucleus.find(nBarID);
-																	if (itX != _pWebRTFrameWndInfo->m_mapCtrlBarNucleus.end())
-																	{
-																		CNucleus* _pGalaxy = (CNucleus*)itX->second;
-																		if (_pGalaxy->m_strCurrentKey != strKey)
-																		{
-																			IXobj* pXobj = nullptr;
-																			_pGalaxy->Observe(CComBSTR(strKey), CComBSTR(pParse2->xml()), &pXobj);
-																		}
-																	}
-																}
-															}
-														}
 													}
 												}
 											}

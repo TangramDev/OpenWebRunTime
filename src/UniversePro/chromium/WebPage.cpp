@@ -225,7 +225,7 @@ namespace Browser {
 					m_strLoadingURLs = _T("");
 					theApp.m_bAppStarting = false;
 					m_bCanShow = true;
-					::SendMessage(hPWnd, WM_BROWSERLAYOUT, 0, pWebBrowser->m_pMDIParent ? 7 : 1);
+					::SendMessage(hPWnd, WM_BROWSERLAYOUT, 0, 1);
 					if (pWebBrowser->m_pParentXobj)
 					{
 						RECT rc;
@@ -850,7 +850,6 @@ namespace Browser {
 						{
 							CNucleus* pGalaxy = pBrowserWnd->m_pParentXobj->m_pXobjShareData->m_pNucleus;
 							WebRTFrameWndInfo* pInfo = pGalaxy->m_pWebRTFrameWndInfo;
-							CCloudMDIFrame* pMainParent = nullptr;
 							CXobj* pMDIClientObj = pBrowserWnd->m_pParentXobj->GetVisibleChildByName(_T("hostclient"));
 							if (pMDIClientObj)
 							{
@@ -868,29 +867,21 @@ namespace Browser {
 							if (pGalaxy->m_nGalaxyType != GalaxyType::CtrlBarGalaxy && pGalaxy->m_pWebPageWnd)
 							{
 								HWND hWnd = ::GetParent(pGalaxy->m_pWebPageWnd->m_hWnd);
-								if (pMainParent == nullptr || pMainParent->m_bCreateNewDoc == false)
+								if (pBrowserWnd->m_pParentXobj->m_pParentWinFormWnd)
 								{
-									if (pBrowserWnd->m_pParentXobj->m_pParentWinFormWnd)
+									pGalaxy->m_pParentWinForm = pBrowserWnd->m_pParentXobj->m_pParentWinFormWnd;
+									if (pGalaxy->m_pParentWinForm->m_bMdiForm)
+										pGalaxy->m_pParentMDIWinForm = pGalaxy->m_pParentWinForm;
+									CNucleus* pClientGalaxy = (CNucleus*)g_pWebRT->GetNucleus(pGalaxy->m_pParentWinForm->m_hMDIClient);
+									if (pClientGalaxy && pGalaxy->m_pParentMDIWinForm)
 									{
-										pGalaxy->m_pParentWinForm = pBrowserWnd->m_pParentXobj->m_pParentWinFormWnd;
-										if (pGalaxy->m_pParentWinForm->m_bMdiForm)
-											pGalaxy->m_pParentMDIWinForm = pGalaxy->m_pParentWinForm;
-										CNucleus* pClientGalaxy = (CNucleus*)g_pWebRT->GetNucleus(pGalaxy->m_pParentWinForm->m_hMDIClient);
-										if (pClientGalaxy && pGalaxy->m_pParentMDIWinForm)
-										{
-											pGalaxy->m_pParentMDIWinForm->m_pClientGalaxy = pClientGalaxy;
-										}
+										pGalaxy->m_pParentMDIWinForm->m_pClientGalaxy = pClientGalaxy;
 									}
 								}
 								HWND hClient = NULL;
 								if (pGalaxy->m_pParentMDIWinForm)
 								{
 									hClient = pGalaxy->m_pParentMDIWinForm->m_hMDIClient;
-								}
-								else
-								{
-									if (pGalaxy->m_pMDIParent)
-										hClient = pGalaxy->m_pMDIParent->m_hMDIClient;
 								}
 								if (hClient)
 									::PostMessage(hClient, WM_COSMOSMSG, 3, 20180115);
@@ -1044,7 +1035,6 @@ namespace Browser {
 		HWND hBrowser = ::GetParent(m_hWnd);
 		HWND hPPWnd = ::GetParent(hBrowser);
 		CCloudMDTFrame* pMDTWnd = nullptr;
-		CCloudMDIFrame* pMDIWnd = nullptr;
 		CBrowser* pBrowserWnd = nullptr;
 		auto it = g_pWebRT->m_mapBrowserWnd.find(hBrowser);
 		if (it != g_pWebRT->m_mapBrowserWnd.end())
@@ -1072,16 +1062,6 @@ namespace Browser {
 							{
 								pMDTWnd = it->second;
 								pMDTWnd->m_pBrowser = pBrowserWnd;
-							}
-						}
-						break;
-						case 2:
-						{
-							auto it = g_pWebRT->m_mapMDIParent.find(hPWnd);
-							if (it != g_pWebRT->m_mapMDIParent.end())
-							{
-								it->second->m_pHostBrowser = pBrowserWnd;
-								pMDIWnd = it->second;
 							}
 						}
 						break;
@@ -1152,8 +1132,6 @@ namespace Browser {
 			}
 			if (m_pNucleus)
 			{
-				if (pMDIWnd && m_pNucleus->m_pMDIParent == nullptr)
-					m_pNucleus->m_pMDIParent = pMDIWnd;
 				IXobj* pXobj = nullptr;
 				CComBSTR bstrKey(strName);
 				m_pNucleus->m_pWebPageWnd = this;
@@ -1586,232 +1564,8 @@ namespace Browser {
 			}
 			if (pDisp == nullptr)
 			{
-				CCloudMDIFrame* pMdiParent = nullptr;
 				HWND hMainWnd = g_pWebRT->m_pUniverseAppProxy->QueryWndInfo(MainWnd, NULL);
-				auto it = g_pWebRT->m_mapMDIParent.find(hMainWnd);
-				if (it != g_pWebRT->m_mapMDIParent.end())
-				{
-					pMdiParent = it->second;
-				}
-				if (pMdiParent)
-				{
-					if (hMainWnd)
-					{
-						theApp.m_bAppStarting = true;
-						INuclei* pCluster = nullptr;
-						WebRTFrameWndInfo* pWebRTFrameWndInfo = nullptr;
-						HANDLE hHandle = ::GetProp(hMainWnd, _T("WebRTFrameWndInfo"));
-						if (hHandle)
-						{
-							pWebRTFrameWndInfo = (WebRTFrameWndInfo*)hHandle;
-							pWebRTFrameWndInfo->m_pWebPage = this;
-							m_pWebRTFrameWndInfo = pWebRTFrameWndInfo;
-							CCloudMDIChild* pChild = nullptr;
-							pBrowserWnd->m_pWebRTFrameWndInfo = m_pWebRTFrameWndInfo;
-							pBrowserWnd->m_pMDIParent = pMdiParent;
-							pMdiParent->m_pHostBrowser = pBrowserWnd;
-							pMdiParent->m_pWebRTFrameWndInfo = pWebRTFrameWndInfo;
-							CTangramXmlParse* pParse = xmlParse.GetChild(_T("doctemplate"));
-							if (pParse)
-							{
-								int nCount = pParse->GetCount();
-								if (nCount)
-								{
-									for (int i = 0; i < nCount; i++)
-									{
-										CTangramXmlParse* pChild = pParse->GetChild(i);
-										CString strName = pChild->name();
-										CString strDefaultName = pChild->attr(_T("defaultname"), strName);
-										CString strAppName = pChild->attr(_T("appname"), strName);
-										pMdiParent->m_mapDocAppName[strName] = strAppName;
-										pMdiParent->m_mapDocTemplate[strName] = pChild->xml();
-										pMdiParent->m_mapDocDefaultName[strName] = strDefaultName;
-									}
-									if (pMdiParent->m_mapMDIChild.size())
-									{
-										pChild = pMdiParent->m_mapMDIChild.begin()->second;
-									}
-								}
-							}
-
-							RECT rc;
-							::GetClientRect(pWebRTFrameWndInfo->m_hClient, &rc);
-							::SetWindowPos(pBrowserWnd->m_hWnd, nullptr, 0, 0, rc.right, rc.bottom, SWP_DRAWFRAME);
-							pWebRTFrameWndInfo->m_strData = m_strMainWndXml;
-							CString strWndXml = _T("");
-							CString strTemplateID = _T("");
-							CString strMainClient = _T("");
-							if (g_pWebRT->m_pUniverseAppProxy->m_nShellCmd == CCommandLineInfo::FileNothing)
-							{
-								strTemplateID = _T("mainclient");
-							}
-							else
-							{
-								if (pChild)
-								{
-									strTemplateID = pChild->m_strDocTemplateKey;
-								}
-								if (strTemplateID == _T(""))
-									strTemplateID = xmlParse.attr(_T("initdocid"), _T("default"));
-								if (pMdiParent)
-								{
-									auto itDoc = pMdiParent->m_mapDocTemplate.find(_T("mainclient"));
-									if (itDoc != pMdiParent->m_mapDocTemplate.end())
-										strMainClient = itDoc->second;
-								}
-							}
-							CString strTemplate = _T("");
-							auto itDoc = pMdiParent->m_mapDocTemplate.find(strTemplateID);
-							if (itDoc != pMdiParent->m_mapDocTemplate.end())
-							{
-								strTemplate = itDoc->second;
-								if (strTemplate != _T(""))
-								{
-									CTangramXmlParse m_DocParse, m_DocParse2;
-									CString strWebPage = _T("");
-									bool bNeedClientInfo = false;
-									if (strMainClient != _T(""))
-										bNeedClientInfo = m_DocParse2.LoadXml(strMainClient);
-									if (m_DocParse.LoadXml(strTemplate))
-									{
-										CTangramXmlParse* pParse = m_DocParse.GetChild(_T("hostpage"));
-										if (pParse)
-										{
-											strWebPage = pParse->xml();
-											if (bNeedClientInfo)
-											{
-												CTangramXmlParse* pParse = m_DocParse2.GetChild(_T("hostpage"));
-												pMdiParent->m_mapClientCtrlBarData[_T("hostpage")] = pParse->xml();;
-											}
-											LoadDocument2Viewport(strTemplateID, strWebPage);
-										}
-										CString strCaption = xmlParse.attr(_T("caption"), _T(""));
-										if (strCaption != _T("") && pMdiParent->m_mapDocAppName.size())
-										{
-											auto it2 = pMdiParent->m_mapDocAppName.find(strTemplateID);
-											g_pWebRT->m_pUniverseAppProxy->SetFrameCaption(hMainWnd, strCaption, it2->second);
-										}
-										CTangramXmlParse* pParseClient = nullptr;
-										if (pWebRTFrameWndInfo->m_nFrameType == 2)
-											pParseClient = m_DocParse.GetChild(_T("mdiclient"));
-										else
-											pParseClient = m_DocParse.GetChild(_T("client"));
-										if (pParseClient)
-										{
-											HWND hClient = pWebRTFrameWndInfo->m_hClient;
-											CString strXml = pParseClient->xml();
-											if (bNeedClientInfo)
-											{
-												CTangramXmlParse* pParse = m_DocParse2.GetChild(_T("mdiclient"));
-												pMdiParent->m_mapClientCtrlBarData[_T("client")] = pParse->xml();;
-											}
-											if (pCluster == nullptr)
-											{
-												g_pWebRT->CreateNucleusGroup((__int64)::GetParent(hClient), &pCluster);
-											}
-											if (pCluster)
-											{
-												INucleus* pGalaxy = nullptr;
-												CString strKey = _T("client");
-												pCluster->CreateNucleus(CComVariant((__int64)::GetParent(hClient)), CComVariant((__int64)hClient), CComBSTR(strKey), &pGalaxy);
-												if (pGalaxy)
-												{
-													CNucleus* _pGalaxy = (CNucleus*)pGalaxy;
-													pWebRTFrameWndInfo->m_mapCtrlBarNucleus[10000] = _pGalaxy;
-													_pGalaxy->m_pWebPageWnd = this;
-													if (pWebRTFrameWndInfo->m_nFrameType == 2)
-													{
-														IXobj* pXobj = nullptr;
-														_pGalaxy->Observe(CComBSTR(strTemplateID), CComBSTR(strXml), &pXobj);
-													}
-												}
-											}
-										}
-										pParse = m_DocParse.GetChild(_T("controlbars"));
-										CTangramXmlParse* pParseControlBars = nullptr;
-										if (bNeedClientInfo)
-										{
-											pParseControlBars = m_DocParse2.GetChild(_T("controlbars"));
-										}
-										if (pParse)
-										{
-											int nCount = pParse->GetCount();
-											for (int i = 0; i < nCount; i++)
-											{
-												CTangramXmlParse* pParse2 = pParse->GetChild(i);
-												CTangramXmlParse* pCtrlBarParse2 = nullptr;
-												if (pParseControlBars)
-													pCtrlBarParse2 = pParseControlBars->GetChild(i);
-												int nBarID = pParse2->attrInt(_T("ctrlbarid"), 0);
-												if (nBarID)
-												{
-													auto it = pWebRTFrameWndInfo->m_mapCtrlBarWnd.find(nBarID);
-													if (it != pWebRTFrameWndInfo->m_mapCtrlBarWnd.end())
-													{
-														HWND hWnd = it->second;
-														int nID = pParse2->attrInt(_T("clientid"), 0);
-														HWND hClient = ::GetDlgItem(hWnd, nID);
-														if (hClient)
-														{
-															CString strXml = pParse2->xml();
-															if (pCluster)
-															{
-																INucleus* pGalaxy = nullptr;
-																CString strKey = _T("");
-																strKey.Format(_T("ControlBar_%d"), nBarID);
-																if (bNeedClientInfo && pCtrlBarParse2)
-																{
-																	pMdiParent->m_mapClientCtrlBarData[strKey.MakeLower()] = pCtrlBarParse2->xml();;
-																}
-
-																pCluster->CreateNucleus(CComVariant((__int64)::GetParent(hClient)), CComVariant((__int64)hClient), CComBSTR(strKey), &pGalaxy);
-																if (pGalaxy)
-																{
-																	CNucleus* _pGalaxy = (CNucleus*)pGalaxy;
-																	pWebRTFrameWndInfo->m_mapCtrlBarNucleus[nBarID] = _pGalaxy;
-																	_pGalaxy->m_pWebPageWnd = this;
-																	IXobj* pXobj = nullptr;
-																	_pGalaxy->Observe(CComBSTR(strTemplateID), CComBSTR(strXml), &pXobj);
-																}
-																CString strCaption = pParse2->attr(_T("caption"), _T(""));
-																if (strCaption != _T(""))
-																	::SetWindowText(::GetParent(hClient), strCaption);
-															}
-														}
-													}
-												}
-
-												if (pMdiParent && pChild && pChild->m_pNucleus == nullptr)
-												{
-													::PostAppMessage(::GetCurrentThreadId(), WM_COSMOSMSG, (WPARAM)pChild->m_hClient, 20210110);
-												}
-											}
-										}
-										if (pBrowserWnd->m_pClientGalaxy == nullptr)
-										{
-											if (m_pWebRTFrameWndInfo)
-											{
-												HWND hClient = m_pWebRTFrameWndInfo->m_hClient;
-												INucleus* pGalaxy = nullptr;
-												g_pWebRT->GetNucleus((__int64)hClient, &pGalaxy);
-												if (pGalaxy)
-												{
-													pBrowserWnd->m_pClientGalaxy = (CNucleus*)pGalaxy;
-												}
-											}
-										}
-										if (g_pWebRT->m_pUniverseAppProxy->m_nShellCmd != CCommandLineInfo::FileNothing)
-										{
-										}
-										else
-											theApp.m_bAppStarting = false;
-									}
-								}
-							}
-						}
-					}
-				}
-				else if (g_pWebRT->m_pMainDlg)
+				if (g_pWebRT->m_pMainDlg)
 				{
 					CTangramXmlParse* pDlgitemsXmlParse = xmlParse.GetChild(_T("dlgitems"));
 					if (pDlgitemsXmlParse)

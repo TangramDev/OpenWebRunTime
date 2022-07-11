@@ -440,30 +440,24 @@ void CGridWnd::StopTracking(BOOL bAccept)
 			::PostMessage(hPWnd, WM_BROWSERLAYOUT, 0, 7);
 		}
 		RecalcLayout();
-		CCloudMDIFrame* pMdiParent = m_pXobj->m_pXobjShareData->m_pNucleus->m_pMDIParent;
-		if (pMdiParent == nullptr)
+		if (m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebPageWnd && m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebPageWnd->m_pChromeRenderFrameHost)
 		{
-			if (m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebPageWnd && m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebPageWnd->m_pChromeRenderFrameHost)
+			HWND hBrowser = m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebPageWnd->m_pChromeRenderFrameHost->GetHostBrowserWnd();
+			auto it = g_pWebRT->m_mapBrowserWnd.find(hBrowser);
+			if (it != g_pWebRT->m_mapBrowserWnd.end())
 			{
-				HWND hBrowser = m_pXobj->m_pXobjShareData->m_pNucleus->m_pWebPageWnd->m_pChromeRenderFrameHost->GetHostBrowserWnd();
-				auto it = g_pWebRT->m_mapBrowserWnd.find(hBrowser);
-				if (it != g_pWebRT->m_mapBrowserWnd.end())
+				CBrowser* pBrowser = (CBrowser*)it->second;
+				m_pXobj->m_pXobjShareData->m_pNucleus->m_pHostWebBrowserWnd = pBrowser;
+				if (pBrowser->m_pParentXobj && pBrowser->m_pParentXobj->m_pParentWinFormWnd)
 				{
-					CBrowser* pBrowser = (CBrowser*)it->second;
-					m_pXobj->m_pXobjShareData->m_pNucleus->m_pHostWebBrowserWnd = pBrowser;
-					if (pBrowser->m_pMDIParent)
-						m_pXobj->m_pXobjShareData->m_pNucleus->m_pMDIParent = pMdiParent = pBrowser->m_pMDIParent;
-					else if (pBrowser->m_pParentXobj && pBrowser->m_pParentXobj->m_pParentWinFormWnd)
+					if (pGalaxy->m_pParentWinForm == nullptr)
 					{
-						if (pGalaxy->m_pParentWinForm == nullptr)
-						{
-							pGalaxy->m_pParentWinForm = pBrowser->m_pParentXobj->m_pParentWinFormWnd;
-							if (pGalaxy->m_pParentWinForm->m_bMdiForm)
-								pGalaxy->m_pParentMDIWinForm = pGalaxy->m_pParentWinForm;
-						}
+						pGalaxy->m_pParentWinForm = pBrowser->m_pParentXobj->m_pParentWinFormWnd;
+						if (pGalaxy->m_pParentWinForm->m_bMdiForm)
+							pGalaxy->m_pParentMDIWinForm = pGalaxy->m_pParentWinForm;
 					}
-					::PostMessage(hBrowser, WM_BROWSERLAYOUT, 0, 7);
 				}
+				::PostMessage(hBrowser, WM_BROWSERLAYOUT, 0, 7);
 			}
 		}
 
